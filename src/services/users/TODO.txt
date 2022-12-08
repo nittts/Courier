@@ -1,0 +1,15 @@
+## TODO
+
+### BUILD SERVICES
+| all users;
+| user by id;
+| logged in user information;
+| create new user;
+| user login;
+| update user by id;
+| update logged in user information;
+| delete user by id;
+
+STATUS - DONE
+
+| 0/8

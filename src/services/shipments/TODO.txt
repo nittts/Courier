@@ -1,0 +1,14 @@
+## TODO
+
+### BUILD SERVICES
+| all shipments;
+| shipments by id;
+| shipment by driver id;
+| shipment by status;
+| create new shipment;
+| update shipment by id;
+| delete shipment by id;
+
+STATUS - DONE
+
+| 0/7
