@@ -1,0 +1,14 @@
+## TODO
+
+### BUILD ROUTES
+| query branches by name/city_id;
+| all branches;
+| user branch;
+| single branch by id;
+| create branch;
+| update branch by id;
+| delete branch by id;
+
+STATUS - DONE
+
+| 0/7
