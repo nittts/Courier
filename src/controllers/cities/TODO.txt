@@ -1,0 +1,13 @@
+## TODO
+
+### BUILD CONTROLLERS
+| query city by name/postcode;
+| all cities;
+| single city by id;
+| create city;
+| update city by id;
+| delete city by id;
+
+STATUS - DONE
+
+| 0/6

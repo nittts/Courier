@@ -1,0 +1,12 @@
+## TODO
+
+### BUILD CONTROLLERS
+| all products;
+| products by id;
+| create new product;
+| update product by id;
+| delete product by id;
+
+STATUS - DONE
+
+| 0/5
