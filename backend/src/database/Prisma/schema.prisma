@@ -52,6 +52,7 @@ model users {
   userType_id Int        @unique
   branch_id   Int?        @unique
 
+  drivers     drivers?
   product     product[]
   clients     parcels[]
   userTypes   userTypes? @relation(fields: [userType_id], references: [id])
@@ -64,6 +65,7 @@ model drivers {
 
   shipments shipments?
   trucks    trucks[]
+  users     users       @relation(fields: [user_id], references: [id])
 }
 
 model trucks {

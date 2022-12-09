@@ -4607,6 +4607,7 @@ export namespace Prisma {
     phone?: boolean
     userType_id?: boolean
     branch_id?: boolean
+    drivers?: boolean | driversArgs
     product?: boolean | productFindManyArgs
     clients?: boolean | parcelsFindManyArgs
     userTypes?: boolean | userTypesArgs
@@ -4616,6 +4617,7 @@ export namespace Prisma {
 
 
   export type usersInclude = {
+    drivers?: boolean | driversArgs
     product?: boolean | productFindManyArgs
     clients?: boolean | parcelsFindManyArgs
     userTypes?: boolean | userTypesArgs
@@ -4630,6 +4632,7 @@ export namespace Prisma {
     S extends { include: any } & (usersArgs | usersFindManyArgs)
     ? users  & {
     [P in TruthyKeys<S['include']>]:
+        P extends 'drivers' ? driversGetPayload<S['include'][P]> | null :
         P extends 'product' ? Array < productGetPayload<S['include'][P]>>  :
         P extends 'clients' ? Array < parcelsGetPayload<S['include'][P]>>  :
         P extends 'userTypes' ? userTypesGetPayload<S['include'][P]> | null :
@@ -4639,6 +4642,7 @@ export namespace Prisma {
     : S extends { select: any } & (usersArgs | usersFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
+        P extends 'drivers' ? driversGetPayload<S['select'][P]> | null :
         P extends 'product' ? Array < productGetPayload<S['select'][P]>>  :
         P extends 'clients' ? Array < parcelsGetPayload<S['select'][P]>>  :
         P extends 'userTypes' ? userTypesGetPayload<S['select'][P]> | null :
@@ -5016,6 +5020,8 @@ export namespace Prisma {
     private _requestPromise?;
     constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
     readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+    drivers<T extends driversArgs= {}>(args?: Subset<T, driversArgs>): Prisma__driversClient<driversGetPayload<T> | Null>;
 
     product<T extends productFindManyArgs= {}>(args?: Subset<T, productFindManyArgs>): PrismaPromise<Array<productGetPayload<T>>| Null>;
 
@@ -5629,6 +5635,7 @@ export namespace Prisma {
     truck_id?: boolean
     shipments?: boolean | shipmentsArgs
     trucks?: boolean | trucksFindManyArgs
+    users?: boolean | usersArgs
     _count?: boolean | DriversCountOutputTypeArgs
   }
 
@@ -5636,6 +5643,7 @@ export namespace Prisma {
   export type driversInclude = {
     shipments?: boolean | shipmentsArgs
     trucks?: boolean | trucksFindManyArgs
+    users?: boolean | usersArgs
     _count?: boolean | DriversCountOutputTypeArgs
   } 
 
@@ -5648,6 +5656,7 @@ export namespace Prisma {
     [P in TruthyKeys<S['include']>]:
         P extends 'shipments' ? shipmentsGetPayload<S['include'][P]> | null :
         P extends 'trucks' ? Array < trucksGetPayload<S['include'][P]>>  :
+        P extends 'users' ? usersGetPayload<S['include'][P]> :
         P extends '_count' ? DriversCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (driversArgs | driversFindManyArgs)
@@ -5655,6 +5664,7 @@ export namespace Prisma {
     [P in TruthyKeys<S['select']>]:
         P extends 'shipments' ? shipmentsGetPayload<S['select'][P]> | null :
         P extends 'trucks' ? Array < trucksGetPayload<S['select'][P]>>  :
+        P extends 'users' ? usersGetPayload<S['select'][P]> :
         P extends '_count' ? DriversCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof drivers ? drivers[P] : never
   } 
       : drivers
@@ -6032,6 +6042,8 @@ export namespace Prisma {
     shipments<T extends shipmentsArgs= {}>(args?: Subset<T, shipmentsArgs>): Prisma__shipmentsClient<shipmentsGetPayload<T> | Null>;
 
     trucks<T extends trucksFindManyArgs= {}>(args?: Subset<T, trucksFindManyArgs>): PrismaPromise<Array<trucksGetPayload<T>>| Null>;
+
+    users<T extends usersArgs= {}>(args?: Subset<T, usersArgs>): Prisma__usersClient<usersGetPayload<T> | Null>;
 
     private get _document();
     /**
@@ -11007,6 +11019,7 @@ export namespace Prisma {
     phone?: StringFilter | string
     userType_id?: IntFilter | number
     branch_id?: IntNullableFilter | number | null
+    drivers?: XOR<DriversRelationFilter, driversWhereInput> | null
     product?: ProductListRelationFilter
     clients?: ParcelsListRelationFilter
     userTypes?: XOR<UserTypesRelationFilter, userTypesWhereInput> | null
@@ -11021,6 +11034,7 @@ export namespace Prisma {
     phone?: SortOrder
     userType_id?: SortOrder
     branch_id?: SortOrder
+    drivers?: driversOrderByWithRelationInput
     product?: productOrderByRelationAggregateInput
     clients?: parcelsOrderByRelationAggregateInput
     userTypes?: userTypesOrderByWithRelationInput
@@ -11069,6 +11083,7 @@ export namespace Prisma {
     truck_id?: IntNullableFilter | number | null
     shipments?: XOR<ShipmentsRelationFilter, shipmentsWhereInput> | null
     trucks?: TrucksListRelationFilter
+    users?: XOR<UsersRelationFilter, usersWhereInput>
   }
 
   export type driversOrderByWithRelationInput = {
@@ -11076,6 +11091,7 @@ export namespace Prisma {
     truck_id?: SortOrder
     shipments?: shipmentsOrderByWithRelationInput
     trucks?: trucksOrderByRelationAggregateInput
+    users?: usersOrderByWithRelationInput
   }
 
   export type driversWhereUniqueInput = {
@@ -11523,6 +11539,7 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
+    drivers?: driversCreateNestedOneWithoutUsersInput
     product?: productCreateNestedManyWithoutUsersInput
     clients?: parcelsCreateNestedManyWithoutClientInput
     userTypes?: userTypesCreateNestedOneWithoutUsersInput
@@ -11537,6 +11554,7 @@ export namespace Prisma {
     phone: string
     userType_id: number
     branch_id?: number | null
+    drivers?: driversUncheckedCreateNestedOneWithoutUsersInput
     product?: productUncheckedCreateNestedManyWithoutUsersInput
     clients?: parcelsUncheckedCreateNestedManyWithoutClientInput
   }
@@ -11547,6 +11565,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    drivers?: driversUpdateOneWithoutUsersNestedInput
     product?: productUpdateManyWithoutUsersNestedInput
     clients?: parcelsUpdateManyWithoutClientNestedInput
     userTypes?: userTypesUpdateOneWithoutUsersNestedInput
@@ -11561,6 +11580,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     userType_id?: IntFieldUpdateOperationsInput | number
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    drivers?: driversUncheckedUpdateOneWithoutUsersNestedInput
     product?: productUncheckedUpdateManyWithoutUsersNestedInput
     clients?: parcelsUncheckedUpdateManyWithoutClientNestedInput
   }
@@ -11594,10 +11614,10 @@ export namespace Prisma {
   }
 
   export type driversCreateInput = {
-    user_id: string
     truck_id?: number | null
     shipments?: shipmentsCreateNestedOneWithoutDriversInput
     trucks?: trucksCreateNestedManyWithoutDriverInput
+    users: usersCreateNestedOneWithoutDriversInput
   }
 
   export type driversUncheckedCreateInput = {
@@ -11608,10 +11628,10 @@ export namespace Prisma {
   }
 
   export type driversUpdateInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
     truck_id?: NullableIntFieldUpdateOperationsInput | number | null
     shipments?: shipmentsUpdateOneWithoutDriversNestedInput
     trucks?: trucksUpdateManyWithoutDriverNestedInput
+    users?: usersUpdateOneRequiredWithoutDriversNestedInput
   }
 
   export type driversUncheckedUpdateInput = {
@@ -11627,7 +11647,6 @@ export namespace Prisma {
   }
 
   export type driversUpdateManyMutationInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
     truck_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -12128,6 +12147,11 @@ export namespace Prisma {
     not?: NestedIntNullableFilter | number | null
   }
 
+  export type DriversRelationFilter = {
+    is?: driversWhereInput | null
+    isNot?: driversWhereInput | null
+  }
+
   export type ProductListRelationFilter = {
     every?: productWhereInput
     some?: productWhereInput
@@ -12219,6 +12243,11 @@ export namespace Prisma {
     isNot?: shipmentsWhereInput | null
   }
 
+  export type UsersRelationFilter = {
+    is?: usersWhereInput
+    isNot?: usersWhereInput
+  }
+
   export type driversCountOrderByAggregateInput = {
     user_id?: SortOrder
     truck_id?: SortOrder
@@ -12271,11 +12300,6 @@ export namespace Prisma {
     endsWith?: string
     mode?: QueryMode
     not?: NestedStringNullableFilter | string | null
-  }
-
-  export type DriversRelationFilter = {
-    is?: driversWhereInput | null
-    isNot?: driversWhereInput | null
   }
 
   export type trucksCountOrderByAggregateInput = {
@@ -12387,11 +12411,6 @@ export namespace Prisma {
   export type ParcelsRelationFilter = {
     is?: parcelsWhereInput | null
     isNot?: parcelsWhereInput | null
-  }
-
-  export type UsersRelationFilter = {
-    is?: usersWhereInput
-    isNot?: usersWhereInput
   }
 
   export type productCountOrderByAggregateInput = {
@@ -12837,6 +12856,12 @@ export namespace Prisma {
     deleteMany?: Enumerable<usersScalarWhereInput>
   }
 
+  export type driversCreateNestedOneWithoutUsersInput = {
+    create?: XOR<driversCreateWithoutUsersInput, driversUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: driversCreateOrConnectWithoutUsersInput
+    connect?: driversWhereUniqueInput
+  }
+
   export type productCreateNestedManyWithoutUsersInput = {
     create?: XOR<Enumerable<productCreateWithoutUsersInput>, Enumerable<productUncheckedCreateWithoutUsersInput>>
     connectOrCreate?: Enumerable<productCreateOrConnectWithoutUsersInput>
@@ -12863,6 +12888,12 @@ export namespace Prisma {
     connect?: branchesWhereUniqueInput
   }
 
+  export type driversUncheckedCreateNestedOneWithoutUsersInput = {
+    create?: XOR<driversCreateWithoutUsersInput, driversUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: driversCreateOrConnectWithoutUsersInput
+    connect?: driversWhereUniqueInput
+  }
+
   export type productUncheckedCreateNestedManyWithoutUsersInput = {
     create?: XOR<Enumerable<productCreateWithoutUsersInput>, Enumerable<productUncheckedCreateWithoutUsersInput>>
     connectOrCreate?: Enumerable<productCreateOrConnectWithoutUsersInput>
@@ -12875,6 +12906,16 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<parcelsCreateOrConnectWithoutClientInput>
     createMany?: parcelsCreateManyClientInputEnvelope
     connect?: Enumerable<parcelsWhereUniqueInput>
+  }
+
+  export type driversUpdateOneWithoutUsersNestedInput = {
+    create?: XOR<driversCreateWithoutUsersInput, driversUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: driversCreateOrConnectWithoutUsersInput
+    upsert?: driversUpsertWithoutUsersInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: driversWhereUniqueInput
+    update?: XOR<driversUpdateWithoutUsersInput, driversUncheckedUpdateWithoutUsersInput>
   }
 
   export type productUpdateManyWithoutUsersNestedInput = {
@@ -12933,6 +12974,16 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type driversUncheckedUpdateOneWithoutUsersNestedInput = {
+    create?: XOR<driversCreateWithoutUsersInput, driversUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: driversCreateOrConnectWithoutUsersInput
+    upsert?: driversUpsertWithoutUsersInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: driversWhereUniqueInput
+    update?: XOR<driversUpdateWithoutUsersInput, driversUncheckedUpdateWithoutUsersInput>
+  }
+
   export type productUncheckedUpdateManyWithoutUsersNestedInput = {
     create?: XOR<Enumerable<productCreateWithoutUsersInput>, Enumerable<productUncheckedCreateWithoutUsersInput>>
     connectOrCreate?: Enumerable<productCreateOrConnectWithoutUsersInput>
@@ -12974,6 +13025,12 @@ export namespace Prisma {
     connect?: Enumerable<trucksWhereUniqueInput>
   }
 
+  export type usersCreateNestedOneWithoutDriversInput = {
+    create?: XOR<usersCreateWithoutDriversInput, usersUncheckedCreateWithoutDriversInput>
+    connectOrCreate?: usersCreateOrConnectWithoutDriversInput
+    connect?: usersWhereUniqueInput
+  }
+
   export type shipmentsUncheckedCreateNestedOneWithoutDriversInput = {
     create?: XOR<shipmentsCreateWithoutDriversInput, shipmentsUncheckedCreateWithoutDriversInput>
     connectOrCreate?: shipmentsCreateOrConnectWithoutDriversInput
@@ -13009,6 +13066,14 @@ export namespace Prisma {
     update?: Enumerable<trucksUpdateWithWhereUniqueWithoutDriverInput>
     updateMany?: Enumerable<trucksUpdateManyWithWhereWithoutDriverInput>
     deleteMany?: Enumerable<trucksScalarWhereInput>
+  }
+
+  export type usersUpdateOneRequiredWithoutDriversNestedInput = {
+    create?: XOR<usersCreateWithoutDriversInput, usersUncheckedCreateWithoutDriversInput>
+    connectOrCreate?: usersCreateOrConnectWithoutDriversInput
+    upsert?: usersUpsertWithoutDriversInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<usersUpdateWithoutDriversInput, usersUncheckedUpdateWithoutDriversInput>
   }
 
   export type shipmentsUncheckedUpdateOneWithoutDriversNestedInput = {
@@ -13621,6 +13686,7 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
+    drivers?: driversCreateNestedOneWithoutUsersInput
     product?: productCreateNestedManyWithoutUsersInput
     clients?: parcelsCreateNestedManyWithoutClientInput
     userTypes?: userTypesCreateNestedOneWithoutUsersInput
@@ -13633,6 +13699,7 @@ export namespace Prisma {
     password: string
     phone: string
     userType_id: number
+    drivers?: driversUncheckedCreateNestedOneWithoutUsersInput
     product?: productUncheckedCreateNestedManyWithoutUsersInput
     clients?: parcelsUncheckedCreateNestedManyWithoutClientInput
   }
@@ -13892,6 +13959,7 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
+    drivers?: driversCreateNestedOneWithoutUsersInput
     product?: productCreateNestedManyWithoutUsersInput
     clients?: parcelsCreateNestedManyWithoutClientInput
     branches?: branchesCreateNestedOneWithoutUsersInput
@@ -13904,6 +13972,7 @@ export namespace Prisma {
     password: string
     phone: string
     branch_id?: number | null
+    drivers?: driversUncheckedCreateNestedOneWithoutUsersInput
     product?: productUncheckedCreateNestedManyWithoutUsersInput
     clients?: parcelsUncheckedCreateNestedManyWithoutClientInput
   }
@@ -13932,6 +14001,23 @@ export namespace Prisma {
   export type usersUpdateManyWithWhereWithoutUserTypesInput = {
     where: usersScalarWhereInput
     data: XOR<usersUpdateManyMutationInput, usersUncheckedUpdateManyWithoutUsersInput>
+  }
+
+  export type driversCreateWithoutUsersInput = {
+    truck_id?: number | null
+    shipments?: shipmentsCreateNestedOneWithoutDriversInput
+    trucks?: trucksCreateNestedManyWithoutDriverInput
+  }
+
+  export type driversUncheckedCreateWithoutUsersInput = {
+    truck_id?: number | null
+    shipments?: shipmentsUncheckedCreateNestedOneWithoutDriversInput
+    trucks?: trucksUncheckedCreateNestedManyWithoutDriverInput
+  }
+
+  export type driversCreateOrConnectWithoutUsersInput = {
+    where: driversWhereUniqueInput
+    create: XOR<driversCreateWithoutUsersInput, driversUncheckedCreateWithoutUsersInput>
   }
 
   export type productCreateWithoutUsersInput = {
@@ -14029,6 +14115,23 @@ export namespace Prisma {
   export type branchesCreateOrConnectWithoutUsersInput = {
     where: branchesWhereUniqueInput
     create: XOR<branchesCreateWithoutUsersInput, branchesUncheckedCreateWithoutUsersInput>
+  }
+
+  export type driversUpsertWithoutUsersInput = {
+    update: XOR<driversUpdateWithoutUsersInput, driversUncheckedUpdateWithoutUsersInput>
+    create: XOR<driversCreateWithoutUsersInput, driversUncheckedCreateWithoutUsersInput>
+  }
+
+  export type driversUpdateWithoutUsersInput = {
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
+    shipments?: shipmentsUpdateOneWithoutDriversNestedInput
+    trucks?: trucksUpdateManyWithoutDriverNestedInput
+  }
+
+  export type driversUncheckedUpdateWithoutUsersInput = {
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
+    shipments?: shipmentsUncheckedUpdateOneWithoutDriversNestedInput
+    trucks?: trucksUncheckedUpdateManyWithoutDriverNestedInput
   }
 
   export type productUpsertWithWhereUniqueWithoutUsersInput = {
@@ -14190,6 +14293,35 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type usersCreateWithoutDriversInput = {
+    id: string
+    name: string
+    email: string
+    password: string
+    phone: string
+    product?: productCreateNestedManyWithoutUsersInput
+    clients?: parcelsCreateNestedManyWithoutClientInput
+    userTypes?: userTypesCreateNestedOneWithoutUsersInput
+    branches?: branchesCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersUncheckedCreateWithoutDriversInput = {
+    id: string
+    name: string
+    email: string
+    password: string
+    phone: string
+    userType_id: number
+    branch_id?: number | null
+    product?: productUncheckedCreateNestedManyWithoutUsersInput
+    clients?: parcelsUncheckedCreateNestedManyWithoutClientInput
+  }
+
+  export type usersCreateOrConnectWithoutDriversInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutDriversInput, usersUncheckedCreateWithoutDriversInput>
+  }
+
   export type shipmentsUpsertWithoutDriversInput = {
     update: XOR<shipmentsUpdateWithoutDriversInput, shipmentsUncheckedUpdateWithoutDriversInput>
     create: XOR<shipmentsCreateWithoutDriversInput, shipmentsUncheckedCreateWithoutDriversInput>
@@ -14237,6 +14369,35 @@ export namespace Prisma {
     data: XOR<trucksUpdateManyMutationInput, trucksUncheckedUpdateManyWithoutTrucksInput>
   }
 
+  export type usersUpsertWithoutDriversInput = {
+    update: XOR<usersUpdateWithoutDriversInput, usersUncheckedUpdateWithoutDriversInput>
+    create: XOR<usersCreateWithoutDriversInput, usersUncheckedCreateWithoutDriversInput>
+  }
+
+  export type usersUpdateWithoutDriversInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    product?: productUpdateManyWithoutUsersNestedInput
+    clients?: parcelsUpdateManyWithoutClientNestedInput
+    userTypes?: userTypesUpdateOneWithoutUsersNestedInput
+    branches?: branchesUpdateOneWithoutUsersNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutDriversInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    userType_id?: IntFieldUpdateOperationsInput | number
+    branch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    product?: productUncheckedUpdateManyWithoutUsersNestedInput
+    clients?: parcelsUncheckedUpdateManyWithoutClientNestedInput
+  }
+
   export type shipmentsCreateWithoutTruckInput = {
     id: string
     status: number
@@ -14269,9 +14430,9 @@ export namespace Prisma {
   }
 
   export type driversCreateWithoutTrucksInput = {
-    user_id: string
     truck_id?: number | null
     shipments?: shipmentsCreateNestedOneWithoutDriversInput
+    users: usersCreateNestedOneWithoutDriversInput
   }
 
   export type driversUncheckedCreateWithoutTrucksInput = {
@@ -14350,9 +14511,9 @@ export namespace Prisma {
   }
 
   export type driversUpdateWithoutTrucksInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
     truck_id?: NullableIntFieldUpdateOperationsInput | number | null
     shipments?: shipmentsUpdateOneWithoutDriversNestedInput
+    users?: usersUpdateOneRequiredWithoutDriversNestedInput
   }
 
   export type driversUncheckedUpdateWithoutTrucksInput = {
@@ -14420,6 +14581,7 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
+    drivers?: driversCreateNestedOneWithoutUsersInput
     clients?: parcelsCreateNestedManyWithoutClientInput
     userTypes?: userTypesCreateNestedOneWithoutUsersInput
     branches?: branchesCreateNestedOneWithoutUsersInput
@@ -14433,6 +14595,7 @@ export namespace Prisma {
     phone: string
     userType_id: number
     branch_id?: number | null
+    drivers?: driversUncheckedCreateNestedOneWithoutUsersInput
     clients?: parcelsUncheckedCreateNestedManyWithoutClientInput
   }
 
@@ -14477,6 +14640,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    drivers?: driversUpdateOneWithoutUsersNestedInput
     clients?: parcelsUpdateManyWithoutClientNestedInput
     userTypes?: userTypesUpdateOneWithoutUsersNestedInput
     branches?: branchesUpdateOneWithoutUsersNestedInput
@@ -14490,6 +14654,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     userType_id?: IntFieldUpdateOperationsInput | number
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    drivers?: driversUncheckedUpdateOneWithoutUsersNestedInput
     clients?: parcelsUncheckedUpdateManyWithoutClientNestedInput
   }
 
@@ -14530,6 +14695,7 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
+    drivers?: driversCreateNestedOneWithoutUsersInput
     product?: productCreateNestedManyWithoutUsersInput
     userTypes?: userTypesCreateNestedOneWithoutUsersInput
     branches?: branchesCreateNestedOneWithoutUsersInput
@@ -14543,6 +14709,7 @@ export namespace Prisma {
     phone: string
     userType_id: number
     branch_id?: number | null
+    drivers?: driversUncheckedCreateNestedOneWithoutUsersInput
     product?: productUncheckedCreateNestedManyWithoutUsersInput
   }
 
@@ -14618,6 +14785,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    drivers?: driversUpdateOneWithoutUsersNestedInput
     product?: productUpdateManyWithoutUsersNestedInput
     userTypes?: userTypesUpdateOneWithoutUsersNestedInput
     branches?: branchesUpdateOneWithoutUsersNestedInput
@@ -14631,6 +14799,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     userType_id?: IntFieldUpdateOperationsInput | number
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    drivers?: driversUncheckedUpdateOneWithoutUsersNestedInput
     product?: productUncheckedUpdateManyWithoutUsersNestedInput
   }
 
@@ -14675,9 +14844,9 @@ export namespace Prisma {
   }
 
   export type driversCreateWithoutShipmentsInput = {
-    user_id: string
     truck_id?: number | null
     trucks?: trucksCreateNestedManyWithoutDriverInput
+    users: usersCreateNestedOneWithoutDriversInput
   }
 
   export type driversUncheckedCreateWithoutShipmentsInput = {
@@ -14807,9 +14976,9 @@ export namespace Prisma {
   }
 
   export type driversUpdateWithoutShipmentsInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
     truck_id?: NullableIntFieldUpdateOperationsInput | number | null
     trucks?: trucksUpdateManyWithoutDriverNestedInput
+    users?: usersUpdateOneRequiredWithoutDriversNestedInput
   }
 
   export type driversUncheckedUpdateWithoutShipmentsInput = {
@@ -14977,6 +15146,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    drivers?: driversUpdateOneWithoutUsersNestedInput
     product?: productUpdateManyWithoutUsersNestedInput
     clients?: parcelsUpdateManyWithoutClientNestedInput
     userTypes?: userTypesUpdateOneWithoutUsersNestedInput
@@ -14989,6 +15159,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     userType_id?: IntFieldUpdateOperationsInput | number
+    drivers?: driversUncheckedUpdateOneWithoutUsersNestedInput
     product?: productUncheckedUpdateManyWithoutUsersNestedInput
     clients?: parcelsUncheckedUpdateManyWithoutClientNestedInput
   }
@@ -15121,6 +15292,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    drivers?: driversUpdateOneWithoutUsersNestedInput
     product?: productUpdateManyWithoutUsersNestedInput
     clients?: parcelsUpdateManyWithoutClientNestedInput
     branches?: branchesUpdateOneWithoutUsersNestedInput
@@ -15133,6 +15305,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    drivers?: driversUncheckedUpdateOneWithoutUsersNestedInput
     product?: productUncheckedUpdateManyWithoutUsersNestedInput
     clients?: parcelsUncheckedUpdateManyWithoutClientNestedInput
   }
