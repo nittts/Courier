@@ -6,9 +6,15 @@ const createParcelController = async (req: Request, res: Response) => {
   const { name, content, volume_weight, client_id, shipment_id } = req.body;
 
   try {
-    const city = await createParcelService({ name, content, volume_weight, client_id, shipment_id });
+    const city = await createParcelService({
+      name,
+      content,
+      volume_weight,
+      client_id,
+      shipment_id: shipment_id || null,
+    });
 
-    return res.status(201).send({ message: "City Created.", results: city });
+    return res.status(201).send({ message: "Parcel Created.", results: city });
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);

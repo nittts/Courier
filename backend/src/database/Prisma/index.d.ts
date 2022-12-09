@@ -59,21 +59,12 @@ export type users = {
 }
 
 /**
- * Model managers
- * 
- */
-export type managers = {
-  user_id: string
-  isAdm: boolean
-}
-
-/**
  * Model drivers
  * 
  */
 export type drivers = {
   user_id: string
-  truck_id: number
+  truck_id: number | null
 }
 
 /**
@@ -100,7 +91,7 @@ export type product = {
   weight: Prisma.Decimal
   require_date: Date
   requirer_id: string
-  parcel_id: string
+  parcel_id: string | null
 }
 
 /**
@@ -114,7 +105,7 @@ export type parcels = {
   volume_weight: number
   admission_date: Date
   client_id: string
-  shipment_id: string
+  shipment_id: string | null
 }
 
 /**
@@ -127,11 +118,11 @@ export type shipments = {
   arrival_time: Date
   departure_time: Date
   weight: Prisma.Decimal
-  truck_id: number | null
-  driver_id: string | null
-  destination_branch: number | null
-  departure_branch: number | null
-  parcel_id: string | null
+  truck_id: number
+  driver_id: string
+  destination_branch: number
+  departure_branch: number
+  parcel_id: string
 }
 
 
@@ -291,16 +282,6 @@ export class PrismaClient<
     * ```
     */
   get users(): Prisma.usersDelegate<GlobalReject>;
-
-  /**
-   * `prisma.managers`: Exposes CRUD operations for the **managers** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Managers
-    * const managers = await prisma.managers.findMany()
-    * ```
-    */
-  get managers(): Prisma.managersDelegate<GlobalReject>;
 
   /**
    * `prisma.drivers`: Exposes CRUD operations for the **drivers** model.
@@ -839,7 +820,6 @@ export namespace Prisma {
     branches: 'branches',
     userTypes: 'userTypes',
     users: 'users',
-    managers: 'managers',
     drivers: 'drivers',
     trucks: 'trucks',
     product: 'product',
@@ -1153,10 +1133,12 @@ export namespace Prisma {
 
   export type UsersCountOutputType = {
     product: number
+    clients: number
   }
 
   export type UsersCountOutputTypeSelect = {
     product?: boolean
+    clients?: boolean
   }
 
   export type UsersCountOutputTypeGetPayload<S extends boolean | null | undefined | UsersCountOutputTypeArgs> =
@@ -4626,8 +4608,7 @@ export namespace Prisma {
     userType_id?: boolean
     branch_id?: boolean
     product?: boolean | productFindManyArgs
-    clients?: boolean | parcelsArgs
-    managers?: boolean | managersArgs
+    clients?: boolean | parcelsFindManyArgs
     userTypes?: boolean | userTypesArgs
     branches?: boolean | branchesArgs
     _count?: boolean | UsersCountOutputTypeArgs
@@ -4636,8 +4617,7 @@ export namespace Prisma {
 
   export type usersInclude = {
     product?: boolean | productFindManyArgs
-    clients?: boolean | parcelsArgs
-    managers?: boolean | managersArgs
+    clients?: boolean | parcelsFindManyArgs
     userTypes?: boolean | userTypesArgs
     branches?: boolean | branchesArgs
     _count?: boolean | UsersCountOutputTypeArgs
@@ -4651,8 +4631,7 @@ export namespace Prisma {
     ? users  & {
     [P in TruthyKeys<S['include']>]:
         P extends 'product' ? Array < productGetPayload<S['include'][P]>>  :
-        P extends 'clients' ? parcelsGetPayload<S['include'][P]> | null :
-        P extends 'managers' ? managersGetPayload<S['include'][P]> | null :
+        P extends 'clients' ? Array < parcelsGetPayload<S['include'][P]>>  :
         P extends 'userTypes' ? userTypesGetPayload<S['include'][P]> | null :
         P extends 'branches' ? branchesGetPayload<S['include'][P]> | null :
         P extends '_count' ? UsersCountOutputTypeGetPayload<S['include'][P]> :  never
@@ -4661,8 +4640,7 @@ export namespace Prisma {
       ? {
     [P in TruthyKeys<S['select']>]:
         P extends 'product' ? Array < productGetPayload<S['select'][P]>>  :
-        P extends 'clients' ? parcelsGetPayload<S['select'][P]> | null :
-        P extends 'managers' ? managersGetPayload<S['select'][P]> | null :
+        P extends 'clients' ? Array < parcelsGetPayload<S['select'][P]>>  :
         P extends 'userTypes' ? userTypesGetPayload<S['select'][P]> | null :
         P extends 'branches' ? branchesGetPayload<S['select'][P]> | null :
         P extends '_count' ? UsersCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof users ? users[P] : never
@@ -5041,9 +5019,7 @@ export namespace Prisma {
 
     product<T extends productFindManyArgs= {}>(args?: Subset<T, productFindManyArgs>): PrismaPromise<Array<productGetPayload<T>>| Null>;
 
-    clients<T extends parcelsArgs= {}>(args?: Subset<T, parcelsArgs>): Prisma__parcelsClient<parcelsGetPayload<T> | Null>;
-
-    managers<T extends managersArgs= {}>(args?: Subset<T, managersArgs>): Prisma__managersClient<managersGetPayload<T> | Null>;
+    clients<T extends parcelsFindManyArgs= {}>(args?: Subset<T, parcelsFindManyArgs>): PrismaPromise<Array<parcelsGetPayload<T>>| Null>;
 
     userTypes<T extends userTypesArgs= {}>(args?: Subset<T, userTypesArgs>): Prisma__userTypesClient<userTypesGetPayload<T> | Null>;
 
@@ -5471,970 +5447,6 @@ export namespace Prisma {
 
 
   /**
-   * Model managers
-   */
-
-
-  export type AggregateManagers = {
-    _count: ManagersCountAggregateOutputType | null
-    _min: ManagersMinAggregateOutputType | null
-    _max: ManagersMaxAggregateOutputType | null
-  }
-
-  export type ManagersMinAggregateOutputType = {
-    user_id: string | null
-    isAdm: boolean | null
-  }
-
-  export type ManagersMaxAggregateOutputType = {
-    user_id: string | null
-    isAdm: boolean | null
-  }
-
-  export type ManagersCountAggregateOutputType = {
-    user_id: number
-    isAdm: number
-    _all: number
-  }
-
-
-  export type ManagersMinAggregateInputType = {
-    user_id?: true
-    isAdm?: true
-  }
-
-  export type ManagersMaxAggregateInputType = {
-    user_id?: true
-    isAdm?: true
-  }
-
-  export type ManagersCountAggregateInputType = {
-    user_id?: true
-    isAdm?: true
-    _all?: true
-  }
-
-  export type ManagersAggregateArgs = {
-    /**
-     * Filter which managers to aggregate.
-     * 
-    **/
-    where?: managersWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of managers to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<managersOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     * 
-    **/
-    cursor?: managersWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` managers from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` managers.
-     * 
-    **/
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned managers
-    **/
-    _count?: true | ManagersCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: ManagersMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: ManagersMaxAggregateInputType
-  }
-
-  export type GetManagersAggregateType<T extends ManagersAggregateArgs> = {
-        [P in keyof T & keyof AggregateManagers]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateManagers[P]>
-      : GetScalarType<T[P], AggregateManagers[P]>
-  }
-
-
-
-
-  export type ManagersGroupByArgs = {
-    where?: managersWhereInput
-    orderBy?: Enumerable<managersOrderByWithAggregationInput>
-    by: Array<ManagersScalarFieldEnum>
-    having?: managersScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: ManagersCountAggregateInputType | true
-    _min?: ManagersMinAggregateInputType
-    _max?: ManagersMaxAggregateInputType
-  }
-
-
-  export type ManagersGroupByOutputType = {
-    user_id: string
-    isAdm: boolean
-    _count: ManagersCountAggregateOutputType | null
-    _min: ManagersMinAggregateOutputType | null
-    _max: ManagersMaxAggregateOutputType | null
-  }
-
-  type GetManagersGroupByPayload<T extends ManagersGroupByArgs> = PrismaPromise<
-    Array<
-      PickArray<ManagersGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof ManagersGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], ManagersGroupByOutputType[P]>
-            : GetScalarType<T[P], ManagersGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type managersSelect = {
-    user_id?: boolean
-    isAdm?: boolean
-    user?: boolean | usersArgs
-  }
-
-
-  export type managersInclude = {
-    user?: boolean | usersArgs
-  } 
-
-  export type managersGetPayload<S extends boolean | null | undefined | managersArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? managers :
-    S extends undefined ? never :
-    S extends { include: any } & (managersArgs | managersFindManyArgs)
-    ? managers  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'user' ? usersGetPayload<S['include'][P]> :  never
-  } 
-    : S extends { select: any } & (managersArgs | managersFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'user' ? usersGetPayload<S['select'][P]> :  P extends keyof managers ? managers[P] : never
-  } 
-      : managers
-
-
-  type managersCountArgs = Merge<
-    Omit<managersFindManyArgs, 'select' | 'include'> & {
-      select?: ManagersCountAggregateInputType | true
-    }
-  >
-
-  export interface managersDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-    /**
-     * Find zero or one Managers that matches the filter.
-     * @param {managersFindUniqueArgs} args - Arguments to find a Managers
-     * @example
-     * // Get one Managers
-     * const managers = await prisma.managers.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends managersFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, managersFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'managers'> extends True ? Prisma__managersClient<managersGetPayload<T>> : Prisma__managersClient<managersGetPayload<T> | null, null>
-
-    /**
-     * Find one Managers that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {managersFindUniqueOrThrowArgs} args - Arguments to find a Managers
-     * @example
-     * // Get one Managers
-     * const managers = await prisma.managers.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUniqueOrThrow<T extends managersFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, managersFindUniqueOrThrowArgs>
-    ): Prisma__managersClient<managersGetPayload<T>>
-
-    /**
-     * Find the first Managers that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {managersFindFirstArgs} args - Arguments to find a Managers
-     * @example
-     * // Get one Managers
-     * const managers = await prisma.managers.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends managersFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, managersFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'managers'> extends True ? Prisma__managersClient<managersGetPayload<T>> : Prisma__managersClient<managersGetPayload<T> | null, null>
-
-    /**
-     * Find the first Managers that matches the filter or
-     * throw `NotFoundError` if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {managersFindFirstOrThrowArgs} args - Arguments to find a Managers
-     * @example
-     * // Get one Managers
-     * const managers = await prisma.managers.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirstOrThrow<T extends managersFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, managersFindFirstOrThrowArgs>
-    ): Prisma__managersClient<managersGetPayload<T>>
-
-    /**
-     * Find zero or more Managers that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {managersFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Managers
-     * const managers = await prisma.managers.findMany()
-     * 
-     * // Get first 10 Managers
-     * const managers = await prisma.managers.findMany({ take: 10 })
-     * 
-     * // Only select the `user_id`
-     * const managersWithUser_idOnly = await prisma.managers.findMany({ select: { user_id: true } })
-     * 
-    **/
-    findMany<T extends managersFindManyArgs>(
-      args?: SelectSubset<T, managersFindManyArgs>
-    ): PrismaPromise<Array<managersGetPayload<T>>>
-
-    /**
-     * Create a Managers.
-     * @param {managersCreateArgs} args - Arguments to create a Managers.
-     * @example
-     * // Create one Managers
-     * const Managers = await prisma.managers.create({
-     *   data: {
-     *     // ... data to create a Managers
-     *   }
-     * })
-     * 
-    **/
-    create<T extends managersCreateArgs>(
-      args: SelectSubset<T, managersCreateArgs>
-    ): Prisma__managersClient<managersGetPayload<T>>
-
-    /**
-     * Create many Managers.
-     *     @param {managersCreateManyArgs} args - Arguments to create many Managers.
-     *     @example
-     *     // Create many Managers
-     *     const managers = await prisma.managers.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
-     *     
-    **/
-    createMany<T extends managersCreateManyArgs>(
-      args?: SelectSubset<T, managersCreateManyArgs>
-    ): PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Managers.
-     * @param {managersDeleteArgs} args - Arguments to delete one Managers.
-     * @example
-     * // Delete one Managers
-     * const Managers = await prisma.managers.delete({
-     *   where: {
-     *     // ... filter to delete one Managers
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends managersDeleteArgs>(
-      args: SelectSubset<T, managersDeleteArgs>
-    ): Prisma__managersClient<managersGetPayload<T>>
-
-    /**
-     * Update one Managers.
-     * @param {managersUpdateArgs} args - Arguments to update one Managers.
-     * @example
-     * // Update one Managers
-     * const managers = await prisma.managers.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends managersUpdateArgs>(
-      args: SelectSubset<T, managersUpdateArgs>
-    ): Prisma__managersClient<managersGetPayload<T>>
-
-    /**
-     * Delete zero or more Managers.
-     * @param {managersDeleteManyArgs} args - Arguments to filter Managers to delete.
-     * @example
-     * // Delete a few Managers
-     * const { count } = await prisma.managers.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends managersDeleteManyArgs>(
-      args?: SelectSubset<T, managersDeleteManyArgs>
-    ): PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Managers.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {managersUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Managers
-     * const managers = await prisma.managers.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends managersUpdateManyArgs>(
-      args: SelectSubset<T, managersUpdateManyArgs>
-    ): PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Managers.
-     * @param {managersUpsertArgs} args - Arguments to update or create a Managers.
-     * @example
-     * // Update or create a Managers
-     * const managers = await prisma.managers.upsert({
-     *   create: {
-     *     // ... data to create a Managers
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Managers we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends managersUpsertArgs>(
-      args: SelectSubset<T, managersUpsertArgs>
-    ): Prisma__managersClient<managersGetPayload<T>>
-
-    /**
-     * Count the number of Managers.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {managersCountArgs} args - Arguments to filter Managers to count.
-     * @example
-     * // Count the number of Managers
-     * const count = await prisma.managers.count({
-     *   where: {
-     *     // ... the filter for the Managers we want to count
-     *   }
-     * })
-    **/
-    count<T extends managersCountArgs>(
-      args?: Subset<T, managersCountArgs>,
-    ): PrismaPromise<
-      T extends _Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], ManagersCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Managers.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ManagersAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends ManagersAggregateArgs>(args: Subset<T, ManagersAggregateArgs>): PrismaPromise<GetManagersAggregateType<T>>
-
-    /**
-     * Group by Managers.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ManagersGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends ManagersGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ManagersGroupByArgs['orderBy'] }
-        : { orderBy?: ManagersGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, ManagersGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetManagersGroupByPayload<T> : PrismaPromise<InputErrors>
-
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for managers.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export class Prisma__managersClient<T, Null = never> implements PrismaPromise<T> {
-    [prisma]: true;
-    private readonly _dmmf;
-    private readonly _fetcher;
-    private readonly _queryType;
-    private readonly _rootField;
-    private readonly _clientMethod;
-    private readonly _args;
-    private readonly _dataPath;
-    private readonly _errorFormat;
-    private readonly _measurePerformance?;
-    private _isList;
-    private _callsite;
-    private _requestPromise?;
-    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
-    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
-
-    user<T extends usersArgs= {}>(args?: Subset<T, usersArgs>): Prisma__usersClient<usersGetPayload<T> | Null>;
-
-    private get _document();
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
-  }
-
-
-
-  // Custom InputTypes
-
-  /**
-   * managers base type for findUnique actions
-   */
-  export type managersFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the managers
-     * 
-    **/
-    select?: managersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: managersInclude | null
-    /**
-     * Filter, which managers to fetch.
-     * 
-    **/
-    where: managersWhereUniqueInput
-  }
-
-  /**
-   * managers: findUnique
-   */
-  export interface managersFindUniqueArgs extends managersFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * managers findUniqueOrThrow
-   */
-  export type managersFindUniqueOrThrowArgs = {
-    /**
-     * Select specific fields to fetch from the managers
-     * 
-    **/
-    select?: managersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: managersInclude | null
-    /**
-     * Filter, which managers to fetch.
-     * 
-    **/
-    where: managersWhereUniqueInput
-  }
-
-
-  /**
-   * managers base type for findFirst actions
-   */
-  export type managersFindFirstArgsBase = {
-    /**
-     * Select specific fields to fetch from the managers
-     * 
-    **/
-    select?: managersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: managersInclude | null
-    /**
-     * Filter, which managers to fetch.
-     * 
-    **/
-    where?: managersWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of managers to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<managersOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for managers.
-     * 
-    **/
-    cursor?: managersWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` managers from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` managers.
-     * 
-    **/
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of managers.
-     * 
-    **/
-    distinct?: Enumerable<ManagersScalarFieldEnum>
-  }
-
-  /**
-   * managers: findFirst
-   */
-  export interface managersFindFirstArgs extends managersFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * managers findFirstOrThrow
-   */
-  export type managersFindFirstOrThrowArgs = {
-    /**
-     * Select specific fields to fetch from the managers
-     * 
-    **/
-    select?: managersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: managersInclude | null
-    /**
-     * Filter, which managers to fetch.
-     * 
-    **/
-    where?: managersWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of managers to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<managersOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for managers.
-     * 
-    **/
-    cursor?: managersWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` managers from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` managers.
-     * 
-    **/
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of managers.
-     * 
-    **/
-    distinct?: Enumerable<ManagersScalarFieldEnum>
-  }
-
-
-  /**
-   * managers findMany
-   */
-  export type managersFindManyArgs = {
-    /**
-     * Select specific fields to fetch from the managers
-     * 
-    **/
-    select?: managersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: managersInclude | null
-    /**
-     * Filter, which managers to fetch.
-     * 
-    **/
-    where?: managersWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of managers to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<managersOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing managers.
-     * 
-    **/
-    cursor?: managersWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` managers from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` managers.
-     * 
-    **/
-    skip?: number
-    distinct?: Enumerable<ManagersScalarFieldEnum>
-  }
-
-
-  /**
-   * managers create
-   */
-  export type managersCreateArgs = {
-    /**
-     * Select specific fields to fetch from the managers
-     * 
-    **/
-    select?: managersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: managersInclude | null
-    /**
-     * The data needed to create a managers.
-     * 
-    **/
-    data: XOR<managersCreateInput, managersUncheckedCreateInput>
-  }
-
-
-  /**
-   * managers createMany
-   */
-  export type managersCreateManyArgs = {
-    /**
-     * The data used to create many managers.
-     * 
-    **/
-    data: Enumerable<managersCreateManyInput>
-    skipDuplicates?: boolean
-  }
-
-
-  /**
-   * managers update
-   */
-  export type managersUpdateArgs = {
-    /**
-     * Select specific fields to fetch from the managers
-     * 
-    **/
-    select?: managersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: managersInclude | null
-    /**
-     * The data needed to update a managers.
-     * 
-    **/
-    data: XOR<managersUpdateInput, managersUncheckedUpdateInput>
-    /**
-     * Choose, which managers to update.
-     * 
-    **/
-    where: managersWhereUniqueInput
-  }
-
-
-  /**
-   * managers updateMany
-   */
-  export type managersUpdateManyArgs = {
-    /**
-     * The data used to update managers.
-     * 
-    **/
-    data: XOR<managersUpdateManyMutationInput, managersUncheckedUpdateManyInput>
-    /**
-     * Filter which managers to update
-     * 
-    **/
-    where?: managersWhereInput
-  }
-
-
-  /**
-   * managers upsert
-   */
-  export type managersUpsertArgs = {
-    /**
-     * Select specific fields to fetch from the managers
-     * 
-    **/
-    select?: managersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: managersInclude | null
-    /**
-     * The filter to search for the managers to update in case it exists.
-     * 
-    **/
-    where: managersWhereUniqueInput
-    /**
-     * In case the managers found by the `where` argument doesn't exist, create a new managers with this data.
-     * 
-    **/
-    create: XOR<managersCreateInput, managersUncheckedCreateInput>
-    /**
-     * In case the managers was found with the provided `where` argument, update it with this data.
-     * 
-    **/
-    update: XOR<managersUpdateInput, managersUncheckedUpdateInput>
-  }
-
-
-  /**
-   * managers delete
-   */
-  export type managersDeleteArgs = {
-    /**
-     * Select specific fields to fetch from the managers
-     * 
-    **/
-    select?: managersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: managersInclude | null
-    /**
-     * Filter which managers to delete.
-     * 
-    **/
-    where: managersWhereUniqueInput
-  }
-
-
-  /**
-   * managers deleteMany
-   */
-  export type managersDeleteManyArgs = {
-    /**
-     * Filter which managers to delete
-     * 
-    **/
-    where?: managersWhereInput
-  }
-
-
-  /**
-   * managers without action
-   */
-  export type managersArgs = {
-    /**
-     * Select specific fields to fetch from the managers
-     * 
-    **/
-    select?: managersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: managersInclude | null
-  }
-
-
-
-  /**
    * Model drivers
    */
 
@@ -6590,7 +5602,7 @@ export namespace Prisma {
 
   export type DriversGroupByOutputType = {
     user_id: string
-    truck_id: number
+    truck_id: number | null
     _count: DriversCountAggregateOutputType | null
     _avg: DriversAvgAggregateOutputType | null
     _sum: DriversSumAggregateOutputType | null
@@ -8688,7 +7700,7 @@ export namespace Prisma {
     weight: Decimal
     require_date: Date
     requirer_id: string
-    parcel_id: string
+    parcel_id: string | null
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -8734,13 +7746,13 @@ export namespace Prisma {
     S extends { include: any } & (productArgs | productFindManyArgs)
     ? product  & {
     [P in TruthyKeys<S['include']>]:
-        P extends 'parcels' ? parcelsGetPayload<S['include'][P]> :
+        P extends 'parcels' ? parcelsGetPayload<S['include'][P]> | null :
         P extends 'users' ? usersGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (productArgs | productFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-        P extends 'parcels' ? parcelsGetPayload<S['select'][P]> :
+        P extends 'parcels' ? parcelsGetPayload<S['select'][P]> | null :
         P extends 'users' ? usersGetPayload<S['select'][P]> :  P extends keyof product ? product[P] : never
   } 
       : product
@@ -9731,7 +8743,7 @@ export namespace Prisma {
     volume_weight: number
     admission_date: Date
     client_id: string
-    shipment_id: string
+    shipment_id: string | null
     _count: ParcelsCountAggregateOutputType | null
     _avg: ParcelsAvgAggregateOutputType | null
     _sum: ParcelsSumAggregateOutputType | null
@@ -9782,7 +8794,7 @@ export namespace Prisma {
     S extends { include: any } & (parcelsArgs | parcelsFindManyArgs)
     ? parcels  & {
     [P in TruthyKeys<S['include']>]:
-        P extends 'shipments' ? shipmentsGetPayload<S['include'][P]> :
+        P extends 'shipments' ? shipmentsGetPayload<S['include'][P]> | null :
         P extends 'client' ? usersGetPayload<S['include'][P]> :
         P extends 'product' ? Array < productGetPayload<S['include'][P]>>  :
         P extends '_count' ? ParcelsCountOutputTypeGetPayload<S['include'][P]> :  never
@@ -9790,7 +8802,7 @@ export namespace Prisma {
     : S extends { select: any } & (parcelsArgs | parcelsFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-        P extends 'shipments' ? shipmentsGetPayload<S['select'][P]> :
+        P extends 'shipments' ? shipmentsGetPayload<S['select'][P]> | null :
         P extends 'client' ? usersGetPayload<S['select'][P]> :
         P extends 'product' ? Array < productGetPayload<S['select'][P]>>  :
         P extends '_count' ? ParcelsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof parcels ? parcels[P] : never
@@ -10818,11 +9830,11 @@ export namespace Prisma {
     arrival_time: Date
     departure_time: Date
     weight: Decimal
-    truck_id: number | null
-    driver_id: string | null
-    destination_branch: number | null
-    departure_branch: number | null
-    parcel_id: string | null
+    truck_id: number
+    driver_id: string
+    destination_branch: number
+    departure_branch: number
+    parcel_id: string
     _count: ShipmentsCountAggregateOutputType | null
     _avg: ShipmentsAvgAggregateOutputType | null
     _sum: ShipmentsSumAggregateOutputType | null
@@ -11736,14 +10748,6 @@ export namespace Prisma {
   export type DriversScalarFieldEnum = (typeof DriversScalarFieldEnum)[keyof typeof DriversScalarFieldEnum]
 
 
-  export const ManagersScalarFieldEnum: {
-    user_id: 'user_id',
-    isAdm: 'isAdm'
-  };
-
-  export type ManagersScalarFieldEnum = (typeof ManagersScalarFieldEnum)[keyof typeof ManagersScalarFieldEnum]
-
-
   export const ParcelsScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -12004,8 +11008,7 @@ export namespace Prisma {
     userType_id?: IntFilter | number
     branch_id?: IntNullableFilter | number | null
     product?: ProductListRelationFilter
-    clients?: XOR<ParcelsRelationFilter, parcelsWhereInput> | null
-    managers?: XOR<ManagersRelationFilter, managersWhereInput> | null
+    clients?: ParcelsListRelationFilter
     userTypes?: XOR<UserTypesRelationFilter, userTypesWhereInput> | null
     branches?: XOR<BranchesRelationFilter, branchesWhereInput> | null
   }
@@ -12019,8 +11022,7 @@ export namespace Prisma {
     userType_id?: SortOrder
     branch_id?: SortOrder
     product?: productOrderByRelationAggregateInput
-    clients?: parcelsOrderByWithRelationInput
-    managers?: managersOrderByWithRelationInput
+    clients?: parcelsOrderByRelationAggregateInput
     userTypes?: userTypesOrderByWithRelationInput
     branches?: branchesOrderByWithRelationInput
   }
@@ -12059,47 +11061,12 @@ export namespace Prisma {
     branch_id?: IntNullableWithAggregatesFilter | number | null
   }
 
-  export type managersWhereInput = {
-    AND?: Enumerable<managersWhereInput>
-    OR?: Enumerable<managersWhereInput>
-    NOT?: Enumerable<managersWhereInput>
-    user_id?: StringFilter | string
-    isAdm?: BoolFilter | boolean
-    user?: XOR<UsersRelationFilter, usersWhereInput>
-  }
-
-  export type managersOrderByWithRelationInput = {
-    user_id?: SortOrder
-    isAdm?: SortOrder
-    user?: usersOrderByWithRelationInput
-  }
-
-  export type managersWhereUniqueInput = {
-    user_id?: string
-  }
-
-  export type managersOrderByWithAggregationInput = {
-    user_id?: SortOrder
-    isAdm?: SortOrder
-    _count?: managersCountOrderByAggregateInput
-    _max?: managersMaxOrderByAggregateInput
-    _min?: managersMinOrderByAggregateInput
-  }
-
-  export type managersScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<managersScalarWhereWithAggregatesInput>
-    OR?: Enumerable<managersScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<managersScalarWhereWithAggregatesInput>
-    user_id?: StringWithAggregatesFilter | string
-    isAdm?: BoolWithAggregatesFilter | boolean
-  }
-
   export type driversWhereInput = {
     AND?: Enumerable<driversWhereInput>
     OR?: Enumerable<driversWhereInput>
     NOT?: Enumerable<driversWhereInput>
     user_id?: StringFilter | string
-    truck_id?: IntFilter | number
+    truck_id?: IntNullableFilter | number | null
     shipments?: XOR<ShipmentsRelationFilter, shipmentsWhereInput> | null
     trucks?: TrucksListRelationFilter
   }
@@ -12130,7 +11097,7 @@ export namespace Prisma {
     OR?: Enumerable<driversScalarWhereWithAggregatesInput>
     NOT?: Enumerable<driversScalarWhereWithAggregatesInput>
     user_id?: StringWithAggregatesFilter | string
-    truck_id?: IntWithAggregatesFilter | number
+    truck_id?: IntNullableWithAggregatesFilter | number | null
   }
 
   export type trucksWhereInput = {
@@ -12205,8 +11172,8 @@ export namespace Prisma {
     weight?: DecimalFilter | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFilter | Date | string
     requirer_id?: StringFilter | string
-    parcel_id?: StringFilter | string
-    parcels?: XOR<ParcelsRelationFilter, parcelsWhereInput>
+    parcel_id?: StringNullableFilter | string | null
+    parcels?: XOR<ParcelsRelationFilter, parcelsWhereInput> | null
     users?: XOR<UsersRelationFilter, usersWhereInput>
   }
 
@@ -12249,7 +11216,7 @@ export namespace Prisma {
     weight?: DecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeWithAggregatesFilter | Date | string
     requirer_id?: StringWithAggregatesFilter | string
-    parcel_id?: StringWithAggregatesFilter | string
+    parcel_id?: StringNullableWithAggregatesFilter | string | null
   }
 
   export type parcelsWhereInput = {
@@ -12262,8 +11229,8 @@ export namespace Prisma {
     volume_weight?: FloatFilter | number
     admission_date?: DateTimeFilter | Date | string
     client_id?: StringFilter | string
-    shipment_id?: StringFilter | string
-    shipments?: XOR<ShipmentsRelationFilter, shipmentsWhereInput>
+    shipment_id?: StringNullableFilter | string | null
+    shipments?: XOR<ShipmentsRelationFilter, shipmentsWhereInput> | null
     client?: XOR<UsersRelationFilter, usersWhereInput>
     product?: ProductListRelationFilter
   }
@@ -12283,7 +11250,6 @@ export namespace Prisma {
 
   export type parcelsWhereUniqueInput = {
     id?: string
-    client_id?: string
     shipment_id?: string
   }
 
@@ -12312,7 +11278,7 @@ export namespace Prisma {
     volume_weight?: FloatWithAggregatesFilter | number
     admission_date?: DateTimeWithAggregatesFilter | Date | string
     client_id?: StringWithAggregatesFilter | string
-    shipment_id?: StringWithAggregatesFilter | string
+    shipment_id?: StringNullableWithAggregatesFilter | string | null
   }
 
   export type shipmentsWhereInput = {
@@ -12324,11 +11290,11 @@ export namespace Prisma {
     arrival_time?: DateTimeFilter | Date | string
     departure_time?: DateTimeFilter | Date | string
     weight?: DecimalFilter | Decimal | DecimalJsLike | number | string
-    truck_id?: IntNullableFilter | number | null
-    driver_id?: StringNullableFilter | string | null
-    destination_branch?: IntNullableFilter | number | null
-    departure_branch?: IntNullableFilter | number | null
-    parcel_id?: StringNullableFilter | string | null
+    truck_id?: IntFilter | number
+    driver_id?: StringFilter | string
+    destination_branch?: IntFilter | number
+    departure_branch?: IntFilter | number
+    parcel_id?: StringFilter | string
     truck?: XOR<TrucksRelationFilter, trucksWhereInput> | null
     drivers?: XOR<DriversRelationFilter, driversWhereInput> | null
     branch_destination?: XOR<BranchesRelationFilter, branchesWhereInput> | null
@@ -12390,11 +11356,11 @@ export namespace Prisma {
     arrival_time?: DateTimeWithAggregatesFilter | Date | string
     departure_time?: DateTimeWithAggregatesFilter | Date | string
     weight?: DecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
-    truck_id?: IntNullableWithAggregatesFilter | number | null
-    driver_id?: StringNullableWithAggregatesFilter | string | null
-    destination_branch?: IntNullableWithAggregatesFilter | number | null
-    departure_branch?: IntNullableWithAggregatesFilter | number | null
-    parcel_id?: StringNullableWithAggregatesFilter | string | null
+    truck_id?: IntWithAggregatesFilter | number
+    driver_id?: StringWithAggregatesFilter | string
+    destination_branch?: IntWithAggregatesFilter | number
+    departure_branch?: IntWithAggregatesFilter | number
+    parcel_id?: StringWithAggregatesFilter | string
   }
 
   export type citiesCreateInput = {
@@ -12558,8 +11524,7 @@ export namespace Prisma {
     password: string
     phone: string
     product?: productCreateNestedManyWithoutUsersInput
-    clients?: parcelsCreateNestedOneWithoutClientInput
-    managers?: managersCreateNestedOneWithoutUserInput
+    clients?: parcelsCreateNestedManyWithoutClientInput
     userTypes?: userTypesCreateNestedOneWithoutUsersInput
     branches?: branchesCreateNestedOneWithoutUsersInput
   }
@@ -12573,8 +11538,7 @@ export namespace Prisma {
     userType_id: number
     branch_id?: number | null
     product?: productUncheckedCreateNestedManyWithoutUsersInput
-    clients?: parcelsUncheckedCreateNestedOneWithoutClientInput
-    managers?: managersUncheckedCreateNestedOneWithoutUserInput
+    clients?: parcelsUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type usersUpdateInput = {
@@ -12584,8 +11548,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     product?: productUpdateManyWithoutUsersNestedInput
-    clients?: parcelsUpdateOneWithoutClientNestedInput
-    managers?: managersUpdateOneWithoutUserNestedInput
+    clients?: parcelsUpdateManyWithoutClientNestedInput
     userTypes?: userTypesUpdateOneWithoutUsersNestedInput
     branches?: branchesUpdateOneWithoutUsersNestedInput
   }
@@ -12599,8 +11562,7 @@ export namespace Prisma {
     userType_id?: IntFieldUpdateOperationsInput | number
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
     product?: productUncheckedUpdateManyWithoutUsersNestedInput
-    clients?: parcelsUncheckedUpdateOneWithoutClientNestedInput
-    managers?: managersUncheckedUpdateOneWithoutUserNestedInput
+    clients?: parcelsUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type usersCreateManyInput = {
@@ -12631,81 +11593,47 @@ export namespace Prisma {
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type managersCreateInput = {
-    isAdm: boolean
-    user: usersCreateNestedOneWithoutManagersInput
-  }
-
-  export type managersUncheckedCreateInput = {
-    user_id: string
-    isAdm: boolean
-  }
-
-  export type managersUpdateInput = {
-    isAdm?: BoolFieldUpdateOperationsInput | boolean
-    user?: usersUpdateOneRequiredWithoutManagersNestedInput
-  }
-
-  export type managersUncheckedUpdateInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
-    isAdm?: BoolFieldUpdateOperationsInput | boolean
-  }
-
-  export type managersCreateManyInput = {
-    user_id: string
-    isAdm: boolean
-  }
-
-  export type managersUpdateManyMutationInput = {
-    isAdm?: BoolFieldUpdateOperationsInput | boolean
-  }
-
-  export type managersUncheckedUpdateManyInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
-    isAdm?: BoolFieldUpdateOperationsInput | boolean
-  }
-
   export type driversCreateInput = {
     user_id: string
-    truck_id: number
+    truck_id?: number | null
     shipments?: shipmentsCreateNestedOneWithoutDriversInput
     trucks?: trucksCreateNestedManyWithoutDriverInput
   }
 
   export type driversUncheckedCreateInput = {
     user_id: string
-    truck_id: number
+    truck_id?: number | null
     shipments?: shipmentsUncheckedCreateNestedOneWithoutDriversInput
     trucks?: trucksUncheckedCreateNestedManyWithoutDriverInput
   }
 
   export type driversUpdateInput = {
     user_id?: StringFieldUpdateOperationsInput | string
-    truck_id?: IntFieldUpdateOperationsInput | number
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
     shipments?: shipmentsUpdateOneWithoutDriversNestedInput
     trucks?: trucksUpdateManyWithoutDriverNestedInput
   }
 
   export type driversUncheckedUpdateInput = {
     user_id?: StringFieldUpdateOperationsInput | string
-    truck_id?: IntFieldUpdateOperationsInput | number
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
     shipments?: shipmentsUncheckedUpdateOneWithoutDriversNestedInput
     trucks?: trucksUncheckedUpdateManyWithoutDriverNestedInput
   }
 
   export type driversCreateManyInput = {
     user_id: string
-    truck_id: number
+    truck_id?: number | null
   }
 
   export type driversUpdateManyMutationInput = {
     user_id?: StringFieldUpdateOperationsInput | string
-    truck_id?: IntFieldUpdateOperationsInput | number
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type driversUncheckedUpdateManyInput = {
     user_id?: StringFieldUpdateOperationsInput | string
-    truck_id?: IntFieldUpdateOperationsInput | number
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type trucksCreateInput = {
@@ -12781,7 +11709,7 @@ export namespace Prisma {
     name: string
     weight: Decimal | DecimalJsLike | number | string
     require_date: Date | string
-    parcels: parcelsCreateNestedOneWithoutProductInput
+    parcels?: parcelsCreateNestedOneWithoutProductInput
     users: usersCreateNestedOneWithoutProductInput
   }
 
@@ -12791,14 +11719,14 @@ export namespace Prisma {
     weight: Decimal | DecimalJsLike | number | string
     require_date: Date | string
     requirer_id: string
-    parcel_id: string
+    parcel_id?: string | null
   }
 
   export type productUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    parcels?: parcelsUpdateOneRequiredWithoutProductNestedInput
+    parcels?: parcelsUpdateOneWithoutProductNestedInput
     users?: usersUpdateOneRequiredWithoutProductNestedInput
   }
 
@@ -12808,7 +11736,7 @@ export namespace Prisma {
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFieldUpdateOperationsInput | Date | string
     requirer_id?: StringFieldUpdateOperationsInput | string
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type productCreateManyInput = {
@@ -12817,7 +11745,7 @@ export namespace Prisma {
     weight: Decimal | DecimalJsLike | number | string
     require_date: Date | string
     requirer_id: string
-    parcel_id: string
+    parcel_id?: string | null
   }
 
   export type productUpdateManyMutationInput = {
@@ -12832,7 +11760,7 @@ export namespace Prisma {
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFieldUpdateOperationsInput | Date | string
     requirer_id?: StringFieldUpdateOperationsInput | string
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type parcelsCreateInput = {
@@ -12841,7 +11769,7 @@ export namespace Prisma {
     content: string
     volume_weight: number
     admission_date: Date | string
-    shipments: shipmentsCreateNestedOneWithoutParcelsInput
+    shipments?: shipmentsCreateNestedOneWithoutParcelsInput
     client: usersCreateNestedOneWithoutClientsInput
     product?: productCreateNestedManyWithoutParcelsInput
   }
@@ -12853,7 +11781,7 @@ export namespace Prisma {
     volume_weight: number
     admission_date: Date | string
     client_id: string
-    shipment_id: string
+    shipment_id?: string | null
     product?: productUncheckedCreateNestedManyWithoutParcelsInput
   }
 
@@ -12863,7 +11791,7 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    shipments?: shipmentsUpdateOneRequiredWithoutParcelsNestedInput
+    shipments?: shipmentsUpdateOneWithoutParcelsNestedInput
     client?: usersUpdateOneRequiredWithoutClientsNestedInput
     product?: productUpdateManyWithoutParcelsNestedInput
   }
@@ -12875,7 +11803,7 @@ export namespace Prisma {
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
     client_id?: StringFieldUpdateOperationsInput | string
-    shipment_id?: StringFieldUpdateOperationsInput | string
+    shipment_id?: NullableStringFieldUpdateOperationsInput | string | null
     product?: productUncheckedUpdateManyWithoutParcelsNestedInput
   }
 
@@ -12886,7 +11814,7 @@ export namespace Prisma {
     volume_weight: number
     admission_date: Date | string
     client_id: string
-    shipment_id: string
+    shipment_id?: string | null
   }
 
   export type parcelsUpdateManyMutationInput = {
@@ -12904,7 +11832,7 @@ export namespace Prisma {
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
     client_id?: StringFieldUpdateOperationsInput | string
-    shipment_id?: StringFieldUpdateOperationsInput | string
+    shipment_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type shipmentsCreateInput = {
@@ -12913,7 +11841,7 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    parcel_id?: string | null
+    parcel_id: string
     truck?: trucksCreateNestedOneWithoutShipmentsInput
     drivers?: driversCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
@@ -12927,11 +11855,11 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    truck_id?: number | null
-    driver_id?: string | null
-    destination_branch?: number | null
-    departure_branch?: number | null
-    parcel_id?: string | null
+    truck_id: number
+    driver_id: string
+    destination_branch: number
+    departure_branch: number
+    parcel_id: string
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
@@ -12941,7 +11869,7 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    parcel_id?: StringFieldUpdateOperationsInput | string
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
     drivers?: driversUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
@@ -12955,11 +11883,11 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
-    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
-    destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
-    departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    truck_id?: IntFieldUpdateOperationsInput | number
+    driver_id?: StringFieldUpdateOperationsInput | string
+    destination_branch?: IntFieldUpdateOperationsInput | number
+    departure_branch?: IntFieldUpdateOperationsInput | number
+    parcel_id?: StringFieldUpdateOperationsInput | string
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
@@ -12969,11 +11897,11 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    truck_id?: number | null
-    driver_id?: string | null
-    destination_branch?: number | null
-    departure_branch?: number | null
-    parcel_id?: string | null
+    truck_id: number
+    driver_id: string
+    destination_branch: number
+    departure_branch: number
+    parcel_id: string
   }
 
   export type shipmentsUpdateManyMutationInput = {
@@ -12982,7 +11910,7 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    parcel_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type shipmentsUncheckedUpdateManyInput = {
@@ -12991,11 +11919,11 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
-    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
-    destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
-    departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    truck_id?: IntFieldUpdateOperationsInput | number
+    driver_id?: StringFieldUpdateOperationsInput | string
+    destination_branch?: IntFieldUpdateOperationsInput | number
+    departure_branch?: IntFieldUpdateOperationsInput | number
+    parcel_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type IntFilter = {
@@ -13206,14 +12134,10 @@ export namespace Prisma {
     none?: productWhereInput
   }
 
-  export type ParcelsRelationFilter = {
-    is?: parcelsWhereInput
-    isNot?: parcelsWhereInput
-  }
-
-  export type ManagersRelationFilter = {
-    is?: managersWhereInput | null
-    isNot?: managersWhereInput | null
+  export type ParcelsListRelationFilter = {
+    every?: parcelsWhereInput
+    some?: parcelsWhereInput
+    none?: parcelsWhereInput
   }
 
   export type UserTypesRelationFilter = {
@@ -13227,6 +12151,10 @@ export namespace Prisma {
   }
 
   export type productOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type parcelsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13286,39 +12214,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter
   }
 
-  export type BoolFilter = {
-    equals?: boolean
-    not?: NestedBoolFilter | boolean
-  }
-
-  export type UsersRelationFilter = {
-    is?: usersWhereInput
-    isNot?: usersWhereInput
-  }
-
-  export type managersCountOrderByAggregateInput = {
-    user_id?: SortOrder
-    isAdm?: SortOrder
-  }
-
-  export type managersMaxOrderByAggregateInput = {
-    user_id?: SortOrder
-    isAdm?: SortOrder
-  }
-
-  export type managersMinOrderByAggregateInput = {
-    user_id?: SortOrder
-    isAdm?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter = {
-    equals?: boolean
-    not?: NestedBoolWithAggregatesFilter | boolean
-    _count?: NestedIntFilter
-    _min?: NestedBoolFilter
-    _max?: NestedBoolFilter
-  }
-
   export type ShipmentsRelationFilter = {
     is?: shipmentsWhereInput | null
     isNot?: shipmentsWhereInput | null
@@ -13356,6 +12251,11 @@ export namespace Prisma {
     gt?: number
     gte?: number
     not?: NestedFloatFilter | number
+  }
+
+  export type BoolFilter = {
+    equals?: boolean
+    not?: NestedBoolFilter | boolean
   }
 
   export type StringNullableFilter = {
@@ -13436,6 +12336,14 @@ export namespace Prisma {
     _max?: NestedFloatFilter
   }
 
+  export type BoolWithAggregatesFilter = {
+    equals?: boolean
+    not?: NestedBoolWithAggregatesFilter | boolean
+    _count?: NestedIntFilter
+    _min?: NestedBoolFilter
+    _max?: NestedBoolFilter
+  }
+
   export type StringNullableWithAggregatesFilter = {
     equals?: string | null
     in?: Enumerable<string> | null
@@ -13474,6 +12382,16 @@ export namespace Prisma {
     gt?: Date | string
     gte?: Date | string
     not?: NestedDateTimeFilter | Date | string
+  }
+
+  export type ParcelsRelationFilter = {
+    is?: parcelsWhereInput | null
+    isNot?: parcelsWhereInput | null
+  }
+
+  export type UsersRelationFilter = {
+    is?: usersWhereInput
+    isNot?: usersWhereInput
   }
 
   export type productCountOrderByAggregateInput = {
@@ -13584,16 +12502,6 @@ export namespace Prisma {
   export type TrucksRelationFilter = {
     is?: trucksWhereInput | null
     isNot?: trucksWhereInput | null
-  }
-
-  export type ParcelsListRelationFilter = {
-    every?: parcelsWhereInput
-    some?: parcelsWhereInput
-    none?: parcelsWhereInput
-  }
-
-  export type parcelsOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type shipmentsCountOrderByAggregateInput = {
@@ -13936,16 +12844,11 @@ export namespace Prisma {
     connect?: Enumerable<productWhereUniqueInput>
   }
 
-  export type parcelsCreateNestedOneWithoutClientInput = {
-    create?: XOR<parcelsCreateWithoutClientInput, parcelsUncheckedCreateWithoutClientInput>
-    connectOrCreate?: parcelsCreateOrConnectWithoutClientInput
-    connect?: parcelsWhereUniqueInput
-  }
-
-  export type managersCreateNestedOneWithoutUserInput = {
-    create?: XOR<managersCreateWithoutUserInput, managersUncheckedCreateWithoutUserInput>
-    connectOrCreate?: managersCreateOrConnectWithoutUserInput
-    connect?: managersWhereUniqueInput
+  export type parcelsCreateNestedManyWithoutClientInput = {
+    create?: XOR<Enumerable<parcelsCreateWithoutClientInput>, Enumerable<parcelsUncheckedCreateWithoutClientInput>>
+    connectOrCreate?: Enumerable<parcelsCreateOrConnectWithoutClientInput>
+    createMany?: parcelsCreateManyClientInputEnvelope
+    connect?: Enumerable<parcelsWhereUniqueInput>
   }
 
   export type userTypesCreateNestedOneWithoutUsersInput = {
@@ -13967,16 +12870,11 @@ export namespace Prisma {
     connect?: Enumerable<productWhereUniqueInput>
   }
 
-  export type parcelsUncheckedCreateNestedOneWithoutClientInput = {
-    create?: XOR<parcelsCreateWithoutClientInput, parcelsUncheckedCreateWithoutClientInput>
-    connectOrCreate?: parcelsCreateOrConnectWithoutClientInput
-    connect?: parcelsWhereUniqueInput
-  }
-
-  export type managersUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<managersCreateWithoutUserInput, managersUncheckedCreateWithoutUserInput>
-    connectOrCreate?: managersCreateOrConnectWithoutUserInput
-    connect?: managersWhereUniqueInput
+  export type parcelsUncheckedCreateNestedManyWithoutClientInput = {
+    create?: XOR<Enumerable<parcelsCreateWithoutClientInput>, Enumerable<parcelsUncheckedCreateWithoutClientInput>>
+    connectOrCreate?: Enumerable<parcelsCreateOrConnectWithoutClientInput>
+    createMany?: parcelsCreateManyClientInputEnvelope
+    connect?: Enumerable<parcelsWhereUniqueInput>
   }
 
   export type productUpdateManyWithoutUsersNestedInput = {
@@ -13993,24 +12891,18 @@ export namespace Prisma {
     deleteMany?: Enumerable<productScalarWhereInput>
   }
 
-  export type parcelsUpdateOneWithoutClientNestedInput = {
-    create?: XOR<parcelsCreateWithoutClientInput, parcelsUncheckedCreateWithoutClientInput>
-    connectOrCreate?: parcelsCreateOrConnectWithoutClientInput
-    upsert?: parcelsUpsertWithoutClientInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: parcelsWhereUniqueInput
-    update?: XOR<parcelsUpdateWithoutClientInput, parcelsUncheckedUpdateWithoutClientInput>
-  }
-
-  export type managersUpdateOneWithoutUserNestedInput = {
-    create?: XOR<managersCreateWithoutUserInput, managersUncheckedCreateWithoutUserInput>
-    connectOrCreate?: managersCreateOrConnectWithoutUserInput
-    upsert?: managersUpsertWithoutUserInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: managersWhereUniqueInput
-    update?: XOR<managersUpdateWithoutUserInput, managersUncheckedUpdateWithoutUserInput>
+  export type parcelsUpdateManyWithoutClientNestedInput = {
+    create?: XOR<Enumerable<parcelsCreateWithoutClientInput>, Enumerable<parcelsUncheckedCreateWithoutClientInput>>
+    connectOrCreate?: Enumerable<parcelsCreateOrConnectWithoutClientInput>
+    upsert?: Enumerable<parcelsUpsertWithWhereUniqueWithoutClientInput>
+    createMany?: parcelsCreateManyClientInputEnvelope
+    set?: Enumerable<parcelsWhereUniqueInput>
+    disconnect?: Enumerable<parcelsWhereUniqueInput>
+    delete?: Enumerable<parcelsWhereUniqueInput>
+    connect?: Enumerable<parcelsWhereUniqueInput>
+    update?: Enumerable<parcelsUpdateWithWhereUniqueWithoutClientInput>
+    updateMany?: Enumerable<parcelsUpdateManyWithWhereWithoutClientInput>
+    deleteMany?: Enumerable<parcelsScalarWhereInput>
   }
 
   export type userTypesUpdateOneWithoutUsersNestedInput = {
@@ -14055,42 +12947,18 @@ export namespace Prisma {
     deleteMany?: Enumerable<productScalarWhereInput>
   }
 
-  export type parcelsUncheckedUpdateOneWithoutClientNestedInput = {
-    create?: XOR<parcelsCreateWithoutClientInput, parcelsUncheckedCreateWithoutClientInput>
-    connectOrCreate?: parcelsCreateOrConnectWithoutClientInput
-    upsert?: parcelsUpsertWithoutClientInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: parcelsWhereUniqueInput
-    update?: XOR<parcelsUpdateWithoutClientInput, parcelsUncheckedUpdateWithoutClientInput>
-  }
-
-  export type managersUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<managersCreateWithoutUserInput, managersUncheckedCreateWithoutUserInput>
-    connectOrCreate?: managersCreateOrConnectWithoutUserInput
-    upsert?: managersUpsertWithoutUserInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: managersWhereUniqueInput
-    update?: XOR<managersUpdateWithoutUserInput, managersUncheckedUpdateWithoutUserInput>
-  }
-
-  export type usersCreateNestedOneWithoutManagersInput = {
-    create?: XOR<usersCreateWithoutManagersInput, usersUncheckedCreateWithoutManagersInput>
-    connectOrCreate?: usersCreateOrConnectWithoutManagersInput
-    connect?: usersWhereUniqueInput
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
-  export type usersUpdateOneRequiredWithoutManagersNestedInput = {
-    create?: XOR<usersCreateWithoutManagersInput, usersUncheckedCreateWithoutManagersInput>
-    connectOrCreate?: usersCreateOrConnectWithoutManagersInput
-    upsert?: usersUpsertWithoutManagersInput
-    connect?: usersWhereUniqueInput
-    update?: XOR<usersUpdateWithoutManagersInput, usersUncheckedUpdateWithoutManagersInput>
+  export type parcelsUncheckedUpdateManyWithoutClientNestedInput = {
+    create?: XOR<Enumerable<parcelsCreateWithoutClientInput>, Enumerable<parcelsUncheckedCreateWithoutClientInput>>
+    connectOrCreate?: Enumerable<parcelsCreateOrConnectWithoutClientInput>
+    upsert?: Enumerable<parcelsUpsertWithWhereUniqueWithoutClientInput>
+    createMany?: parcelsCreateManyClientInputEnvelope
+    set?: Enumerable<parcelsWhereUniqueInput>
+    disconnect?: Enumerable<parcelsWhereUniqueInput>
+    delete?: Enumerable<parcelsWhereUniqueInput>
+    connect?: Enumerable<parcelsWhereUniqueInput>
+    update?: Enumerable<parcelsUpdateWithWhereUniqueWithoutClientInput>
+    updateMany?: Enumerable<parcelsUpdateManyWithWhereWithoutClientInput>
+    deleteMany?: Enumerable<parcelsScalarWhereInput>
   }
 
   export type shipmentsCreateNestedOneWithoutDriversInput = {
@@ -14199,6 +13067,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type shipmentsUpdateOneWithoutTruckNestedInput = {
     create?: XOR<shipmentsCreateWithoutTruckInput, shipmentsUncheckedCreateWithoutTruckInput>
     connectOrCreate?: shipmentsCreateOrConnectWithoutTruckInput
@@ -14267,10 +13139,12 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type parcelsUpdateOneRequiredWithoutProductNestedInput = {
+  export type parcelsUpdateOneWithoutProductNestedInput = {
     create?: XOR<parcelsCreateWithoutProductInput, parcelsUncheckedCreateWithoutProductInput>
     connectOrCreate?: parcelsCreateOrConnectWithoutProductInput
     upsert?: parcelsUpsertWithoutProductInput
+    disconnect?: boolean
+    delete?: boolean
     connect?: parcelsWhereUniqueInput
     update?: XOR<parcelsUpdateWithoutProductInput, parcelsUncheckedUpdateWithoutProductInput>
   }
@@ -14309,10 +13183,12 @@ export namespace Prisma {
     connect?: Enumerable<productWhereUniqueInput>
   }
 
-  export type shipmentsUpdateOneRequiredWithoutParcelsNestedInput = {
+  export type shipmentsUpdateOneWithoutParcelsNestedInput = {
     create?: XOR<shipmentsCreateWithoutParcelsInput, shipmentsUncheckedCreateWithoutParcelsInput>
     connectOrCreate?: shipmentsCreateOrConnectWithoutParcelsInput
     upsert?: shipmentsUpsertWithoutParcelsInput
+    disconnect?: boolean
+    delete?: boolean
     connect?: shipmentsWhereUniqueInput
     update?: XOR<shipmentsUpdateWithoutParcelsInput, shipmentsUncheckedUpdateWithoutParcelsInput>
   }
@@ -14571,14 +13447,6 @@ export namespace Prisma {
     not?: NestedBoolFilter | boolean
   }
 
-  export type NestedBoolWithAggregatesFilter = {
-    equals?: boolean
-    not?: NestedBoolWithAggregatesFilter | boolean
-    _count?: NestedIntFilter
-    _min?: NestedBoolFilter
-    _max?: NestedBoolFilter
-  }
-
   export type NestedStringNullableFilter = {
     equals?: string | null
     in?: Enumerable<string> | null
@@ -14607,6 +13475,14 @@ export namespace Prisma {
     _sum?: NestedFloatFilter
     _min?: NestedFloatFilter
     _max?: NestedFloatFilter
+  }
+
+  export type NestedBoolWithAggregatesFilter = {
+    equals?: boolean
+    not?: NestedBoolWithAggregatesFilter | boolean
+    _count?: NestedIntFilter
+    _min?: NestedBoolFilter
+    _max?: NestedBoolFilter
   }
 
   export type NestedStringNullableWithAggregatesFilter = {
@@ -14746,8 +13622,7 @@ export namespace Prisma {
     password: string
     phone: string
     product?: productCreateNestedManyWithoutUsersInput
-    clients?: parcelsCreateNestedOneWithoutClientInput
-    managers?: managersCreateNestedOneWithoutUserInput
+    clients?: parcelsCreateNestedManyWithoutClientInput
     userTypes?: userTypesCreateNestedOneWithoutUsersInput
   }
 
@@ -14759,8 +13634,7 @@ export namespace Prisma {
     phone: string
     userType_id: number
     product?: productUncheckedCreateNestedManyWithoutUsersInput
-    clients?: parcelsUncheckedCreateNestedOneWithoutClientInput
-    managers?: managersUncheckedCreateNestedOneWithoutUserInput
+    clients?: parcelsUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type usersCreateOrConnectWithoutBranchesInput = {
@@ -14808,7 +13682,7 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    parcel_id?: string | null
+    parcel_id: string
     truck?: trucksCreateNestedOneWithoutShipmentsInput
     drivers?: driversCreateNestedOneWithoutShipmentsInput
     branch_departure?: branchesCreateNestedOneWithoutShipments_departureInput
@@ -14821,10 +13695,10 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    truck_id?: number | null
-    driver_id?: string | null
-    departure_branch?: number | null
-    parcel_id?: string | null
+    truck_id: number
+    driver_id: string
+    departure_branch: number
+    parcel_id: string
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
@@ -14844,7 +13718,7 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    parcel_id?: string | null
+    parcel_id: string
     truck?: trucksCreateNestedOneWithoutShipmentsInput
     drivers?: driversCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
@@ -14857,10 +13731,10 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    truck_id?: number | null
-    driver_id?: string | null
-    destination_branch?: number | null
-    parcel_id?: string | null
+    truck_id: number
+    driver_id: string
+    destination_branch: number
+    parcel_id: string
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
@@ -14973,11 +13847,11 @@ export namespace Prisma {
     arrival_time?: DateTimeFilter | Date | string
     departure_time?: DateTimeFilter | Date | string
     weight?: DecimalFilter | Decimal | DecimalJsLike | number | string
-    truck_id?: IntNullableFilter | number | null
-    driver_id?: StringNullableFilter | string | null
-    destination_branch?: IntNullableFilter | number | null
-    departure_branch?: IntNullableFilter | number | null
-    parcel_id?: StringNullableFilter | string | null
+    truck_id?: IntFilter | number
+    driver_id?: StringFilter | string
+    destination_branch?: IntFilter | number
+    departure_branch?: IntFilter | number
+    parcel_id?: StringFilter | string
   }
 
   export type shipmentsUpsertWithWhereUniqueWithoutBranch_departureInput = {
@@ -15019,8 +13893,7 @@ export namespace Prisma {
     password: string
     phone: string
     product?: productCreateNestedManyWithoutUsersInput
-    clients?: parcelsCreateNestedOneWithoutClientInput
-    managers?: managersCreateNestedOneWithoutUserInput
+    clients?: parcelsCreateNestedManyWithoutClientInput
     branches?: branchesCreateNestedOneWithoutUsersInput
   }
 
@@ -15032,8 +13905,7 @@ export namespace Prisma {
     phone: string
     branch_id?: number | null
     product?: productUncheckedCreateNestedManyWithoutUsersInput
-    clients?: parcelsUncheckedCreateNestedOneWithoutClientInput
-    managers?: managersUncheckedCreateNestedOneWithoutUserInput
+    clients?: parcelsUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type usersCreateOrConnectWithoutUserTypesInput = {
@@ -15066,7 +13938,7 @@ export namespace Prisma {
     name: string
     weight: Decimal | DecimalJsLike | number | string
     require_date: Date | string
-    parcels: parcelsCreateNestedOneWithoutProductInput
+    parcels?: parcelsCreateNestedOneWithoutProductInput
   }
 
   export type productUncheckedCreateWithoutUsersInput = {
@@ -15074,7 +13946,7 @@ export namespace Prisma {
     name: string
     weight: Decimal | DecimalJsLike | number | string
     require_date: Date | string
-    parcel_id: string
+    parcel_id?: string | null
   }
 
   export type productCreateOrConnectWithoutUsersInput = {
@@ -15093,7 +13965,7 @@ export namespace Prisma {
     content: string
     volume_weight: number
     admission_date: Date | string
-    shipments: shipmentsCreateNestedOneWithoutParcelsInput
+    shipments?: shipmentsCreateNestedOneWithoutParcelsInput
     product?: productCreateNestedManyWithoutParcelsInput
   }
 
@@ -15103,7 +13975,7 @@ export namespace Prisma {
     content: string
     volume_weight: number
     admission_date: Date | string
-    shipment_id: string
+    shipment_id?: string | null
     product?: productUncheckedCreateNestedManyWithoutParcelsInput
   }
 
@@ -15112,17 +13984,9 @@ export namespace Prisma {
     create: XOR<parcelsCreateWithoutClientInput, parcelsUncheckedCreateWithoutClientInput>
   }
 
-  export type managersCreateWithoutUserInput = {
-    isAdm: boolean
-  }
-
-  export type managersUncheckedCreateWithoutUserInput = {
-    isAdm: boolean
-  }
-
-  export type managersCreateOrConnectWithoutUserInput = {
-    where: managersWhereUniqueInput
-    create: XOR<managersCreateWithoutUserInput, managersUncheckedCreateWithoutUserInput>
+  export type parcelsCreateManyClientInputEnvelope = {
+    data: Enumerable<parcelsCreateManyClientInput>
+    skipDuplicates?: boolean
   }
 
   export type userTypesCreateWithoutUsersInput = {
@@ -15192,45 +14056,36 @@ export namespace Prisma {
     weight?: DecimalFilter | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFilter | Date | string
     requirer_id?: StringFilter | string
-    parcel_id?: StringFilter | string
+    parcel_id?: StringNullableFilter | string | null
   }
 
-  export type parcelsUpsertWithoutClientInput = {
+  export type parcelsUpsertWithWhereUniqueWithoutClientInput = {
+    where: parcelsWhereUniqueInput
     update: XOR<parcelsUpdateWithoutClientInput, parcelsUncheckedUpdateWithoutClientInput>
     create: XOR<parcelsCreateWithoutClientInput, parcelsUncheckedCreateWithoutClientInput>
   }
 
-  export type parcelsUpdateWithoutClientInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    volume_weight?: FloatFieldUpdateOperationsInput | number
-    admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    shipments?: shipmentsUpdateOneRequiredWithoutParcelsNestedInput
-    product?: productUpdateManyWithoutParcelsNestedInput
+  export type parcelsUpdateWithWhereUniqueWithoutClientInput = {
+    where: parcelsWhereUniqueInput
+    data: XOR<parcelsUpdateWithoutClientInput, parcelsUncheckedUpdateWithoutClientInput>
   }
 
-  export type parcelsUncheckedUpdateWithoutClientInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    volume_weight?: FloatFieldUpdateOperationsInput | number
-    admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    shipment_id?: StringFieldUpdateOperationsInput | string
-    product?: productUncheckedUpdateManyWithoutParcelsNestedInput
+  export type parcelsUpdateManyWithWhereWithoutClientInput = {
+    where: parcelsScalarWhereInput
+    data: XOR<parcelsUpdateManyMutationInput, parcelsUncheckedUpdateManyWithoutClientsInput>
   }
 
-  export type managersUpsertWithoutUserInput = {
-    update: XOR<managersUpdateWithoutUserInput, managersUncheckedUpdateWithoutUserInput>
-    create: XOR<managersCreateWithoutUserInput, managersUncheckedCreateWithoutUserInput>
-  }
-
-  export type managersUpdateWithoutUserInput = {
-    isAdm?: BoolFieldUpdateOperationsInput | boolean
-  }
-
-  export type managersUncheckedUpdateWithoutUserInput = {
-    isAdm?: BoolFieldUpdateOperationsInput | boolean
+  export type parcelsScalarWhereInput = {
+    AND?: Enumerable<parcelsScalarWhereInput>
+    OR?: Enumerable<parcelsScalarWhereInput>
+    NOT?: Enumerable<parcelsScalarWhereInput>
+    id?: StringFilter | string
+    name?: StringFilter | string
+    content?: StringFilter | string
+    volume_weight?: FloatFilter | number
+    admission_date?: DateTimeFilter | Date | string
+    client_id?: StringFilter | string
+    shipment_id?: StringNullableFilter | string | null
   }
 
   export type userTypesUpsertWithoutUsersInput = {
@@ -15275,71 +14130,13 @@ export namespace Prisma {
     shipments_departure?: shipmentsUncheckedUpdateManyWithoutBranch_departureNestedInput
   }
 
-  export type usersCreateWithoutManagersInput = {
-    id: string
-    name: string
-    email: string
-    password: string
-    phone: string
-    product?: productCreateNestedManyWithoutUsersInput
-    clients?: parcelsCreateNestedOneWithoutClientInput
-    userTypes?: userTypesCreateNestedOneWithoutUsersInput
-    branches?: branchesCreateNestedOneWithoutUsersInput
-  }
-
-  export type usersUncheckedCreateWithoutManagersInput = {
-    id: string
-    name: string
-    email: string
-    password: string
-    phone: string
-    userType_id: number
-    branch_id?: number | null
-    product?: productUncheckedCreateNestedManyWithoutUsersInput
-    clients?: parcelsUncheckedCreateNestedOneWithoutClientInput
-  }
-
-  export type usersCreateOrConnectWithoutManagersInput = {
-    where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutManagersInput, usersUncheckedCreateWithoutManagersInput>
-  }
-
-  export type usersUpsertWithoutManagersInput = {
-    update: XOR<usersUpdateWithoutManagersInput, usersUncheckedUpdateWithoutManagersInput>
-    create: XOR<usersCreateWithoutManagersInput, usersUncheckedCreateWithoutManagersInput>
-  }
-
-  export type usersUpdateWithoutManagersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    product?: productUpdateManyWithoutUsersNestedInput
-    clients?: parcelsUpdateOneWithoutClientNestedInput
-    userTypes?: userTypesUpdateOneWithoutUsersNestedInput
-    branches?: branchesUpdateOneWithoutUsersNestedInput
-  }
-
-  export type usersUncheckedUpdateWithoutManagersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    userType_id?: IntFieldUpdateOperationsInput | number
-    branch_id?: NullableIntFieldUpdateOperationsInput | number | null
-    product?: productUncheckedUpdateManyWithoutUsersNestedInput
-    clients?: parcelsUncheckedUpdateOneWithoutClientNestedInput
-  }
-
   export type shipmentsCreateWithoutDriversInput = {
     id: string
     status: number
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    parcel_id?: string | null
+    parcel_id: string
     truck?: trucksCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
     branch_departure?: branchesCreateNestedOneWithoutShipments_departureInput
@@ -15352,10 +14149,10 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    truck_id?: number | null
-    destination_branch?: number | null
-    departure_branch?: number | null
-    parcel_id?: string | null
+    truck_id: number
+    destination_branch: number
+    departure_branch: number
+    parcel_id: string
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
@@ -15404,7 +14201,7 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    parcel_id?: StringFieldUpdateOperationsInput | string
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
     branch_departure?: branchesUpdateOneWithoutShipments_departureNestedInput
@@ -15417,10 +14214,10 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
-    destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
-    departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    truck_id?: IntFieldUpdateOperationsInput | number
+    destination_branch?: IntFieldUpdateOperationsInput | number
+    departure_branch?: IntFieldUpdateOperationsInput | number
+    parcel_id?: StringFieldUpdateOperationsInput | string
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
@@ -15446,7 +14243,7 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    parcel_id?: string | null
+    parcel_id: string
     drivers?: driversCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
     branch_departure?: branchesCreateNestedOneWithoutShipments_departureInput
@@ -15459,10 +14256,10 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    driver_id?: string | null
-    destination_branch?: number | null
-    departure_branch?: number | null
-    parcel_id?: string | null
+    driver_id: string
+    destination_branch: number
+    departure_branch: number
+    parcel_id: string
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
@@ -15473,13 +14270,13 @@ export namespace Prisma {
 
   export type driversCreateWithoutTrucksInput = {
     user_id: string
-    truck_id: number
+    truck_id?: number | null
     shipments?: shipmentsCreateNestedOneWithoutDriversInput
   }
 
   export type driversUncheckedCreateWithoutTrucksInput = {
     user_id: string
-    truck_id: number
+    truck_id?: number | null
     shipments?: shipmentsUncheckedCreateNestedOneWithoutDriversInput
   }
 
@@ -15527,7 +14324,7 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    parcel_id?: StringFieldUpdateOperationsInput | string
     drivers?: driversUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
     branch_departure?: branchesUpdateOneWithoutShipments_departureNestedInput
@@ -15540,10 +14337,10 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
-    destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
-    departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    driver_id?: StringFieldUpdateOperationsInput | string
+    destination_branch?: IntFieldUpdateOperationsInput | number
+    departure_branch?: IntFieldUpdateOperationsInput | number
+    parcel_id?: StringFieldUpdateOperationsInput | string
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
@@ -15554,13 +14351,13 @@ export namespace Prisma {
 
   export type driversUpdateWithoutTrucksInput = {
     user_id?: StringFieldUpdateOperationsInput | string
-    truck_id?: IntFieldUpdateOperationsInput | number
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
     shipments?: shipmentsUpdateOneWithoutDriversNestedInput
   }
 
   export type driversUncheckedUpdateWithoutTrucksInput = {
     user_id?: StringFieldUpdateOperationsInput | string
-    truck_id?: IntFieldUpdateOperationsInput | number
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
     shipments?: shipmentsUncheckedUpdateOneWithoutDriversNestedInput
   }
 
@@ -15598,7 +14395,7 @@ export namespace Prisma {
     content: string
     volume_weight: number
     admission_date: Date | string
-    shipments: shipmentsCreateNestedOneWithoutParcelsInput
+    shipments?: shipmentsCreateNestedOneWithoutParcelsInput
     client: usersCreateNestedOneWithoutClientsInput
   }
 
@@ -15609,7 +14406,7 @@ export namespace Prisma {
     volume_weight: number
     admission_date: Date | string
     client_id: string
-    shipment_id: string
+    shipment_id?: string | null
   }
 
   export type parcelsCreateOrConnectWithoutProductInput = {
@@ -15623,8 +14420,7 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
-    clients?: parcelsCreateNestedOneWithoutClientInput
-    managers?: managersCreateNestedOneWithoutUserInput
+    clients?: parcelsCreateNestedManyWithoutClientInput
     userTypes?: userTypesCreateNestedOneWithoutUsersInput
     branches?: branchesCreateNestedOneWithoutUsersInput
   }
@@ -15637,8 +14433,7 @@ export namespace Prisma {
     phone: string
     userType_id: number
     branch_id?: number | null
-    clients?: parcelsUncheckedCreateNestedOneWithoutClientInput
-    managers?: managersUncheckedCreateNestedOneWithoutUserInput
+    clients?: parcelsUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type usersCreateOrConnectWithoutProductInput = {
@@ -15657,7 +14452,7 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    shipments?: shipmentsUpdateOneRequiredWithoutParcelsNestedInput
+    shipments?: shipmentsUpdateOneWithoutParcelsNestedInput
     client?: usersUpdateOneRequiredWithoutClientsNestedInput
   }
 
@@ -15668,7 +14463,7 @@ export namespace Prisma {
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
     client_id?: StringFieldUpdateOperationsInput | string
-    shipment_id?: StringFieldUpdateOperationsInput | string
+    shipment_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type usersUpsertWithoutProductInput = {
@@ -15682,8 +14477,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    clients?: parcelsUpdateOneWithoutClientNestedInput
-    managers?: managersUpdateOneWithoutUserNestedInput
+    clients?: parcelsUpdateManyWithoutClientNestedInput
     userTypes?: userTypesUpdateOneWithoutUsersNestedInput
     branches?: branchesUpdateOneWithoutUsersNestedInput
   }
@@ -15696,8 +14490,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     userType_id?: IntFieldUpdateOperationsInput | number
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
-    clients?: parcelsUncheckedUpdateOneWithoutClientNestedInput
-    managers?: managersUncheckedUpdateOneWithoutUserNestedInput
+    clients?: parcelsUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type shipmentsCreateWithoutParcelsInput = {
@@ -15706,7 +14499,7 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    parcel_id?: string | null
+    parcel_id: string
     truck?: trucksCreateNestedOneWithoutShipmentsInput
     drivers?: driversCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
@@ -15719,11 +14512,11 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    truck_id?: number | null
-    driver_id?: string | null
-    destination_branch?: number | null
-    departure_branch?: number | null
-    parcel_id?: string | null
+    truck_id: number
+    driver_id: string
+    destination_branch: number
+    departure_branch: number
+    parcel_id: string
   }
 
   export type shipmentsCreateOrConnectWithoutParcelsInput = {
@@ -15738,7 +14531,6 @@ export namespace Prisma {
     password: string
     phone: string
     product?: productCreateNestedManyWithoutUsersInput
-    managers?: managersCreateNestedOneWithoutUserInput
     userTypes?: userTypesCreateNestedOneWithoutUsersInput
     branches?: branchesCreateNestedOneWithoutUsersInput
   }
@@ -15752,7 +14544,6 @@ export namespace Prisma {
     userType_id: number
     branch_id?: number | null
     product?: productUncheckedCreateNestedManyWithoutUsersInput
-    managers?: managersUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutClientsInput = {
@@ -15796,7 +14587,7 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    parcel_id?: StringFieldUpdateOperationsInput | string
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
     drivers?: driversUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
@@ -15809,11 +14600,11 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
-    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
-    destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
-    departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    truck_id?: IntFieldUpdateOperationsInput | number
+    driver_id?: StringFieldUpdateOperationsInput | string
+    destination_branch?: IntFieldUpdateOperationsInput | number
+    departure_branch?: IntFieldUpdateOperationsInput | number
+    parcel_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type usersUpsertWithoutClientsInput = {
@@ -15828,7 +14619,6 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     product?: productUpdateManyWithoutUsersNestedInput
-    managers?: managersUpdateOneWithoutUserNestedInput
     userTypes?: userTypesUpdateOneWithoutUsersNestedInput
     branches?: branchesUpdateOneWithoutUsersNestedInput
   }
@@ -15842,7 +14632,6 @@ export namespace Prisma {
     userType_id?: IntFieldUpdateOperationsInput | number
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
     product?: productUncheckedUpdateManyWithoutUsersNestedInput
-    managers?: managersUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type productUpsertWithWhereUniqueWithoutParcelsInput = {
@@ -15887,13 +14676,13 @@ export namespace Prisma {
 
   export type driversCreateWithoutShipmentsInput = {
     user_id: string
-    truck_id: number
+    truck_id?: number | null
     trucks?: trucksCreateNestedManyWithoutDriverInput
   }
 
   export type driversUncheckedCreateWithoutShipmentsInput = {
     user_id: string
-    truck_id: number
+    truck_id?: number | null
     trucks?: trucksUncheckedCreateNestedManyWithoutDriverInput
   }
 
@@ -16019,13 +14808,13 @@ export namespace Prisma {
 
   export type driversUpdateWithoutShipmentsInput = {
     user_id?: StringFieldUpdateOperationsInput | string
-    truck_id?: IntFieldUpdateOperationsInput | number
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
     trucks?: trucksUpdateManyWithoutDriverNestedInput
   }
 
   export type driversUncheckedUpdateWithoutShipmentsInput = {
     user_id?: StringFieldUpdateOperationsInput | string
-    truck_id?: IntFieldUpdateOperationsInput | number
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
     trucks?: trucksUncheckedUpdateManyWithoutDriverNestedInput
   }
 
@@ -16101,19 +14890,6 @@ export namespace Prisma {
     data: XOR<parcelsUpdateManyMutationInput, parcelsUncheckedUpdateManyWithoutParcelsInput>
   }
 
-  export type parcelsScalarWhereInput = {
-    AND?: Enumerable<parcelsScalarWhereInput>
-    OR?: Enumerable<parcelsScalarWhereInput>
-    NOT?: Enumerable<parcelsScalarWhereInput>
-    id?: StringFilter | string
-    name?: StringFilter | string
-    content?: StringFilter | string
-    volume_weight?: FloatFilter | number
-    admission_date?: DateTimeFilter | Date | string
-    client_id?: StringFilter | string
-    shipment_id?: StringFilter | string
-  }
-
   export type branchesCreateManyCityInput = {
     id?: number
     name: string
@@ -16177,10 +14953,10 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    truck_id?: number | null
-    driver_id?: string | null
-    departure_branch?: number | null
-    parcel_id?: string | null
+    truck_id: number
+    driver_id: string
+    departure_branch: number
+    parcel_id: string
   }
 
   export type shipmentsCreateManyBranch_departureInput = {
@@ -16189,10 +14965,10 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    truck_id?: number | null
-    driver_id?: string | null
-    destination_branch?: number | null
-    parcel_id?: string | null
+    truck_id: number
+    driver_id: string
+    destination_branch: number
+    parcel_id: string
   }
 
   export type usersUpdateWithoutBranchesInput = {
@@ -16202,8 +14978,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     product?: productUpdateManyWithoutUsersNestedInput
-    clients?: parcelsUpdateOneWithoutClientNestedInput
-    managers?: managersUpdateOneWithoutUserNestedInput
+    clients?: parcelsUpdateManyWithoutClientNestedInput
     userTypes?: userTypesUpdateOneWithoutUsersNestedInput
   }
 
@@ -16215,8 +14990,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     userType_id?: IntFieldUpdateOperationsInput | number
     product?: productUncheckedUpdateManyWithoutUsersNestedInput
-    clients?: parcelsUncheckedUpdateOneWithoutClientNestedInput
-    managers?: managersUncheckedUpdateOneWithoutUserNestedInput
+    clients?: parcelsUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type usersUncheckedUpdateManyWithoutUsersInput = {
@@ -16262,7 +15036,7 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    parcel_id?: StringFieldUpdateOperationsInput | string
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
     drivers?: driversUpdateOneWithoutShipmentsNestedInput
     branch_departure?: branchesUpdateOneWithoutShipments_departureNestedInput
@@ -16275,10 +15049,10 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
-    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
-    departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    truck_id?: IntFieldUpdateOperationsInput | number
+    driver_id?: StringFieldUpdateOperationsInput | string
+    departure_branch?: IntFieldUpdateOperationsInput | number
+    parcel_id?: StringFieldUpdateOperationsInput | string
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
@@ -16288,10 +15062,10 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
-    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
-    departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    truck_id?: IntFieldUpdateOperationsInput | number
+    driver_id?: StringFieldUpdateOperationsInput | string
+    departure_branch?: IntFieldUpdateOperationsInput | number
+    parcel_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type shipmentsUpdateWithoutBranch_departureInput = {
@@ -16300,7 +15074,7 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    parcel_id?: StringFieldUpdateOperationsInput | string
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
     drivers?: driversUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
@@ -16313,10 +15087,10 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
-    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
-    destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    truck_id?: IntFieldUpdateOperationsInput | number
+    driver_id?: StringFieldUpdateOperationsInput | string
+    destination_branch?: IntFieldUpdateOperationsInput | number
+    parcel_id?: StringFieldUpdateOperationsInput | string
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
@@ -16326,10 +15100,10 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
-    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
-    destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    truck_id?: IntFieldUpdateOperationsInput | number
+    driver_id?: StringFieldUpdateOperationsInput | string
+    destination_branch?: IntFieldUpdateOperationsInput | number
+    parcel_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type usersCreateManyUserTypesInput = {
@@ -16348,8 +15122,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     product?: productUpdateManyWithoutUsersNestedInput
-    clients?: parcelsUpdateOneWithoutClientNestedInput
-    managers?: managersUpdateOneWithoutUserNestedInput
+    clients?: parcelsUpdateManyWithoutClientNestedInput
     branches?: branchesUpdateOneWithoutUsersNestedInput
   }
 
@@ -16361,8 +15134,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
     product?: productUncheckedUpdateManyWithoutUsersNestedInput
-    clients?: parcelsUncheckedUpdateOneWithoutClientNestedInput
-    managers?: managersUncheckedUpdateOneWithoutUserNestedInput
+    clients?: parcelsUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type productCreateManyUsersInput = {
@@ -16370,14 +15142,23 @@ export namespace Prisma {
     name: string
     weight: Decimal | DecimalJsLike | number | string
     require_date: Date | string
-    parcel_id: string
+    parcel_id?: string | null
+  }
+
+  export type parcelsCreateManyClientInput = {
+    id: string
+    name: string
+    content: string
+    volume_weight: number
+    admission_date: Date | string
+    shipment_id?: string | null
   }
 
   export type productUpdateWithoutUsersInput = {
     name?: StringFieldUpdateOperationsInput | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    parcels?: parcelsUpdateOneRequiredWithoutProductNestedInput
+    parcels?: parcelsUpdateOneWithoutProductNestedInput
   }
 
   export type productUncheckedUpdateWithoutUsersInput = {
@@ -16385,7 +15166,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type productUncheckedUpdateManyWithoutProductInput = {
@@ -16393,7 +15174,36 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type parcelsUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    volume_weight?: FloatFieldUpdateOperationsInput | number
+    admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    shipments?: shipmentsUpdateOneWithoutParcelsNestedInput
+    product?: productUpdateManyWithoutParcelsNestedInput
+  }
+
+  export type parcelsUncheckedUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    volume_weight?: FloatFieldUpdateOperationsInput | number
+    admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    shipment_id?: NullableStringFieldUpdateOperationsInput | string | null
+    product?: productUncheckedUpdateManyWithoutParcelsNestedInput
+  }
+
+  export type parcelsUncheckedUpdateManyWithoutClientsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    volume_weight?: FloatFieldUpdateOperationsInput | number
+    admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    shipment_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type trucksCreateManyDriverInput = {

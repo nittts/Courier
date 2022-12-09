@@ -53,22 +53,14 @@ model users {
   branch_id   Int?        @unique
 
   product     product[]
-  clients     parcels?
-  managers    managers?
+  clients     parcels[]
   userTypes   userTypes? @relation(fields: [userType_id], references: [id])
   branches    branches?   @relation(fields: [branch_id], references: [id], onDelete: SetNull)
 }
 
-model managers {
-  user_id String  @id @unique @db.VarChar(36)
-  isAdm   Boolean
-
-  user    users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
-}
-
 model drivers {
   user_id   String      @unique
-  truck_id  Int
+  truck_id  Int?
 
   shipments shipments?
   trucks    trucks[]
@@ -94,9 +86,9 @@ model product {
   weight       Decimal   @db.Decimal()
   require_date DateTime  @db.Timestamp()
   requirer_id  String
-  parcel_id    String    @unique @db.VarChar(36) 
+  parcel_id    String?    @unique @db.VarChar(36) 
 
-  parcels      parcels   @relation(fields: [parcel_id], references: [id], onDelete: Cascade)
+  parcels      parcels?   @relation(fields: [parcel_id], references: [id], onDelete: Cascade)
   users        users     @relation(fields: [requirer_id], references: [id], onUpdate: Cascade)
 }
 
@@ -106,10 +98,10 @@ model parcels {
   content        String       @db.VarChar(256)
   volume_weight  Float        @db.DoublePrecision
   admission_date DateTime     @db.Timestamp()
-  client_id      String       @db.VarChar(36) @unique
-  shipment_id    String       @db.VarChar(36) @unique
+  client_id      String       @db.VarChar(36)
+  shipment_id    String?      @db.VarChar(36) @unique
 
-  shipments      shipments    @relation(fields: [shipment_id], references: [id], onDelete: Cascade) 
+  shipments      shipments?    @relation(fields: [shipment_id], references: [id]) 
   client         users        @relation(fields: [client_id], references: [id], onDelete: Cascade)
   product        product[]
 }
@@ -121,15 +113,15 @@ model shipments {
   departure_time     DateTime  @db.Timestamp()
   weight             Decimal   @db.Decimal()
 
-  truck_id           Int?      @unique
-  driver_id          String?   @unique
-  destination_branch Int?      @unique
-  departure_branch   Int?      @unique
-  parcel_id          String?   @unique
+  truck_id           Int       @unique
+  driver_id          String    @unique
+  destination_branch Int       @unique
+  departure_branch   Int       @unique
+  parcel_id          String    @unique
 
-  truck              trucks?   @relation(fields: [truck_id], references: [id], onDelete: SetNull)
-  drivers            drivers?  @relation(fields: [driver_id], references: [user_id], onDelete: SetNull)
-  branch_destination branches? @relation(name: "destination", fields: [destination_branch], references: [id], onDelete: SetNull)
-  branch_departure   branches? @relation(name: "departure", fields: [departure_branch], references: [id], onDelete: SetNull)
+  truck              trucks?   @relation(fields: [truck_id], references: [id] )
+  drivers            drivers?  @relation(fields: [driver_id], references: [user_id])
+  branch_destination branches? @relation(name: "destination", fields: [destination_branch], references: [id])
+  branch_departure   branches? @relation(name: "departure", fields: [departure_branch], references: [id])
   parcels            parcels[]
 }

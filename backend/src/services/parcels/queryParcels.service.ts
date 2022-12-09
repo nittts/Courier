@@ -12,7 +12,7 @@ const queryParcelsService = async (queries: IParcelQuerySearch) => {
 
     const res = await prisma.parcels.findMany({
       where: {
-        OR: [{ client_id: queries.client_id }, { shipment_id: queries.shipment_id }, { name: queries.name }],
+        OR: [{ shipment_id: queries.shipment_id }, { name: queries.name }, { client_id: queries.client_id }],
       },
     });
 

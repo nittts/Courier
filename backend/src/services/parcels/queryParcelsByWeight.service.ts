@@ -4,9 +4,16 @@ import { IParcelWeight } from "../../interfaces/Parcels/parcel.types";
 
 const queryParcelsByWeightService = async ({ max, min }: IParcelWeight) => {
   try {
+    if (isNaN(max)) {
+      max = Number.MAX_VALUE;
+    }
+    if (isNaN(min)) {
+      min = 0;
+    }
+
     const res = await prisma.parcels.findMany({
       where: {
-        OR: [{ volume_weight: { gt: min } }, { volume_weight: { lt: max } }],
+        AND: [{ volume_weight: { gt: min } }, { volume_weight: { lt: max } }],
       },
     });
 

@@ -109,11 +109,6 @@ exports.Prisma.DriversScalarFieldEnum = makeEnum({
   truck_id: 'truck_id'
 });
 
-exports.Prisma.ManagersScalarFieldEnum = makeEnum({
-  user_id: 'user_id',
-  isAdm: 'isAdm'
-});
-
 exports.Prisma.ParcelsScalarFieldEnum = makeEnum({
   id: 'id',
   name: 'name',
@@ -194,7 +189,6 @@ exports.Prisma.ModelName = makeEnum({
   branches: 'branches',
   userTypes: 'userTypes',
   users: 'users',
-  managers: 'managers',
   drivers: 'drivers',
   trucks: 'trucks',
   product: 'product',
