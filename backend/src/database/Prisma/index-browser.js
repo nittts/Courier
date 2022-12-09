@@ -172,7 +172,7 @@ exports.Prisma.TrucksScalarFieldEnum = makeEnum({
   branch_id: 'branch_id'
 });
 
-exports.Prisma.User_typesScalarFieldEnum = makeEnum({
+exports.Prisma.UserTypesScalarFieldEnum = makeEnum({
   id: 'id',
   type: 'type'
 });
@@ -191,7 +191,7 @@ exports.Prisma.UsersScalarFieldEnum = makeEnum({
 exports.Prisma.ModelName = makeEnum({
   cities: 'cities',
   branches: 'branches',
-  user_types: 'user_types',
+  userTypes: 'userTypes',
   users: 'users',
   managers: 'managers',
   drivers: 'drivers',

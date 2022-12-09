@@ -5,7 +5,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --exit-child --watch src ./src"
+    "prisma:seed": "yarn prisma generate && yarn prisma db seed ",
+    "prisma:deploy": "yarn prisma migrate deploy",
+    "dev": "ts-node-dev --exit-child --watch src ./src",
+    "server": "yarn prisma:deploy && yarn prisma:seed && yarn dev"
   },
   "dependencies": {
     "@prisma/client": "^4.7.1",
@@ -17,6 +20,9 @@
     "prisma": "^4.7.1",
     "tsc": "^2.0.4",
     "uuid": "^9.0.0"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

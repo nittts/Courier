@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
   output   = "../src/database/Prisma"
 }
 
@@ -35,7 +36,7 @@ model branches {
   city                  cities      @relation(fields: [city_id], references: [id])
 }
 
-model user_types {
+model userTypes {
   id   Int      @id @default(autoincrement())
   type String   @unique @db.VarChar(36)
 
@@ -54,7 +55,7 @@ model users {
   product     product[]
   clients     parcels?
   managers    managers?
-  userTypes   user_types? @relation(fields: [userType_id], references: [id])
+  userTypes   userTypes? @relation(fields: [userType_id], references: [id])
   branches    branches?   @relation(fields: [branch_id], references: [id], onDelete: SetNull)
 }
 

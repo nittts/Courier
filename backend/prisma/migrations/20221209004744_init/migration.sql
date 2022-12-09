@@ -2,6 +2,7 @@
 CREATE TABLE "cities" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(256) NOT NULL,
+    "postcode" VARCHAR(12) NOT NULL,
 
     CONSTRAINT "cities_pkey" PRIMARY KEY ("id")
 );
@@ -12,6 +13,8 @@ CREATE TABLE "branches" (
     "name" VARCHAR(256) NOT NULL,
     "address" VARCHAR(256) NOT NULL,
     "city_id" INTEGER NOT NULL,
+    "branch_lat" CHAR(21) NOT NULL,
+    "branch_long" CHAR(21) NOT NULL,
 
     CONSTRAINT "branches_pkey" PRIMARY KEY ("id")
 );
@@ -32,7 +35,7 @@ CREATE TABLE "users" (
     "password" VARCHAR(128) NOT NULL,
     "phone" VARCHAR(20) NOT NULL,
     "userType_id" INTEGER NOT NULL,
-    "branch_id" INTEGER NOT NULL,
+    "branch_id" INTEGER,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
@@ -58,7 +61,7 @@ CREATE TABLE "trucks" (
     "brand" VARCHAR(128) NOT NULL,
     "max_weight" DOUBLE PRECISION NOT NULL,
     "available" BOOLEAN NOT NULL,
-    "driver_id" TEXT NOT NULL,
+    "driver_id" TEXT,
     "branch_id" INTEGER NOT NULL,
 
     CONSTRAINT "trucks_pkey" PRIMARY KEY ("id")
@@ -93,13 +96,13 @@ CREATE TABLE "shipments" (
     "id" VARCHAR(36) NOT NULL,
     "status" INTEGER NOT NULL,
     "arrival_time" TIMESTAMP NOT NULL,
-    "departure_time" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "departure_time" TIMESTAMP NOT NULL,
     "weight" DECIMAL NOT NULL,
-    "truck_id" INTEGER NOT NULL,
-    "driver_id" TEXT NOT NULL,
-    "destination_branch" INTEGER NOT NULL,
-    "departure_branch" INTEGER NOT NULL,
-    "parcel_id" TEXT NOT NULL,
+    "truck_id" INTEGER,
+    "driver_id" TEXT,
+    "destination_branch" INTEGER,
+    "departure_branch" INTEGER,
+    "parcel_id" TEXT,
 
     CONSTRAINT "shipments_pkey" PRIMARY KEY ("id")
 );
@@ -159,37 +162,37 @@ ALTER TABLE "branches" ADD CONSTRAINT "branches_city_id_fkey" FOREIGN KEY ("city
 ALTER TABLE "users" ADD CONSTRAINT "users_userType_id_fkey" FOREIGN KEY ("userType_id") REFERENCES "userTypes"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "users" ADD CONSTRAINT "users_branch_id_fkey" FOREIGN KEY ("branch_id") REFERENCES "branches"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "users" ADD CONSTRAINT "users_branch_id_fkey" FOREIGN KEY ("branch_id") REFERENCES "branches"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "managers" ADD CONSTRAINT "managers_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "managers" ADD CONSTRAINT "managers_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "trucks" ADD CONSTRAINT "trucks_driver_id_fkey" FOREIGN KEY ("driver_id") REFERENCES "drivers"("user_id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "trucks" ADD CONSTRAINT "trucks_driver_id_fkey" FOREIGN KEY ("driver_id") REFERENCES "drivers"("user_id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "trucks" ADD CONSTRAINT "trucks_branch_id_fkey" FOREIGN KEY ("branch_id") REFERENCES "branches"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "trucks" ADD CONSTRAINT "trucks_branch_id_fkey" FOREIGN KEY ("branch_id") REFERENCES "branches"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "product" ADD CONSTRAINT "product_requirer_id_fkey" FOREIGN KEY ("requirer_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "parcels" ADD CONSTRAINT "parcels_client_id_fkey" FOREIGN KEY ("client_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "parcels" ADD CONSTRAINT "parcels_client_id_fkey" FOREIGN KEY ("client_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "parcels" ADD CONSTRAINT "parcels_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "shipments" ADD CONSTRAINT "shipments_truck_id_fkey" FOREIGN KEY ("truck_id") REFERENCES "trucks"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "shipments" ADD CONSTRAINT "shipments_truck_id_fkey" FOREIGN KEY ("truck_id") REFERENCES "trucks"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "shipments" ADD CONSTRAINT "shipments_driver_id_fkey" FOREIGN KEY ("driver_id") REFERENCES "drivers"("user_id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "shipments" ADD CONSTRAINT "shipments_driver_id_fkey" FOREIGN KEY ("driver_id") REFERENCES "drivers"("user_id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "shipments" ADD CONSTRAINT "shipments_destination_branch_fkey" FOREIGN KEY ("destination_branch") REFERENCES "branches"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "shipments" ADD CONSTRAINT "shipments_destination_branch_fkey" FOREIGN KEY ("destination_branch") REFERENCES "branches"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "shipments" ADD CONSTRAINT "shipments_departure_branch_fkey" FOREIGN KEY ("departure_branch") REFERENCES "branches"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "shipments" ADD CONSTRAINT "shipments_departure_branch_fkey" FOREIGN KEY ("departure_branch") REFERENCES "branches"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "shipments" ADD CONSTRAINT "shipments_parcel_id_fkey" FOREIGN KEY ("parcel_id") REFERENCES "parcels"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "shipments" ADD CONSTRAINT "shipments_parcel_id_fkey" FOREIGN KEY ("parcel_id") REFERENCES "parcels"("id") ON DELETE CASCADE ON UPDATE CASCADE;
