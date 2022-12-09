@@ -100,6 +100,7 @@ export type product = {
   weight: Prisma.Decimal
   require_date: Date
   requirer_id: string
+  parcel_id: string
 }
 
 /**
@@ -113,7 +114,7 @@ export type parcels = {
   volume_weight: number
   admission_date: Date
   client_id: string
-  product_id: number
+  shipment_id: string
 }
 
 /**
@@ -1229,6 +1230,94 @@ export namespace Prisma {
      * 
     **/
     select?: DriversCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type ParcelsCountOutputType
+   */
+
+
+  export type ParcelsCountOutputType = {
+    product: number
+  }
+
+  export type ParcelsCountOutputTypeSelect = {
+    product?: boolean
+  }
+
+  export type ParcelsCountOutputTypeGetPayload<S extends boolean | null | undefined | ParcelsCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? ParcelsCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (ParcelsCountOutputTypeArgs)
+    ? ParcelsCountOutputType 
+    : S extends { select: any } & (ParcelsCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof ParcelsCountOutputType ? ParcelsCountOutputType[P] : never
+  } 
+      : ParcelsCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * ParcelsCountOutputType without action
+   */
+  export type ParcelsCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the ParcelsCountOutputType
+     * 
+    **/
+    select?: ParcelsCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type ShipmentsCountOutputType
+   */
+
+
+  export type ShipmentsCountOutputType = {
+    parcels: number
+  }
+
+  export type ShipmentsCountOutputTypeSelect = {
+    parcels?: boolean
+  }
+
+  export type ShipmentsCountOutputTypeGetPayload<S extends boolean | null | undefined | ShipmentsCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? ShipmentsCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (ShipmentsCountOutputTypeArgs)
+    ? ShipmentsCountOutputType 
+    : S extends { select: any } & (ShipmentsCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof ShipmentsCountOutputType ? ShipmentsCountOutputType[P] : never
+  } 
+      : ShipmentsCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * ShipmentsCountOutputType without action
+   */
+  export type ShipmentsCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the ShipmentsCountOutputType
+     * 
+    **/
+    select?: ShipmentsCountOutputTypeSelect | null
   }
 
 
@@ -8440,6 +8529,7 @@ export namespace Prisma {
     weight: Decimal | null
     require_date: Date | null
     requirer_id: string | null
+    parcel_id: string | null
   }
 
   export type ProductMaxAggregateOutputType = {
@@ -8448,6 +8538,7 @@ export namespace Prisma {
     weight: Decimal | null
     require_date: Date | null
     requirer_id: string | null
+    parcel_id: string | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -8456,6 +8547,7 @@ export namespace Prisma {
     weight: number
     require_date: number
     requirer_id: number
+    parcel_id: number
     _all: number
   }
 
@@ -8476,6 +8568,7 @@ export namespace Prisma {
     weight?: true
     require_date?: true
     requirer_id?: true
+    parcel_id?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -8484,6 +8577,7 @@ export namespace Prisma {
     weight?: true
     require_date?: true
     requirer_id?: true
+    parcel_id?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -8492,6 +8586,7 @@ export namespace Prisma {
     weight?: true
     require_date?: true
     requirer_id?: true
+    parcel_id?: true
     _all?: true
   }
 
@@ -8593,6 +8688,7 @@ export namespace Prisma {
     weight: Decimal
     require_date: Date
     requirer_id: string
+    parcel_id: string
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -8620,6 +8716,7 @@ export namespace Prisma {
     weight?: boolean
     require_date?: boolean
     requirer_id?: boolean
+    parcel_id?: boolean
     parcels?: boolean | parcelsArgs
     users?: boolean | usersArgs
   }
@@ -8637,13 +8734,13 @@ export namespace Prisma {
     S extends { include: any } & (productArgs | productFindManyArgs)
     ? product  & {
     [P in TruthyKeys<S['include']>]:
-        P extends 'parcels' ? parcelsGetPayload<S['include'][P]> | null :
+        P extends 'parcels' ? parcelsGetPayload<S['include'][P]> :
         P extends 'users' ? usersGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (productArgs | productFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-        P extends 'parcels' ? parcelsGetPayload<S['select'][P]> | null :
+        P extends 'parcels' ? parcelsGetPayload<S['select'][P]> :
         P extends 'users' ? usersGetPayload<S['select'][P]> :  P extends keyof product ? product[P] : never
   } 
       : product
@@ -9458,12 +9555,10 @@ export namespace Prisma {
 
   export type ParcelsAvgAggregateOutputType = {
     volume_weight: number | null
-    product_id: number | null
   }
 
   export type ParcelsSumAggregateOutputType = {
     volume_weight: number | null
-    product_id: number | null
   }
 
   export type ParcelsMinAggregateOutputType = {
@@ -9473,7 +9568,7 @@ export namespace Prisma {
     volume_weight: number | null
     admission_date: Date | null
     client_id: string | null
-    product_id: number | null
+    shipment_id: string | null
   }
 
   export type ParcelsMaxAggregateOutputType = {
@@ -9483,7 +9578,7 @@ export namespace Prisma {
     volume_weight: number | null
     admission_date: Date | null
     client_id: string | null
-    product_id: number | null
+    shipment_id: string | null
   }
 
   export type ParcelsCountAggregateOutputType = {
@@ -9493,19 +9588,17 @@ export namespace Prisma {
     volume_weight: number
     admission_date: number
     client_id: number
-    product_id: number
+    shipment_id: number
     _all: number
   }
 
 
   export type ParcelsAvgAggregateInputType = {
     volume_weight?: true
-    product_id?: true
   }
 
   export type ParcelsSumAggregateInputType = {
     volume_weight?: true
-    product_id?: true
   }
 
   export type ParcelsMinAggregateInputType = {
@@ -9515,7 +9608,7 @@ export namespace Prisma {
     volume_weight?: true
     admission_date?: true
     client_id?: true
-    product_id?: true
+    shipment_id?: true
   }
 
   export type ParcelsMaxAggregateInputType = {
@@ -9525,7 +9618,7 @@ export namespace Prisma {
     volume_weight?: true
     admission_date?: true
     client_id?: true
-    product_id?: true
+    shipment_id?: true
   }
 
   export type ParcelsCountAggregateInputType = {
@@ -9535,7 +9628,7 @@ export namespace Prisma {
     volume_weight?: true
     admission_date?: true
     client_id?: true
-    product_id?: true
+    shipment_id?: true
     _all?: true
   }
 
@@ -9638,7 +9731,7 @@ export namespace Prisma {
     volume_weight: number
     admission_date: Date
     client_id: string
-    product_id: number
+    shipment_id: string
     _count: ParcelsCountAggregateOutputType | null
     _avg: ParcelsAvgAggregateOutputType | null
     _sum: ParcelsSumAggregateOutputType | null
@@ -9667,17 +9760,19 @@ export namespace Prisma {
     volume_weight?: boolean
     admission_date?: boolean
     client_id?: boolean
-    product_id?: boolean
+    shipment_id?: boolean
     shipments?: boolean | shipmentsArgs
     client?: boolean | usersArgs
-    product?: boolean | productArgs
+    product?: boolean | productFindManyArgs
+    _count?: boolean | ParcelsCountOutputTypeArgs
   }
 
 
   export type parcelsInclude = {
     shipments?: boolean | shipmentsArgs
     client?: boolean | usersArgs
-    product?: boolean | productArgs
+    product?: boolean | productFindManyArgs
+    _count?: boolean | ParcelsCountOutputTypeArgs
   } 
 
   export type parcelsGetPayload<S extends boolean | null | undefined | parcelsArgs> =
@@ -9687,16 +9782,18 @@ export namespace Prisma {
     S extends { include: any } & (parcelsArgs | parcelsFindManyArgs)
     ? parcels  & {
     [P in TruthyKeys<S['include']>]:
-        P extends 'shipments' ? shipmentsGetPayload<S['include'][P]> | null :
+        P extends 'shipments' ? shipmentsGetPayload<S['include'][P]> :
         P extends 'client' ? usersGetPayload<S['include'][P]> :
-        P extends 'product' ? productGetPayload<S['include'][P]> :  never
+        P extends 'product' ? Array < productGetPayload<S['include'][P]>>  :
+        P extends '_count' ? ParcelsCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (parcelsArgs | parcelsFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-        P extends 'shipments' ? shipmentsGetPayload<S['select'][P]> | null :
+        P extends 'shipments' ? shipmentsGetPayload<S['select'][P]> :
         P extends 'client' ? usersGetPayload<S['select'][P]> :
-        P extends 'product' ? productGetPayload<S['select'][P]> :  P extends keyof parcels ? parcels[P] : never
+        P extends 'product' ? Array < productGetPayload<S['select'][P]>>  :
+        P extends '_count' ? ParcelsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof parcels ? parcels[P] : never
   } 
       : parcels
 
@@ -10074,7 +10171,7 @@ export namespace Prisma {
 
     client<T extends usersArgs= {}>(args?: Subset<T, usersArgs>): Prisma__usersClient<usersGetPayload<T> | Null>;
 
-    product<T extends productArgs= {}>(args?: Subset<T, productArgs>): Prisma__productClient<productGetPayload<T> | Null>;
+    product<T extends productFindManyArgs= {}>(args?: Subset<T, productFindManyArgs>): PrismaPromise<Array<productGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -10762,7 +10859,8 @@ export namespace Prisma {
     drivers?: boolean | driversArgs
     branch_destination?: boolean | branchesArgs
     branch_departure?: boolean | branchesArgs
-    parcels?: boolean | parcelsArgs
+    parcels?: boolean | parcelsFindManyArgs
+    _count?: boolean | ShipmentsCountOutputTypeArgs
   }
 
 
@@ -10771,7 +10869,8 @@ export namespace Prisma {
     drivers?: boolean | driversArgs
     branch_destination?: boolean | branchesArgs
     branch_departure?: boolean | branchesArgs
-    parcels?: boolean | parcelsArgs
+    parcels?: boolean | parcelsFindManyArgs
+    _count?: boolean | ShipmentsCountOutputTypeArgs
   } 
 
   export type shipmentsGetPayload<S extends boolean | null | undefined | shipmentsArgs> =
@@ -10785,7 +10884,8 @@ export namespace Prisma {
         P extends 'drivers' ? driversGetPayload<S['include'][P]> | null :
         P extends 'branch_destination' ? branchesGetPayload<S['include'][P]> | null :
         P extends 'branch_departure' ? branchesGetPayload<S['include'][P]> | null :
-        P extends 'parcels' ? parcelsGetPayload<S['include'][P]> | null :  never
+        P extends 'parcels' ? Array < parcelsGetPayload<S['include'][P]>>  :
+        P extends '_count' ? ShipmentsCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (shipmentsArgs | shipmentsFindManyArgs)
       ? {
@@ -10794,7 +10894,8 @@ export namespace Prisma {
         P extends 'drivers' ? driversGetPayload<S['select'][P]> | null :
         P extends 'branch_destination' ? branchesGetPayload<S['select'][P]> | null :
         P extends 'branch_departure' ? branchesGetPayload<S['select'][P]> | null :
-        P extends 'parcels' ? parcelsGetPayload<S['select'][P]> | null :  P extends keyof shipments ? shipments[P] : never
+        P extends 'parcels' ? Array < parcelsGetPayload<S['select'][P]>>  :
+        P extends '_count' ? ShipmentsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof shipments ? shipments[P] : never
   } 
       : shipments
 
@@ -11176,7 +11277,7 @@ export namespace Prisma {
 
     branch_departure<T extends branchesArgs= {}>(args?: Subset<T, branchesArgs>): Prisma__branchesClient<branchesGetPayload<T> | Null>;
 
-    parcels<T extends parcelsArgs= {}>(args?: Subset<T, parcelsArgs>): Prisma__parcelsClient<parcelsGetPayload<T> | Null>;
+    parcels<T extends parcelsFindManyArgs= {}>(args?: Subset<T, parcelsFindManyArgs>): PrismaPromise<Array<parcelsGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -11650,7 +11751,7 @@ export namespace Prisma {
     volume_weight: 'volume_weight',
     admission_date: 'admission_date',
     client_id: 'client_id',
-    product_id: 'product_id'
+    shipment_id: 'shipment_id'
   };
 
   export type ParcelsScalarFieldEnum = (typeof ParcelsScalarFieldEnum)[keyof typeof ParcelsScalarFieldEnum]
@@ -11661,7 +11762,8 @@ export namespace Prisma {
     name: 'name',
     weight: 'weight',
     require_date: 'require_date',
-    requirer_id: 'requirer_id'
+    requirer_id: 'requirer_id',
+    parcel_id: 'parcel_id'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -12103,7 +12205,8 @@ export namespace Prisma {
     weight?: DecimalFilter | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFilter | Date | string
     requirer_id?: StringFilter | string
-    parcels?: XOR<ParcelsRelationFilter, parcelsWhereInput> | null
+    parcel_id?: StringFilter | string
+    parcels?: XOR<ParcelsRelationFilter, parcelsWhereInput>
     users?: XOR<UsersRelationFilter, usersWhereInput>
   }
 
@@ -12113,12 +12216,14 @@ export namespace Prisma {
     weight?: SortOrder
     require_date?: SortOrder
     requirer_id?: SortOrder
+    parcel_id?: SortOrder
     parcels?: parcelsOrderByWithRelationInput
     users?: usersOrderByWithRelationInput
   }
 
   export type productWhereUniqueInput = {
     id?: number
+    parcel_id?: string
   }
 
   export type productOrderByWithAggregationInput = {
@@ -12127,6 +12232,7 @@ export namespace Prisma {
     weight?: SortOrder
     require_date?: SortOrder
     requirer_id?: SortOrder
+    parcel_id?: SortOrder
     _count?: productCountOrderByAggregateInput
     _avg?: productAvgOrderByAggregateInput
     _max?: productMaxOrderByAggregateInput
@@ -12143,6 +12249,7 @@ export namespace Prisma {
     weight?: DecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeWithAggregatesFilter | Date | string
     requirer_id?: StringWithAggregatesFilter | string
+    parcel_id?: StringWithAggregatesFilter | string
   }
 
   export type parcelsWhereInput = {
@@ -12155,10 +12262,10 @@ export namespace Prisma {
     volume_weight?: FloatFilter | number
     admission_date?: DateTimeFilter | Date | string
     client_id?: StringFilter | string
-    product_id?: IntFilter | number
-    shipments?: XOR<ShipmentsRelationFilter, shipmentsWhereInput> | null
+    shipment_id?: StringFilter | string
+    shipments?: XOR<ShipmentsRelationFilter, shipmentsWhereInput>
     client?: XOR<UsersRelationFilter, usersWhereInput>
-    product?: XOR<ProductRelationFilter, productWhereInput>
+    product?: ProductListRelationFilter
   }
 
   export type parcelsOrderByWithRelationInput = {
@@ -12168,16 +12275,16 @@ export namespace Prisma {
     volume_weight?: SortOrder
     admission_date?: SortOrder
     client_id?: SortOrder
-    product_id?: SortOrder
+    shipment_id?: SortOrder
     shipments?: shipmentsOrderByWithRelationInput
     client?: usersOrderByWithRelationInput
-    product?: productOrderByWithRelationInput
+    product?: productOrderByRelationAggregateInput
   }
 
   export type parcelsWhereUniqueInput = {
     id?: string
     client_id?: string
-    product_id?: number
+    shipment_id?: string
   }
 
   export type parcelsOrderByWithAggregationInput = {
@@ -12187,7 +12294,7 @@ export namespace Prisma {
     volume_weight?: SortOrder
     admission_date?: SortOrder
     client_id?: SortOrder
-    product_id?: SortOrder
+    shipment_id?: SortOrder
     _count?: parcelsCountOrderByAggregateInput
     _avg?: parcelsAvgOrderByAggregateInput
     _max?: parcelsMaxOrderByAggregateInput
@@ -12205,7 +12312,7 @@ export namespace Prisma {
     volume_weight?: FloatWithAggregatesFilter | number
     admission_date?: DateTimeWithAggregatesFilter | Date | string
     client_id?: StringWithAggregatesFilter | string
-    product_id?: IntWithAggregatesFilter | number
+    shipment_id?: StringWithAggregatesFilter | string
   }
 
   export type shipmentsWhereInput = {
@@ -12226,7 +12333,7 @@ export namespace Prisma {
     drivers?: XOR<DriversRelationFilter, driversWhereInput> | null
     branch_destination?: XOR<BranchesRelationFilter, branchesWhereInput> | null
     branch_departure?: XOR<BranchesRelationFilter, branchesWhereInput> | null
-    parcels?: XOR<ParcelsRelationFilter, parcelsWhereInput> | null
+    parcels?: ParcelsListRelationFilter
   }
 
   export type shipmentsOrderByWithRelationInput = {
@@ -12244,7 +12351,7 @@ export namespace Prisma {
     drivers?: driversOrderByWithRelationInput
     branch_destination?: branchesOrderByWithRelationInput
     branch_departure?: branchesOrderByWithRelationInput
-    parcels?: parcelsOrderByWithRelationInput
+    parcels?: parcelsOrderByRelationAggregateInput
   }
 
   export type shipmentsWhereUniqueInput = {
@@ -12674,7 +12781,7 @@ export namespace Prisma {
     name: string
     weight: Decimal | DecimalJsLike | number | string
     require_date: Date | string
-    parcels?: parcelsCreateNestedOneWithoutProductInput
+    parcels: parcelsCreateNestedOneWithoutProductInput
     users: usersCreateNestedOneWithoutProductInput
   }
 
@@ -12684,14 +12791,14 @@ export namespace Prisma {
     weight: Decimal | DecimalJsLike | number | string
     require_date: Date | string
     requirer_id: string
-    parcels?: parcelsUncheckedCreateNestedOneWithoutProductInput
+    parcel_id: string
   }
 
   export type productUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    parcels?: parcelsUpdateOneWithoutProductNestedInput
+    parcels?: parcelsUpdateOneRequiredWithoutProductNestedInput
     users?: usersUpdateOneRequiredWithoutProductNestedInput
   }
 
@@ -12701,7 +12808,7 @@ export namespace Prisma {
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFieldUpdateOperationsInput | Date | string
     requirer_id?: StringFieldUpdateOperationsInput | string
-    parcels?: parcelsUncheckedUpdateOneWithoutProductNestedInput
+    parcel_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type productCreateManyInput = {
@@ -12710,6 +12817,7 @@ export namespace Prisma {
     weight: Decimal | DecimalJsLike | number | string
     require_date: Date | string
     requirer_id: string
+    parcel_id: string
   }
 
   export type productUpdateManyMutationInput = {
@@ -12724,6 +12832,7 @@ export namespace Prisma {
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFieldUpdateOperationsInput | Date | string
     requirer_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type parcelsCreateInput = {
@@ -12732,9 +12841,9 @@ export namespace Prisma {
     content: string
     volume_weight: number
     admission_date: Date | string
-    shipments?: shipmentsCreateNestedOneWithoutParcelsInput
+    shipments: shipmentsCreateNestedOneWithoutParcelsInput
     client: usersCreateNestedOneWithoutClientsInput
-    product: productCreateNestedOneWithoutParcelsInput
+    product?: productCreateNestedManyWithoutParcelsInput
   }
 
   export type parcelsUncheckedCreateInput = {
@@ -12744,8 +12853,8 @@ export namespace Prisma {
     volume_weight: number
     admission_date: Date | string
     client_id: string
-    product_id: number
-    shipments?: shipmentsUncheckedCreateNestedOneWithoutParcelsInput
+    shipment_id: string
+    product?: productUncheckedCreateNestedManyWithoutParcelsInput
   }
 
   export type parcelsUpdateInput = {
@@ -12754,9 +12863,9 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    shipments?: shipmentsUpdateOneWithoutParcelsNestedInput
+    shipments?: shipmentsUpdateOneRequiredWithoutParcelsNestedInput
     client?: usersUpdateOneRequiredWithoutClientsNestedInput
-    product?: productUpdateOneRequiredWithoutParcelsNestedInput
+    product?: productUpdateManyWithoutParcelsNestedInput
   }
 
   export type parcelsUncheckedUpdateInput = {
@@ -12766,8 +12875,8 @@ export namespace Prisma {
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
     client_id?: StringFieldUpdateOperationsInput | string
-    product_id?: IntFieldUpdateOperationsInput | number
-    shipments?: shipmentsUncheckedUpdateOneWithoutParcelsNestedInput
+    shipment_id?: StringFieldUpdateOperationsInput | string
+    product?: productUncheckedUpdateManyWithoutParcelsNestedInput
   }
 
   export type parcelsCreateManyInput = {
@@ -12777,7 +12886,7 @@ export namespace Prisma {
     volume_weight: number
     admission_date: Date | string
     client_id: string
-    product_id: number
+    shipment_id: string
   }
 
   export type parcelsUpdateManyMutationInput = {
@@ -12795,7 +12904,7 @@ export namespace Prisma {
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
     client_id?: StringFieldUpdateOperationsInput | string
-    product_id?: IntFieldUpdateOperationsInput | number
+    shipment_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type shipmentsCreateInput = {
@@ -12804,11 +12913,12 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
+    parcel_id?: string | null
     truck?: trucksCreateNestedOneWithoutShipmentsInput
     drivers?: driversCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
     branch_departure?: branchesCreateNestedOneWithoutShipments_departureInput
-    parcels?: parcelsCreateNestedOneWithoutShipmentsInput
+    parcels?: parcelsCreateNestedManyWithoutShipmentsInput
   }
 
   export type shipmentsUncheckedCreateInput = {
@@ -12822,6 +12932,7 @@ export namespace Prisma {
     destination_branch?: number | null
     departure_branch?: number | null
     parcel_id?: string | null
+    parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
   export type shipmentsUpdateInput = {
@@ -12830,11 +12941,12 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
     drivers?: driversUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
     branch_departure?: branchesUpdateOneWithoutShipments_departureNestedInput
-    parcels?: parcelsUpdateOneWithoutShipmentsNestedInput
+    parcels?: parcelsUpdateManyWithoutShipmentsNestedInput
   }
 
   export type shipmentsUncheckedUpdateInput = {
@@ -12848,6 +12960,7 @@ export namespace Prisma {
     destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
     departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
     parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
   export type shipmentsCreateManyInput = {
@@ -12869,6 +12982,7 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type shipmentsUncheckedUpdateManyInput = {
@@ -13093,8 +13207,8 @@ export namespace Prisma {
   }
 
   export type ParcelsRelationFilter = {
-    is?: parcelsWhereInput | null
-    isNot?: parcelsWhereInput | null
+    is?: parcelsWhereInput
+    isNot?: parcelsWhereInput
   }
 
   export type ManagersRelationFilter = {
@@ -13368,6 +13482,7 @@ export namespace Prisma {
     weight?: SortOrder
     require_date?: SortOrder
     requirer_id?: SortOrder
+    parcel_id?: SortOrder
   }
 
   export type productAvgOrderByAggregateInput = {
@@ -13381,6 +13496,7 @@ export namespace Prisma {
     weight?: SortOrder
     require_date?: SortOrder
     requirer_id?: SortOrder
+    parcel_id?: SortOrder
   }
 
   export type productMinOrderByAggregateInput = {
@@ -13389,6 +13505,7 @@ export namespace Prisma {
     weight?: SortOrder
     require_date?: SortOrder
     requirer_id?: SortOrder
+    parcel_id?: SortOrder
   }
 
   export type productSumOrderByAggregateInput = {
@@ -13426,11 +13543,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
-  export type ProductRelationFilter = {
-    is?: productWhereInput
-    isNot?: productWhereInput
-  }
-
   export type parcelsCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -13438,12 +13550,11 @@ export namespace Prisma {
     volume_weight?: SortOrder
     admission_date?: SortOrder
     client_id?: SortOrder
-    product_id?: SortOrder
+    shipment_id?: SortOrder
   }
 
   export type parcelsAvgOrderByAggregateInput = {
     volume_weight?: SortOrder
-    product_id?: SortOrder
   }
 
   export type parcelsMaxOrderByAggregateInput = {
@@ -13453,7 +13564,7 @@ export namespace Prisma {
     volume_weight?: SortOrder
     admission_date?: SortOrder
     client_id?: SortOrder
-    product_id?: SortOrder
+    shipment_id?: SortOrder
   }
 
   export type parcelsMinOrderByAggregateInput = {
@@ -13463,17 +13574,26 @@ export namespace Prisma {
     volume_weight?: SortOrder
     admission_date?: SortOrder
     client_id?: SortOrder
-    product_id?: SortOrder
+    shipment_id?: SortOrder
   }
 
   export type parcelsSumOrderByAggregateInput = {
     volume_weight?: SortOrder
-    product_id?: SortOrder
   }
 
   export type TrucksRelationFilter = {
     is?: trucksWhereInput | null
     isNot?: trucksWhereInput | null
+  }
+
+  export type ParcelsListRelationFilter = {
+    every?: parcelsWhereInput
+    some?: parcelsWhereInput
+    none?: parcelsWhereInput
+  }
+
+  export type parcelsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type shipmentsCountOrderByAggregateInput = {
@@ -14135,12 +14255,6 @@ export namespace Prisma {
     connect?: usersWhereUniqueInput
   }
 
-  export type parcelsUncheckedCreateNestedOneWithoutProductInput = {
-    create?: XOR<parcelsCreateWithoutProductInput, parcelsUncheckedCreateWithoutProductInput>
-    connectOrCreate?: parcelsCreateOrConnectWithoutProductInput
-    connect?: parcelsWhereUniqueInput
-  }
-
   export type DecimalFieldUpdateOperationsInput = {
     set?: Decimal | DecimalJsLike | number | string
     increment?: Decimal | DecimalJsLike | number | string
@@ -14153,12 +14267,10 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type parcelsUpdateOneWithoutProductNestedInput = {
+  export type parcelsUpdateOneRequiredWithoutProductNestedInput = {
     create?: XOR<parcelsCreateWithoutProductInput, parcelsUncheckedCreateWithoutProductInput>
     connectOrCreate?: parcelsCreateOrConnectWithoutProductInput
     upsert?: parcelsUpsertWithoutProductInput
-    disconnect?: boolean
-    delete?: boolean
     connect?: parcelsWhereUniqueInput
     update?: XOR<parcelsUpdateWithoutProductInput, parcelsUncheckedUpdateWithoutProductInput>
   }
@@ -14169,16 +14281,6 @@ export namespace Prisma {
     upsert?: usersUpsertWithoutProductInput
     connect?: usersWhereUniqueInput
     update?: XOR<usersUpdateWithoutProductInput, usersUncheckedUpdateWithoutProductInput>
-  }
-
-  export type parcelsUncheckedUpdateOneWithoutProductNestedInput = {
-    create?: XOR<parcelsCreateWithoutProductInput, parcelsUncheckedCreateWithoutProductInput>
-    connectOrCreate?: parcelsCreateOrConnectWithoutProductInput
-    upsert?: parcelsUpsertWithoutProductInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: parcelsWhereUniqueInput
-    update?: XOR<parcelsUpdateWithoutProductInput, parcelsUncheckedUpdateWithoutProductInput>
   }
 
   export type shipmentsCreateNestedOneWithoutParcelsInput = {
@@ -14193,24 +14295,24 @@ export namespace Prisma {
     connect?: usersWhereUniqueInput
   }
 
-  export type productCreateNestedOneWithoutParcelsInput = {
-    create?: XOR<productCreateWithoutParcelsInput, productUncheckedCreateWithoutParcelsInput>
-    connectOrCreate?: productCreateOrConnectWithoutParcelsInput
-    connect?: productWhereUniqueInput
+  export type productCreateNestedManyWithoutParcelsInput = {
+    create?: XOR<Enumerable<productCreateWithoutParcelsInput>, Enumerable<productUncheckedCreateWithoutParcelsInput>>
+    connectOrCreate?: Enumerable<productCreateOrConnectWithoutParcelsInput>
+    createMany?: productCreateManyParcelsInputEnvelope
+    connect?: Enumerable<productWhereUniqueInput>
   }
 
-  export type shipmentsUncheckedCreateNestedOneWithoutParcelsInput = {
-    create?: XOR<shipmentsCreateWithoutParcelsInput, shipmentsUncheckedCreateWithoutParcelsInput>
-    connectOrCreate?: shipmentsCreateOrConnectWithoutParcelsInput
-    connect?: shipmentsWhereUniqueInput
+  export type productUncheckedCreateNestedManyWithoutParcelsInput = {
+    create?: XOR<Enumerable<productCreateWithoutParcelsInput>, Enumerable<productUncheckedCreateWithoutParcelsInput>>
+    connectOrCreate?: Enumerable<productCreateOrConnectWithoutParcelsInput>
+    createMany?: productCreateManyParcelsInputEnvelope
+    connect?: Enumerable<productWhereUniqueInput>
   }
 
-  export type shipmentsUpdateOneWithoutParcelsNestedInput = {
+  export type shipmentsUpdateOneRequiredWithoutParcelsNestedInput = {
     create?: XOR<shipmentsCreateWithoutParcelsInput, shipmentsUncheckedCreateWithoutParcelsInput>
     connectOrCreate?: shipmentsCreateOrConnectWithoutParcelsInput
     upsert?: shipmentsUpsertWithoutParcelsInput
-    disconnect?: boolean
-    delete?: boolean
     connect?: shipmentsWhereUniqueInput
     update?: XOR<shipmentsUpdateWithoutParcelsInput, shipmentsUncheckedUpdateWithoutParcelsInput>
   }
@@ -14223,22 +14325,32 @@ export namespace Prisma {
     update?: XOR<usersUpdateWithoutClientsInput, usersUncheckedUpdateWithoutClientsInput>
   }
 
-  export type productUpdateOneRequiredWithoutParcelsNestedInput = {
-    create?: XOR<productCreateWithoutParcelsInput, productUncheckedCreateWithoutParcelsInput>
-    connectOrCreate?: productCreateOrConnectWithoutParcelsInput
-    upsert?: productUpsertWithoutParcelsInput
-    connect?: productWhereUniqueInput
-    update?: XOR<productUpdateWithoutParcelsInput, productUncheckedUpdateWithoutParcelsInput>
+  export type productUpdateManyWithoutParcelsNestedInput = {
+    create?: XOR<Enumerable<productCreateWithoutParcelsInput>, Enumerable<productUncheckedCreateWithoutParcelsInput>>
+    connectOrCreate?: Enumerable<productCreateOrConnectWithoutParcelsInput>
+    upsert?: Enumerable<productUpsertWithWhereUniqueWithoutParcelsInput>
+    createMany?: productCreateManyParcelsInputEnvelope
+    set?: Enumerable<productWhereUniqueInput>
+    disconnect?: Enumerable<productWhereUniqueInput>
+    delete?: Enumerable<productWhereUniqueInput>
+    connect?: Enumerable<productWhereUniqueInput>
+    update?: Enumerable<productUpdateWithWhereUniqueWithoutParcelsInput>
+    updateMany?: Enumerable<productUpdateManyWithWhereWithoutParcelsInput>
+    deleteMany?: Enumerable<productScalarWhereInput>
   }
 
-  export type shipmentsUncheckedUpdateOneWithoutParcelsNestedInput = {
-    create?: XOR<shipmentsCreateWithoutParcelsInput, shipmentsUncheckedCreateWithoutParcelsInput>
-    connectOrCreate?: shipmentsCreateOrConnectWithoutParcelsInput
-    upsert?: shipmentsUpsertWithoutParcelsInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: shipmentsWhereUniqueInput
-    update?: XOR<shipmentsUpdateWithoutParcelsInput, shipmentsUncheckedUpdateWithoutParcelsInput>
+  export type productUncheckedUpdateManyWithoutParcelsNestedInput = {
+    create?: XOR<Enumerable<productCreateWithoutParcelsInput>, Enumerable<productUncheckedCreateWithoutParcelsInput>>
+    connectOrCreate?: Enumerable<productCreateOrConnectWithoutParcelsInput>
+    upsert?: Enumerable<productUpsertWithWhereUniqueWithoutParcelsInput>
+    createMany?: productCreateManyParcelsInputEnvelope
+    set?: Enumerable<productWhereUniqueInput>
+    disconnect?: Enumerable<productWhereUniqueInput>
+    delete?: Enumerable<productWhereUniqueInput>
+    connect?: Enumerable<productWhereUniqueInput>
+    update?: Enumerable<productUpdateWithWhereUniqueWithoutParcelsInput>
+    updateMany?: Enumerable<productUpdateManyWithWhereWithoutParcelsInput>
+    deleteMany?: Enumerable<productScalarWhereInput>
   }
 
   export type trucksCreateNestedOneWithoutShipmentsInput = {
@@ -14265,10 +14377,18 @@ export namespace Prisma {
     connect?: branchesWhereUniqueInput
   }
 
-  export type parcelsCreateNestedOneWithoutShipmentsInput = {
-    create?: XOR<parcelsCreateWithoutShipmentsInput, parcelsUncheckedCreateWithoutShipmentsInput>
-    connectOrCreate?: parcelsCreateOrConnectWithoutShipmentsInput
-    connect?: parcelsWhereUniqueInput
+  export type parcelsCreateNestedManyWithoutShipmentsInput = {
+    create?: XOR<Enumerable<parcelsCreateWithoutShipmentsInput>, Enumerable<parcelsUncheckedCreateWithoutShipmentsInput>>
+    connectOrCreate?: Enumerable<parcelsCreateOrConnectWithoutShipmentsInput>
+    createMany?: parcelsCreateManyShipmentsInputEnvelope
+    connect?: Enumerable<parcelsWhereUniqueInput>
+  }
+
+  export type parcelsUncheckedCreateNestedManyWithoutShipmentsInput = {
+    create?: XOR<Enumerable<parcelsCreateWithoutShipmentsInput>, Enumerable<parcelsUncheckedCreateWithoutShipmentsInput>>
+    connectOrCreate?: Enumerable<parcelsCreateOrConnectWithoutShipmentsInput>
+    createMany?: parcelsCreateManyShipmentsInputEnvelope
+    connect?: Enumerable<parcelsWhereUniqueInput>
   }
 
   export type trucksUpdateOneWithoutShipmentsNestedInput = {
@@ -14311,14 +14431,32 @@ export namespace Prisma {
     update?: XOR<branchesUpdateWithoutShipments_departureInput, branchesUncheckedUpdateWithoutShipments_departureInput>
   }
 
-  export type parcelsUpdateOneWithoutShipmentsNestedInput = {
-    create?: XOR<parcelsCreateWithoutShipmentsInput, parcelsUncheckedCreateWithoutShipmentsInput>
-    connectOrCreate?: parcelsCreateOrConnectWithoutShipmentsInput
-    upsert?: parcelsUpsertWithoutShipmentsInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: parcelsWhereUniqueInput
-    update?: XOR<parcelsUpdateWithoutShipmentsInput, parcelsUncheckedUpdateWithoutShipmentsInput>
+  export type parcelsUpdateManyWithoutShipmentsNestedInput = {
+    create?: XOR<Enumerable<parcelsCreateWithoutShipmentsInput>, Enumerable<parcelsUncheckedCreateWithoutShipmentsInput>>
+    connectOrCreate?: Enumerable<parcelsCreateOrConnectWithoutShipmentsInput>
+    upsert?: Enumerable<parcelsUpsertWithWhereUniqueWithoutShipmentsInput>
+    createMany?: parcelsCreateManyShipmentsInputEnvelope
+    set?: Enumerable<parcelsWhereUniqueInput>
+    disconnect?: Enumerable<parcelsWhereUniqueInput>
+    delete?: Enumerable<parcelsWhereUniqueInput>
+    connect?: Enumerable<parcelsWhereUniqueInput>
+    update?: Enumerable<parcelsUpdateWithWhereUniqueWithoutShipmentsInput>
+    updateMany?: Enumerable<parcelsUpdateManyWithWhereWithoutShipmentsInput>
+    deleteMany?: Enumerable<parcelsScalarWhereInput>
+  }
+
+  export type parcelsUncheckedUpdateManyWithoutShipmentsNestedInput = {
+    create?: XOR<Enumerable<parcelsCreateWithoutShipmentsInput>, Enumerable<parcelsUncheckedCreateWithoutShipmentsInput>>
+    connectOrCreate?: Enumerable<parcelsCreateOrConnectWithoutShipmentsInput>
+    upsert?: Enumerable<parcelsUpsertWithWhereUniqueWithoutShipmentsInput>
+    createMany?: parcelsCreateManyShipmentsInputEnvelope
+    set?: Enumerable<parcelsWhereUniqueInput>
+    disconnect?: Enumerable<parcelsWhereUniqueInput>
+    delete?: Enumerable<parcelsWhereUniqueInput>
+    connect?: Enumerable<parcelsWhereUniqueInput>
+    update?: Enumerable<parcelsUpdateWithWhereUniqueWithoutShipmentsInput>
+    updateMany?: Enumerable<parcelsUpdateManyWithWhereWithoutShipmentsInput>
+    deleteMany?: Enumerable<parcelsScalarWhereInput>
   }
 
   export type NestedIntFilter = {
@@ -14670,10 +14808,11 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
+    parcel_id?: string | null
     truck?: trucksCreateNestedOneWithoutShipmentsInput
     drivers?: driversCreateNestedOneWithoutShipmentsInput
     branch_departure?: branchesCreateNestedOneWithoutShipments_departureInput
-    parcels?: parcelsCreateNestedOneWithoutShipmentsInput
+    parcels?: parcelsCreateNestedManyWithoutShipmentsInput
   }
 
   export type shipmentsUncheckedCreateWithoutBranch_destinationInput = {
@@ -14686,6 +14825,7 @@ export namespace Prisma {
     driver_id?: string | null
     departure_branch?: number | null
     parcel_id?: string | null
+    parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
   export type shipmentsCreateOrConnectWithoutBranch_destinationInput = {
@@ -14704,10 +14844,11 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
+    parcel_id?: string | null
     truck?: trucksCreateNestedOneWithoutShipmentsInput
     drivers?: driversCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
-    parcels?: parcelsCreateNestedOneWithoutShipmentsInput
+    parcels?: parcelsCreateNestedManyWithoutShipmentsInput
   }
 
   export type shipmentsUncheckedCreateWithoutBranch_departureInput = {
@@ -14720,6 +14861,7 @@ export namespace Prisma {
     driver_id?: string | null
     destination_branch?: number | null
     parcel_id?: string | null
+    parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
   export type shipmentsCreateOrConnectWithoutBranch_departureInput = {
@@ -14924,7 +15066,7 @@ export namespace Prisma {
     name: string
     weight: Decimal | DecimalJsLike | number | string
     require_date: Date | string
-    parcels?: parcelsCreateNestedOneWithoutProductInput
+    parcels: parcelsCreateNestedOneWithoutProductInput
   }
 
   export type productUncheckedCreateWithoutUsersInput = {
@@ -14932,7 +15074,7 @@ export namespace Prisma {
     name: string
     weight: Decimal | DecimalJsLike | number | string
     require_date: Date | string
-    parcels?: parcelsUncheckedCreateNestedOneWithoutProductInput
+    parcel_id: string
   }
 
   export type productCreateOrConnectWithoutUsersInput = {
@@ -14951,8 +15093,8 @@ export namespace Prisma {
     content: string
     volume_weight: number
     admission_date: Date | string
-    shipments?: shipmentsCreateNestedOneWithoutParcelsInput
-    product: productCreateNestedOneWithoutParcelsInput
+    shipments: shipmentsCreateNestedOneWithoutParcelsInput
+    product?: productCreateNestedManyWithoutParcelsInput
   }
 
   export type parcelsUncheckedCreateWithoutClientInput = {
@@ -14961,8 +15103,8 @@ export namespace Prisma {
     content: string
     volume_weight: number
     admission_date: Date | string
-    product_id: number
-    shipments?: shipmentsUncheckedCreateNestedOneWithoutParcelsInput
+    shipment_id: string
+    product?: productUncheckedCreateNestedManyWithoutParcelsInput
   }
 
   export type parcelsCreateOrConnectWithoutClientInput = {
@@ -15050,6 +15192,7 @@ export namespace Prisma {
     weight?: DecimalFilter | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFilter | Date | string
     requirer_id?: StringFilter | string
+    parcel_id?: StringFilter | string
   }
 
   export type parcelsUpsertWithoutClientInput = {
@@ -15063,8 +15206,8 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    shipments?: shipmentsUpdateOneWithoutParcelsNestedInput
-    product?: productUpdateOneRequiredWithoutParcelsNestedInput
+    shipments?: shipmentsUpdateOneRequiredWithoutParcelsNestedInput
+    product?: productUpdateManyWithoutParcelsNestedInput
   }
 
   export type parcelsUncheckedUpdateWithoutClientInput = {
@@ -15073,8 +15216,8 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    product_id?: IntFieldUpdateOperationsInput | number
-    shipments?: shipmentsUncheckedUpdateOneWithoutParcelsNestedInput
+    shipment_id?: StringFieldUpdateOperationsInput | string
+    product?: productUncheckedUpdateManyWithoutParcelsNestedInput
   }
 
   export type managersUpsertWithoutUserInput = {
@@ -15196,10 +15339,11 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
+    parcel_id?: string | null
     truck?: trucksCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
     branch_departure?: branchesCreateNestedOneWithoutShipments_departureInput
-    parcels?: parcelsCreateNestedOneWithoutShipmentsInput
+    parcels?: parcelsCreateNestedManyWithoutShipmentsInput
   }
 
   export type shipmentsUncheckedCreateWithoutDriversInput = {
@@ -15212,6 +15356,7 @@ export namespace Prisma {
     destination_branch?: number | null
     departure_branch?: number | null
     parcel_id?: string | null
+    parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
   export type shipmentsCreateOrConnectWithoutDriversInput = {
@@ -15259,10 +15404,11 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
     branch_departure?: branchesUpdateOneWithoutShipments_departureNestedInput
-    parcels?: parcelsUpdateOneWithoutShipmentsNestedInput
+    parcels?: parcelsUpdateManyWithoutShipmentsNestedInput
   }
 
   export type shipmentsUncheckedUpdateWithoutDriversInput = {
@@ -15275,6 +15421,7 @@ export namespace Prisma {
     destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
     departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
     parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
   export type trucksUpsertWithWhereUniqueWithoutDriverInput = {
@@ -15299,10 +15446,11 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
+    parcel_id?: string | null
     drivers?: driversCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
     branch_departure?: branchesCreateNestedOneWithoutShipments_departureInput
-    parcels?: parcelsCreateNestedOneWithoutShipmentsInput
+    parcels?: parcelsCreateNestedManyWithoutShipmentsInput
   }
 
   export type shipmentsUncheckedCreateWithoutTruckInput = {
@@ -15315,6 +15463,7 @@ export namespace Prisma {
     destination_branch?: number | null
     departure_branch?: number | null
     parcel_id?: string | null
+    parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
   export type shipmentsCreateOrConnectWithoutTruckInput = {
@@ -15378,10 +15527,11 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     drivers?: driversUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
     branch_departure?: branchesUpdateOneWithoutShipments_departureNestedInput
-    parcels?: parcelsUpdateOneWithoutShipmentsNestedInput
+    parcels?: parcelsUpdateManyWithoutShipmentsNestedInput
   }
 
   export type shipmentsUncheckedUpdateWithoutTruckInput = {
@@ -15394,6 +15544,7 @@ export namespace Prisma {
     destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
     departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
     parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
   export type driversUpsertWithoutTrucksInput = {
@@ -15447,7 +15598,7 @@ export namespace Prisma {
     content: string
     volume_weight: number
     admission_date: Date | string
-    shipments?: shipmentsCreateNestedOneWithoutParcelsInput
+    shipments: shipmentsCreateNestedOneWithoutParcelsInput
     client: usersCreateNestedOneWithoutClientsInput
   }
 
@@ -15458,7 +15609,7 @@ export namespace Prisma {
     volume_weight: number
     admission_date: Date | string
     client_id: string
-    shipments?: shipmentsUncheckedCreateNestedOneWithoutParcelsInput
+    shipment_id: string
   }
 
   export type parcelsCreateOrConnectWithoutProductInput = {
@@ -15506,7 +15657,7 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    shipments?: shipmentsUpdateOneWithoutParcelsNestedInput
+    shipments?: shipmentsUpdateOneRequiredWithoutParcelsNestedInput
     client?: usersUpdateOneRequiredWithoutClientsNestedInput
   }
 
@@ -15517,7 +15668,7 @@ export namespace Prisma {
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
     client_id?: StringFieldUpdateOperationsInput | string
-    shipments?: shipmentsUncheckedUpdateOneWithoutParcelsNestedInput
+    shipment_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type usersUpsertWithoutProductInput = {
@@ -15555,6 +15706,7 @@ export namespace Prisma {
     arrival_time: Date | string
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
+    parcel_id?: string | null
     truck?: trucksCreateNestedOneWithoutShipmentsInput
     drivers?: driversCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
@@ -15571,6 +15723,7 @@ export namespace Prisma {
     driver_id?: string | null
     destination_branch?: number | null
     departure_branch?: number | null
+    parcel_id?: string | null
   }
 
   export type shipmentsCreateOrConnectWithoutParcelsInput = {
@@ -15627,6 +15780,11 @@ export namespace Prisma {
     create: XOR<productCreateWithoutParcelsInput, productUncheckedCreateWithoutParcelsInput>
   }
 
+  export type productCreateManyParcelsInputEnvelope = {
+    data: Enumerable<productCreateManyParcelsInput>
+    skipDuplicates?: boolean
+  }
+
   export type shipmentsUpsertWithoutParcelsInput = {
     update: XOR<shipmentsUpdateWithoutParcelsInput, shipmentsUncheckedUpdateWithoutParcelsInput>
     create: XOR<shipmentsCreateWithoutParcelsInput, shipmentsUncheckedCreateWithoutParcelsInput>
@@ -15638,6 +15796,7 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
     drivers?: driversUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
@@ -15654,6 +15813,7 @@ export namespace Prisma {
     driver_id?: NullableStringFieldUpdateOperationsInput | string | null
     destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
     departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type usersUpsertWithoutClientsInput = {
@@ -15685,24 +15845,20 @@ export namespace Prisma {
     managers?: managersUncheckedUpdateOneWithoutUserNestedInput
   }
 
-  export type productUpsertWithoutParcelsInput = {
+  export type productUpsertWithWhereUniqueWithoutParcelsInput = {
+    where: productWhereUniqueInput
     update: XOR<productUpdateWithoutParcelsInput, productUncheckedUpdateWithoutParcelsInput>
     create: XOR<productCreateWithoutParcelsInput, productUncheckedCreateWithoutParcelsInput>
   }
 
-  export type productUpdateWithoutParcelsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: usersUpdateOneRequiredWithoutProductNestedInput
+  export type productUpdateWithWhereUniqueWithoutParcelsInput = {
+    where: productWhereUniqueInput
+    data: XOR<productUpdateWithoutParcelsInput, productUncheckedUpdateWithoutParcelsInput>
   }
 
-  export type productUncheckedUpdateWithoutParcelsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    requirer_id?: StringFieldUpdateOperationsInput | string
+  export type productUpdateManyWithWhereWithoutParcelsInput = {
+    where: productScalarWhereInput
+    data: XOR<productUpdateManyMutationInput, productUncheckedUpdateManyWithoutProductInput>
   }
 
   export type trucksCreateWithoutShipmentsInput = {
@@ -15809,7 +15965,7 @@ export namespace Prisma {
     volume_weight: number
     admission_date: Date | string
     client: usersCreateNestedOneWithoutClientsInput
-    product: productCreateNestedOneWithoutParcelsInput
+    product?: productCreateNestedManyWithoutParcelsInput
   }
 
   export type parcelsUncheckedCreateWithoutShipmentsInput = {
@@ -15819,12 +15975,17 @@ export namespace Prisma {
     volume_weight: number
     admission_date: Date | string
     client_id: string
-    product_id: number
+    product?: productUncheckedCreateNestedManyWithoutParcelsInput
   }
 
   export type parcelsCreateOrConnectWithoutShipmentsInput = {
     where: parcelsWhereUniqueInput
     create: XOR<parcelsCreateWithoutShipmentsInput, parcelsUncheckedCreateWithoutShipmentsInput>
+  }
+
+  export type parcelsCreateManyShipmentsInputEnvelope = {
+    data: Enumerable<parcelsCreateManyShipmentsInput>
+    skipDuplicates?: boolean
   }
 
   export type trucksUpsertWithoutShipmentsInput = {
@@ -15924,29 +16085,33 @@ export namespace Prisma {
     shipments_destination?: shipmentsUncheckedUpdateManyWithoutBranch_destinationNestedInput
   }
 
-  export type parcelsUpsertWithoutShipmentsInput = {
+  export type parcelsUpsertWithWhereUniqueWithoutShipmentsInput = {
+    where: parcelsWhereUniqueInput
     update: XOR<parcelsUpdateWithoutShipmentsInput, parcelsUncheckedUpdateWithoutShipmentsInput>
     create: XOR<parcelsCreateWithoutShipmentsInput, parcelsUncheckedCreateWithoutShipmentsInput>
   }
 
-  export type parcelsUpdateWithoutShipmentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    volume_weight?: FloatFieldUpdateOperationsInput | number
-    admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    client?: usersUpdateOneRequiredWithoutClientsNestedInput
-    product?: productUpdateOneRequiredWithoutParcelsNestedInput
+  export type parcelsUpdateWithWhereUniqueWithoutShipmentsInput = {
+    where: parcelsWhereUniqueInput
+    data: XOR<parcelsUpdateWithoutShipmentsInput, parcelsUncheckedUpdateWithoutShipmentsInput>
   }
 
-  export type parcelsUncheckedUpdateWithoutShipmentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    volume_weight?: FloatFieldUpdateOperationsInput | number
-    admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    client_id?: StringFieldUpdateOperationsInput | string
-    product_id?: IntFieldUpdateOperationsInput | number
+  export type parcelsUpdateManyWithWhereWithoutShipmentsInput = {
+    where: parcelsScalarWhereInput
+    data: XOR<parcelsUpdateManyMutationInput, parcelsUncheckedUpdateManyWithoutParcelsInput>
+  }
+
+  export type parcelsScalarWhereInput = {
+    AND?: Enumerable<parcelsScalarWhereInput>
+    OR?: Enumerable<parcelsScalarWhereInput>
+    NOT?: Enumerable<parcelsScalarWhereInput>
+    id?: StringFilter | string
+    name?: StringFilter | string
+    content?: StringFilter | string
+    volume_weight?: FloatFilter | number
+    admission_date?: DateTimeFilter | Date | string
+    client_id?: StringFilter | string
+    shipment_id?: StringFilter | string
   }
 
   export type branchesCreateManyCityInput = {
@@ -16097,10 +16262,11 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
     drivers?: driversUpdateOneWithoutShipmentsNestedInput
     branch_departure?: branchesUpdateOneWithoutShipments_departureNestedInput
-    parcels?: parcelsUpdateOneWithoutShipmentsNestedInput
+    parcels?: parcelsUpdateManyWithoutShipmentsNestedInput
   }
 
   export type shipmentsUncheckedUpdateWithoutBranch_destinationInput = {
@@ -16113,6 +16279,7 @@ export namespace Prisma {
     driver_id?: NullableStringFieldUpdateOperationsInput | string | null
     departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
     parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
   export type shipmentsUncheckedUpdateManyWithoutShipments_destinationInput = {
@@ -16133,10 +16300,11 @@ export namespace Prisma {
     arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
     drivers?: driversUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
-    parcels?: parcelsUpdateOneWithoutShipmentsNestedInput
+    parcels?: parcelsUpdateManyWithoutShipmentsNestedInput
   }
 
   export type shipmentsUncheckedUpdateWithoutBranch_departureInput = {
@@ -16149,6 +16317,7 @@ export namespace Prisma {
     driver_id?: NullableStringFieldUpdateOperationsInput | string | null
     destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
     parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
+    parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
   export type shipmentsUncheckedUpdateManyWithoutShipments_departureInput = {
@@ -16201,13 +16370,14 @@ export namespace Prisma {
     name: string
     weight: Decimal | DecimalJsLike | number | string
     require_date: Date | string
+    parcel_id: string
   }
 
   export type productUpdateWithoutUsersInput = {
     name?: StringFieldUpdateOperationsInput | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    parcels?: parcelsUpdateOneWithoutProductNestedInput
+    parcels?: parcelsUpdateOneRequiredWithoutProductNestedInput
   }
 
   export type productUncheckedUpdateWithoutUsersInput = {
@@ -16215,7 +16385,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    parcels?: parcelsUncheckedUpdateOneWithoutProductNestedInput
+    parcel_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type productUncheckedUpdateManyWithoutProductInput = {
@@ -16223,6 +16393,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     require_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    parcel_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type trucksCreateManyDriverInput = {
@@ -16251,6 +16422,67 @@ export namespace Prisma {
     available?: BoolFieldUpdateOperationsInput | boolean
     branch_id?: IntFieldUpdateOperationsInput | number
     shipments?: shipmentsUncheckedUpdateOneWithoutTruckNestedInput
+  }
+
+  export type productCreateManyParcelsInput = {
+    id?: number
+    name: string
+    weight: Decimal | DecimalJsLike | number | string
+    require_date: Date | string
+    requirer_id: string
+  }
+
+  export type productUpdateWithoutParcelsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    require_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: usersUpdateOneRequiredWithoutProductNestedInput
+  }
+
+  export type productUncheckedUpdateWithoutParcelsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    require_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    requirer_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type parcelsCreateManyShipmentsInput = {
+    id: string
+    name: string
+    content: string
+    volume_weight: number
+    admission_date: Date | string
+    client_id: string
+  }
+
+  export type parcelsUpdateWithoutShipmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    volume_weight?: FloatFieldUpdateOperationsInput | number
+    admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: usersUpdateOneRequiredWithoutClientsNestedInput
+    product?: productUpdateManyWithoutParcelsNestedInput
+  }
+
+  export type parcelsUncheckedUpdateWithoutShipmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    volume_weight?: FloatFieldUpdateOperationsInput | number
+    admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    client_id?: StringFieldUpdateOperationsInput | string
+    product?: productUncheckedUpdateManyWithoutParcelsNestedInput
+  }
+
+  export type parcelsUncheckedUpdateManyWithoutParcelsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    volume_weight?: FloatFieldUpdateOperationsInput | number
+    admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    client_id?: StringFieldUpdateOperationsInput | string
   }
 
 

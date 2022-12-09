@@ -1,0 +1,17 @@
+## TODO
+
+### BUILD CONTROLLERS
+| all parcels;
+| parcel by client_id;
+| parcel by shipment_id;
+| parcel by name;
+| parcel by weight;
+| parcel by id;
+| create new parcel;
+| update parcel by id;
+| delete parcel by id;
+
+
+STATUS - DONE
+
+| 8/8

@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
   output   = "../src/database/Prisma"
 }
 
@@ -93,8 +94,9 @@ model product {
   weight       Decimal   @db.Decimal()
   require_date DateTime  @db.Timestamp()
   requirer_id  String
+  parcel_id    String    @unique @db.VarChar(36) 
 
-  parcels      parcels?
+  parcels      parcels   @relation(fields: [parcel_id], references: [id], onDelete: Cascade)
   users        users     @relation(fields: [requirer_id], references: [id], onUpdate: Cascade)
 }
 
@@ -104,12 +106,12 @@ model parcels {
   content        String       @db.VarChar(256)
   volume_weight  Float        @db.DoublePrecision
   admission_date DateTime     @db.Timestamp()
-  client_id      String       @unique
-  product_id     Int          @unique
+  client_id      String       @db.VarChar(36) @unique
+  shipment_id    String       @db.VarChar(36) @unique
 
-  shipments      shipments? 
+  shipments      shipments    @relation(fields: [shipment_id], references: [id], onDelete: Cascade) 
   client         users        @relation(fields: [client_id], references: [id], onDelete: Cascade)
-  product        product      @relation(fields: [product_id], references: [id], onUpdate: Cascade)
+  product        product[]
 }
 
 model shipments {
@@ -129,5 +131,5 @@ model shipments {
   drivers            drivers?  @relation(fields: [driver_id], references: [user_id], onDelete: SetNull)
   branch_destination branches? @relation(name: "destination", fields: [destination_branch], references: [id], onDelete: SetNull)
   branch_departure   branches? @relation(name: "departure", fields: [departure_branch], references: [id], onDelete: SetNull)
-  parcels            parcels?  @relation(fields: [parcel_id], references: [id], onDelete: Cascade)
+  parcels            parcels[]
 }

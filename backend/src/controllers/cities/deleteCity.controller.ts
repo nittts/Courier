@@ -8,7 +8,7 @@ const deleteCityController = async (req: Request, res: Response) => {
   try {
     const city = await deleteCityService(Number(id));
 
-    return res.status(204).send({ message: "City Deleted.", results: city });
+    return res.status(200).send({ message: "City Deleted.", results: city });
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);
