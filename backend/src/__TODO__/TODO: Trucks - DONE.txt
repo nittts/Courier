@@ -4,9 +4,10 @@
 | all trucks;
 | trucks by id;
 | create new truck;
+| query trucks by availability;
 | update truck by id;
 | delete truck by id;
 
 STATUS - DONE
 
-| 0/5
+| 6/6

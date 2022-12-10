@@ -73,7 +73,7 @@ model trucks {
   brand         String      @db.VarChar(128)
   max_weight    Float       @db.DoublePrecision
   available     Boolean
-  driver_id     String?
+  driver_id     String?     @db.VarChar(36)
   branch_id     Int         @unique
 
   shipments     shipments?
