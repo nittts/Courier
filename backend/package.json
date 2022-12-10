@@ -12,7 +12,9 @@
     "clean": "rm -rf ./dist",
     "copy-files": "cp ./prisma/schema.prisma ./dist/prisma",
     "build": "yarn clean && tsc && yarn copy-files",
-    "start": "yarn prisma:deploy && yarn prisma:seed && node ./dist/src/index.js"
+    "start:default": "yarn prisma:deploy && node ./dist/src/index.js",
+    "start:vercel": "vercel dev",
+    "deploy:vercel": "vercel deploy --prod"
   },
   "dependencies": {
     "@prisma/client": "^4.7.1",
