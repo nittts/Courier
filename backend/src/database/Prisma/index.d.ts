@@ -82,19 +82,6 @@ export type trucks = {
 }
 
 /**
- * Model product
- * 
- */
-export type product = {
-  id: number
-  name: string
-  weight: Prisma.Decimal
-  require_date: Date
-  requirer_id: string
-  parcel_id: string | null
-}
-
-/**
  * Model parcels
  * 
  */
@@ -302,16 +289,6 @@ export class PrismaClient<
     * ```
     */
   get trucks(): Prisma.trucksDelegate<GlobalReject>;
-
-  /**
-   * `prisma.product`: Exposes CRUD operations for the **product** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Products
-    * const products = await prisma.product.findMany()
-    * ```
-    */
-  get product(): Prisma.productDelegate<GlobalReject>;
 
   /**
    * `prisma.parcels`: Exposes CRUD operations for the **parcels** model.
@@ -822,7 +799,6 @@ export namespace Prisma {
     users: 'users',
     drivers: 'drivers',
     trucks: 'trucks',
-    product: 'product',
     parcels: 'parcels',
     shipments: 'shipments'
   };
@@ -1132,12 +1108,10 @@ export namespace Prisma {
 
 
   export type UsersCountOutputType = {
-    product: number
     clients: number
   }
 
   export type UsersCountOutputTypeSelect = {
-    product?: boolean
     clients?: boolean
   }
 
@@ -1212,50 +1186,6 @@ export namespace Prisma {
      * 
     **/
     select?: DriversCountOutputTypeSelect | null
-  }
-
-
-
-  /**
-   * Count Type ParcelsCountOutputType
-   */
-
-
-  export type ParcelsCountOutputType = {
-    product: number
-  }
-
-  export type ParcelsCountOutputTypeSelect = {
-    product?: boolean
-  }
-
-  export type ParcelsCountOutputTypeGetPayload<S extends boolean | null | undefined | ParcelsCountOutputTypeArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? ParcelsCountOutputType :
-    S extends undefined ? never :
-    S extends { include: any } & (ParcelsCountOutputTypeArgs)
-    ? ParcelsCountOutputType 
-    : S extends { select: any } & (ParcelsCountOutputTypeArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-    P extends keyof ParcelsCountOutputType ? ParcelsCountOutputType[P] : never
-  } 
-      : ParcelsCountOutputType
-
-
-
-
-  // Custom InputTypes
-
-  /**
-   * ParcelsCountOutputType without action
-   */
-  export type ParcelsCountOutputTypeArgs = {
-    /**
-     * Select specific fields to fetch from the ParcelsCountOutputType
-     * 
-    **/
-    select?: ParcelsCountOutputTypeSelect | null
   }
 
 
@@ -4608,7 +4538,6 @@ export namespace Prisma {
     userType_id?: boolean
     branch_id?: boolean
     drivers?: boolean | driversArgs
-    product?: boolean | productFindManyArgs
     clients?: boolean | parcelsFindManyArgs
     userTypes?: boolean | userTypesArgs
     branches?: boolean | branchesArgs
@@ -4618,7 +4547,6 @@ export namespace Prisma {
 
   export type usersInclude = {
     drivers?: boolean | driversArgs
-    product?: boolean | productFindManyArgs
     clients?: boolean | parcelsFindManyArgs
     userTypes?: boolean | userTypesArgs
     branches?: boolean | branchesArgs
@@ -4633,7 +4561,6 @@ export namespace Prisma {
     ? users  & {
     [P in TruthyKeys<S['include']>]:
         P extends 'drivers' ? driversGetPayload<S['include'][P]> | null :
-        P extends 'product' ? Array < productGetPayload<S['include'][P]>>  :
         P extends 'clients' ? Array < parcelsGetPayload<S['include'][P]>>  :
         P extends 'userTypes' ? userTypesGetPayload<S['include'][P]> | null :
         P extends 'branches' ? branchesGetPayload<S['include'][P]> | null :
@@ -4643,7 +4570,6 @@ export namespace Prisma {
       ? {
     [P in TruthyKeys<S['select']>]:
         P extends 'drivers' ? driversGetPayload<S['select'][P]> | null :
-        P extends 'product' ? Array < productGetPayload<S['select'][P]>>  :
         P extends 'clients' ? Array < parcelsGetPayload<S['select'][P]>>  :
         P extends 'userTypes' ? userTypesGetPayload<S['select'][P]> | null :
         P extends 'branches' ? branchesGetPayload<S['select'][P]> | null :
@@ -5022,8 +4948,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
     drivers<T extends driversArgs= {}>(args?: Subset<T, driversArgs>): Prisma__driversClient<driversGetPayload<T> | Null>;
-
-    product<T extends productFindManyArgs= {}>(args?: Subset<T, productFindManyArgs>): PrismaPromise<Array<productGetPayload<T>>| Null>;
 
     clients<T extends parcelsFindManyArgs= {}>(args?: Subset<T, parcelsFindManyArgs>): PrismaPromise<Array<parcelsGetPayload<T>>| Null>;
 
@@ -7525,1046 +7449,6 @@ export namespace Prisma {
 
 
   /**
-   * Model product
-   */
-
-
-  export type AggregateProduct = {
-    _count: ProductCountAggregateOutputType | null
-    _avg: ProductAvgAggregateOutputType | null
-    _sum: ProductSumAggregateOutputType | null
-    _min: ProductMinAggregateOutputType | null
-    _max: ProductMaxAggregateOutputType | null
-  }
-
-  export type ProductAvgAggregateOutputType = {
-    id: number | null
-    weight: Decimal | null
-  }
-
-  export type ProductSumAggregateOutputType = {
-    id: number | null
-    weight: Decimal | null
-  }
-
-  export type ProductMinAggregateOutputType = {
-    id: number | null
-    name: string | null
-    weight: Decimal | null
-    require_date: Date | null
-    requirer_id: string | null
-    parcel_id: string | null
-  }
-
-  export type ProductMaxAggregateOutputType = {
-    id: number | null
-    name: string | null
-    weight: Decimal | null
-    require_date: Date | null
-    requirer_id: string | null
-    parcel_id: string | null
-  }
-
-  export type ProductCountAggregateOutputType = {
-    id: number
-    name: number
-    weight: number
-    require_date: number
-    requirer_id: number
-    parcel_id: number
-    _all: number
-  }
-
-
-  export type ProductAvgAggregateInputType = {
-    id?: true
-    weight?: true
-  }
-
-  export type ProductSumAggregateInputType = {
-    id?: true
-    weight?: true
-  }
-
-  export type ProductMinAggregateInputType = {
-    id?: true
-    name?: true
-    weight?: true
-    require_date?: true
-    requirer_id?: true
-    parcel_id?: true
-  }
-
-  export type ProductMaxAggregateInputType = {
-    id?: true
-    name?: true
-    weight?: true
-    require_date?: true
-    requirer_id?: true
-    parcel_id?: true
-  }
-
-  export type ProductCountAggregateInputType = {
-    id?: true
-    name?: true
-    weight?: true
-    require_date?: true
-    requirer_id?: true
-    parcel_id?: true
-    _all?: true
-  }
-
-  export type ProductAggregateArgs = {
-    /**
-     * Filter which product to aggregate.
-     * 
-    **/
-    where?: productWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of products to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<productOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     * 
-    **/
-    cursor?: productWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` products from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` products.
-     * 
-    **/
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned products
-    **/
-    _count?: true | ProductCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: ProductAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ProductSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: ProductMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: ProductMaxAggregateInputType
-  }
-
-  export type GetProductAggregateType<T extends ProductAggregateArgs> = {
-        [P in keyof T & keyof AggregateProduct]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateProduct[P]>
-      : GetScalarType<T[P], AggregateProduct[P]>
-  }
-
-
-
-
-  export type ProductGroupByArgs = {
-    where?: productWhereInput
-    orderBy?: Enumerable<productOrderByWithAggregationInput>
-    by: Array<ProductScalarFieldEnum>
-    having?: productScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: ProductCountAggregateInputType | true
-    _avg?: ProductAvgAggregateInputType
-    _sum?: ProductSumAggregateInputType
-    _min?: ProductMinAggregateInputType
-    _max?: ProductMaxAggregateInputType
-  }
-
-
-  export type ProductGroupByOutputType = {
-    id: number
-    name: string
-    weight: Decimal
-    require_date: Date
-    requirer_id: string
-    parcel_id: string | null
-    _count: ProductCountAggregateOutputType | null
-    _avg: ProductAvgAggregateOutputType | null
-    _sum: ProductSumAggregateOutputType | null
-    _min: ProductMinAggregateOutputType | null
-    _max: ProductMaxAggregateOutputType | null
-  }
-
-  type GetProductGroupByPayload<T extends ProductGroupByArgs> = PrismaPromise<
-    Array<
-      PickArray<ProductGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof ProductGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], ProductGroupByOutputType[P]>
-            : GetScalarType<T[P], ProductGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type productSelect = {
-    id?: boolean
-    name?: boolean
-    weight?: boolean
-    require_date?: boolean
-    requirer_id?: boolean
-    parcel_id?: boolean
-    parcels?: boolean | parcelsArgs
-    users?: boolean | usersArgs
-  }
-
-
-  export type productInclude = {
-    parcels?: boolean | parcelsArgs
-    users?: boolean | usersArgs
-  } 
-
-  export type productGetPayload<S extends boolean | null | undefined | productArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? product :
-    S extends undefined ? never :
-    S extends { include: any } & (productArgs | productFindManyArgs)
-    ? product  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'parcels' ? parcelsGetPayload<S['include'][P]> | null :
-        P extends 'users' ? usersGetPayload<S['include'][P]> :  never
-  } 
-    : S extends { select: any } & (productArgs | productFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'parcels' ? parcelsGetPayload<S['select'][P]> | null :
-        P extends 'users' ? usersGetPayload<S['select'][P]> :  P extends keyof product ? product[P] : never
-  } 
-      : product
-
-
-  type productCountArgs = Merge<
-    Omit<productFindManyArgs, 'select' | 'include'> & {
-      select?: ProductCountAggregateInputType | true
-    }
-  >
-
-  export interface productDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-    /**
-     * Find zero or one Product that matches the filter.
-     * @param {productFindUniqueArgs} args - Arguments to find a Product
-     * @example
-     * // Get one Product
-     * const product = await prisma.product.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends productFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, productFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'product'> extends True ? Prisma__productClient<productGetPayload<T>> : Prisma__productClient<productGetPayload<T> | null, null>
-
-    /**
-     * Find one Product that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {productFindUniqueOrThrowArgs} args - Arguments to find a Product
-     * @example
-     * // Get one Product
-     * const product = await prisma.product.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUniqueOrThrow<T extends productFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, productFindUniqueOrThrowArgs>
-    ): Prisma__productClient<productGetPayload<T>>
-
-    /**
-     * Find the first Product that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {productFindFirstArgs} args - Arguments to find a Product
-     * @example
-     * // Get one Product
-     * const product = await prisma.product.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends productFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, productFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'product'> extends True ? Prisma__productClient<productGetPayload<T>> : Prisma__productClient<productGetPayload<T> | null, null>
-
-    /**
-     * Find the first Product that matches the filter or
-     * throw `NotFoundError` if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {productFindFirstOrThrowArgs} args - Arguments to find a Product
-     * @example
-     * // Get one Product
-     * const product = await prisma.product.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirstOrThrow<T extends productFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, productFindFirstOrThrowArgs>
-    ): Prisma__productClient<productGetPayload<T>>
-
-    /**
-     * Find zero or more Products that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {productFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Products
-     * const products = await prisma.product.findMany()
-     * 
-     * // Get first 10 Products
-     * const products = await prisma.product.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const productWithIdOnly = await prisma.product.findMany({ select: { id: true } })
-     * 
-    **/
-    findMany<T extends productFindManyArgs>(
-      args?: SelectSubset<T, productFindManyArgs>
-    ): PrismaPromise<Array<productGetPayload<T>>>
-
-    /**
-     * Create a Product.
-     * @param {productCreateArgs} args - Arguments to create a Product.
-     * @example
-     * // Create one Product
-     * const Product = await prisma.product.create({
-     *   data: {
-     *     // ... data to create a Product
-     *   }
-     * })
-     * 
-    **/
-    create<T extends productCreateArgs>(
-      args: SelectSubset<T, productCreateArgs>
-    ): Prisma__productClient<productGetPayload<T>>
-
-    /**
-     * Create many Products.
-     *     @param {productCreateManyArgs} args - Arguments to create many Products.
-     *     @example
-     *     // Create many Products
-     *     const product = await prisma.product.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
-     *     
-    **/
-    createMany<T extends productCreateManyArgs>(
-      args?: SelectSubset<T, productCreateManyArgs>
-    ): PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Product.
-     * @param {productDeleteArgs} args - Arguments to delete one Product.
-     * @example
-     * // Delete one Product
-     * const Product = await prisma.product.delete({
-     *   where: {
-     *     // ... filter to delete one Product
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends productDeleteArgs>(
-      args: SelectSubset<T, productDeleteArgs>
-    ): Prisma__productClient<productGetPayload<T>>
-
-    /**
-     * Update one Product.
-     * @param {productUpdateArgs} args - Arguments to update one Product.
-     * @example
-     * // Update one Product
-     * const product = await prisma.product.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends productUpdateArgs>(
-      args: SelectSubset<T, productUpdateArgs>
-    ): Prisma__productClient<productGetPayload<T>>
-
-    /**
-     * Delete zero or more Products.
-     * @param {productDeleteManyArgs} args - Arguments to filter Products to delete.
-     * @example
-     * // Delete a few Products
-     * const { count } = await prisma.product.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends productDeleteManyArgs>(
-      args?: SelectSubset<T, productDeleteManyArgs>
-    ): PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Products.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {productUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Products
-     * const product = await prisma.product.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends productUpdateManyArgs>(
-      args: SelectSubset<T, productUpdateManyArgs>
-    ): PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Product.
-     * @param {productUpsertArgs} args - Arguments to update or create a Product.
-     * @example
-     * // Update or create a Product
-     * const product = await prisma.product.upsert({
-     *   create: {
-     *     // ... data to create a Product
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Product we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends productUpsertArgs>(
-      args: SelectSubset<T, productUpsertArgs>
-    ): Prisma__productClient<productGetPayload<T>>
-
-    /**
-     * Count the number of Products.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {productCountArgs} args - Arguments to filter Products to count.
-     * @example
-     * // Count the number of Products
-     * const count = await prisma.product.count({
-     *   where: {
-     *     // ... the filter for the Products we want to count
-     *   }
-     * })
-    **/
-    count<T extends productCountArgs>(
-      args?: Subset<T, productCountArgs>,
-    ): PrismaPromise<
-      T extends _Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], ProductCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Product.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProductAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends ProductAggregateArgs>(args: Subset<T, ProductAggregateArgs>): PrismaPromise<GetProductAggregateType<T>>
-
-    /**
-     * Group by Product.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProductGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends ProductGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ProductGroupByArgs['orderBy'] }
-        : { orderBy?: ProductGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, ProductGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProductGroupByPayload<T> : PrismaPromise<InputErrors>
-
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for product.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export class Prisma__productClient<T, Null = never> implements PrismaPromise<T> {
-    [prisma]: true;
-    private readonly _dmmf;
-    private readonly _fetcher;
-    private readonly _queryType;
-    private readonly _rootField;
-    private readonly _clientMethod;
-    private readonly _args;
-    private readonly _dataPath;
-    private readonly _errorFormat;
-    private readonly _measurePerformance?;
-    private _isList;
-    private _callsite;
-    private _requestPromise?;
-    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
-    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
-
-    parcels<T extends parcelsArgs= {}>(args?: Subset<T, parcelsArgs>): Prisma__parcelsClient<parcelsGetPayload<T> | Null>;
-
-    users<T extends usersArgs= {}>(args?: Subset<T, usersArgs>): Prisma__usersClient<usersGetPayload<T> | Null>;
-
-    private get _document();
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
-  }
-
-
-
-  // Custom InputTypes
-
-  /**
-   * product base type for findUnique actions
-   */
-  export type productFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the product
-     * 
-    **/
-    select?: productSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: productInclude | null
-    /**
-     * Filter, which product to fetch.
-     * 
-    **/
-    where: productWhereUniqueInput
-  }
-
-  /**
-   * product: findUnique
-   */
-  export interface productFindUniqueArgs extends productFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * product findUniqueOrThrow
-   */
-  export type productFindUniqueOrThrowArgs = {
-    /**
-     * Select specific fields to fetch from the product
-     * 
-    **/
-    select?: productSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: productInclude | null
-    /**
-     * Filter, which product to fetch.
-     * 
-    **/
-    where: productWhereUniqueInput
-  }
-
-
-  /**
-   * product base type for findFirst actions
-   */
-  export type productFindFirstArgsBase = {
-    /**
-     * Select specific fields to fetch from the product
-     * 
-    **/
-    select?: productSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: productInclude | null
-    /**
-     * Filter, which product to fetch.
-     * 
-    **/
-    where?: productWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of products to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<productOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for products.
-     * 
-    **/
-    cursor?: productWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` products from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` products.
-     * 
-    **/
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of products.
-     * 
-    **/
-    distinct?: Enumerable<ProductScalarFieldEnum>
-  }
-
-  /**
-   * product: findFirst
-   */
-  export interface productFindFirstArgs extends productFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * product findFirstOrThrow
-   */
-  export type productFindFirstOrThrowArgs = {
-    /**
-     * Select specific fields to fetch from the product
-     * 
-    **/
-    select?: productSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: productInclude | null
-    /**
-     * Filter, which product to fetch.
-     * 
-    **/
-    where?: productWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of products to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<productOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for products.
-     * 
-    **/
-    cursor?: productWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` products from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` products.
-     * 
-    **/
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of products.
-     * 
-    **/
-    distinct?: Enumerable<ProductScalarFieldEnum>
-  }
-
-
-  /**
-   * product findMany
-   */
-  export type productFindManyArgs = {
-    /**
-     * Select specific fields to fetch from the product
-     * 
-    **/
-    select?: productSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: productInclude | null
-    /**
-     * Filter, which products to fetch.
-     * 
-    **/
-    where?: productWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of products to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<productOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing products.
-     * 
-    **/
-    cursor?: productWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` products from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` products.
-     * 
-    **/
-    skip?: number
-    distinct?: Enumerable<ProductScalarFieldEnum>
-  }
-
-
-  /**
-   * product create
-   */
-  export type productCreateArgs = {
-    /**
-     * Select specific fields to fetch from the product
-     * 
-    **/
-    select?: productSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: productInclude | null
-    /**
-     * The data needed to create a product.
-     * 
-    **/
-    data: XOR<productCreateInput, productUncheckedCreateInput>
-  }
-
-
-  /**
-   * product createMany
-   */
-  export type productCreateManyArgs = {
-    /**
-     * The data used to create many products.
-     * 
-    **/
-    data: Enumerable<productCreateManyInput>
-    skipDuplicates?: boolean
-  }
-
-
-  /**
-   * product update
-   */
-  export type productUpdateArgs = {
-    /**
-     * Select specific fields to fetch from the product
-     * 
-    **/
-    select?: productSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: productInclude | null
-    /**
-     * The data needed to update a product.
-     * 
-    **/
-    data: XOR<productUpdateInput, productUncheckedUpdateInput>
-    /**
-     * Choose, which product to update.
-     * 
-    **/
-    where: productWhereUniqueInput
-  }
-
-
-  /**
-   * product updateMany
-   */
-  export type productUpdateManyArgs = {
-    /**
-     * The data used to update products.
-     * 
-    **/
-    data: XOR<productUpdateManyMutationInput, productUncheckedUpdateManyInput>
-    /**
-     * Filter which products to update
-     * 
-    **/
-    where?: productWhereInput
-  }
-
-
-  /**
-   * product upsert
-   */
-  export type productUpsertArgs = {
-    /**
-     * Select specific fields to fetch from the product
-     * 
-    **/
-    select?: productSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: productInclude | null
-    /**
-     * The filter to search for the product to update in case it exists.
-     * 
-    **/
-    where: productWhereUniqueInput
-    /**
-     * In case the product found by the `where` argument doesn't exist, create a new product with this data.
-     * 
-    **/
-    create: XOR<productCreateInput, productUncheckedCreateInput>
-    /**
-     * In case the product was found with the provided `where` argument, update it with this data.
-     * 
-    **/
-    update: XOR<productUpdateInput, productUncheckedUpdateInput>
-  }
-
-
-  /**
-   * product delete
-   */
-  export type productDeleteArgs = {
-    /**
-     * Select specific fields to fetch from the product
-     * 
-    **/
-    select?: productSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: productInclude | null
-    /**
-     * Filter which product to delete.
-     * 
-    **/
-    where: productWhereUniqueInput
-  }
-
-
-  /**
-   * product deleteMany
-   */
-  export type productDeleteManyArgs = {
-    /**
-     * Filter which products to delete
-     * 
-    **/
-    where?: productWhereInput
-  }
-
-
-  /**
-   * product without action
-   */
-  export type productArgs = {
-    /**
-     * Select specific fields to fetch from the product
-     * 
-    **/
-    select?: productSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: productInclude | null
-  }
-
-
-
-  /**
    * Model parcels
    */
 
@@ -8787,16 +7671,12 @@ export namespace Prisma {
     shipment_id?: boolean
     shipments?: boolean | shipmentsArgs
     client?: boolean | usersArgs
-    product?: boolean | productFindManyArgs
-    _count?: boolean | ParcelsCountOutputTypeArgs
   }
 
 
   export type parcelsInclude = {
     shipments?: boolean | shipmentsArgs
     client?: boolean | usersArgs
-    product?: boolean | productFindManyArgs
-    _count?: boolean | ParcelsCountOutputTypeArgs
   } 
 
   export type parcelsGetPayload<S extends boolean | null | undefined | parcelsArgs> =
@@ -8807,17 +7687,13 @@ export namespace Prisma {
     ? parcels  & {
     [P in TruthyKeys<S['include']>]:
         P extends 'shipments' ? shipmentsGetPayload<S['include'][P]> | null :
-        P extends 'client' ? usersGetPayload<S['include'][P]> :
-        P extends 'product' ? Array < productGetPayload<S['include'][P]>>  :
-        P extends '_count' ? ParcelsCountOutputTypeGetPayload<S['include'][P]> :  never
+        P extends 'client' ? usersGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (parcelsArgs | parcelsFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
         P extends 'shipments' ? shipmentsGetPayload<S['select'][P]> | null :
-        P extends 'client' ? usersGetPayload<S['select'][P]> :
-        P extends 'product' ? Array < productGetPayload<S['select'][P]>>  :
-        P extends '_count' ? ParcelsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof parcels ? parcels[P] : never
+        P extends 'client' ? usersGetPayload<S['select'][P]> :  P extends keyof parcels ? parcels[P] : never
   } 
       : parcels
 
@@ -9194,8 +8070,6 @@ export namespace Prisma {
     shipments<T extends shipmentsArgs= {}>(args?: Subset<T, shipmentsArgs>): Prisma__shipmentsClient<shipmentsGetPayload<T> | Null>;
 
     client<T extends usersArgs= {}>(args?: Subset<T, usersArgs>): Prisma__usersClient<usersGetPayload<T> | Null>;
-
-    product<T extends productFindManyArgs= {}>(args?: Subset<T, productFindManyArgs>): PrismaPromise<Array<productGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -10773,18 +9647,6 @@ export namespace Prisma {
   export type ParcelsScalarFieldEnum = (typeof ParcelsScalarFieldEnum)[keyof typeof ParcelsScalarFieldEnum]
 
 
-  export const ProductScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    weight: 'weight',
-    require_date: 'require_date',
-    requirer_id: 'requirer_id',
-    parcel_id: 'parcel_id'
-  };
-
-  export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
-
-
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
@@ -11020,7 +9882,6 @@ export namespace Prisma {
     userType_id?: IntFilter | number
     branch_id?: IntNullableFilter | number | null
     drivers?: XOR<DriversRelationFilter, driversWhereInput> | null
-    product?: ProductListRelationFilter
     clients?: ParcelsListRelationFilter
     userTypes?: XOR<UserTypesRelationFilter, userTypesWhereInput> | null
     branches?: XOR<BranchesRelationFilter, branchesWhereInput> | null
@@ -11035,7 +9896,6 @@ export namespace Prisma {
     userType_id?: SortOrder
     branch_id?: SortOrder
     drivers?: driversOrderByWithRelationInput
-    product?: productOrderByRelationAggregateInput
     clients?: parcelsOrderByRelationAggregateInput
     userTypes?: userTypesOrderByWithRelationInput
     branches?: branchesOrderByWithRelationInput
@@ -11179,62 +10039,6 @@ export namespace Prisma {
     branch_id?: IntWithAggregatesFilter | number
   }
 
-  export type productWhereInput = {
-    AND?: Enumerable<productWhereInput>
-    OR?: Enumerable<productWhereInput>
-    NOT?: Enumerable<productWhereInput>
-    id?: IntFilter | number
-    name?: StringFilter | string
-    weight?: DecimalFilter | Decimal | DecimalJsLike | number | string
-    require_date?: DateTimeFilter | Date | string
-    requirer_id?: StringFilter | string
-    parcel_id?: StringNullableFilter | string | null
-    parcels?: XOR<ParcelsRelationFilter, parcelsWhereInput> | null
-    users?: XOR<UsersRelationFilter, usersWhereInput>
-  }
-
-  export type productOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    weight?: SortOrder
-    require_date?: SortOrder
-    requirer_id?: SortOrder
-    parcel_id?: SortOrder
-    parcels?: parcelsOrderByWithRelationInput
-    users?: usersOrderByWithRelationInput
-  }
-
-  export type productWhereUniqueInput = {
-    id?: number
-    parcel_id?: string
-  }
-
-  export type productOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    weight?: SortOrder
-    require_date?: SortOrder
-    requirer_id?: SortOrder
-    parcel_id?: SortOrder
-    _count?: productCountOrderByAggregateInput
-    _avg?: productAvgOrderByAggregateInput
-    _max?: productMaxOrderByAggregateInput
-    _min?: productMinOrderByAggregateInput
-    _sum?: productSumOrderByAggregateInput
-  }
-
-  export type productScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<productScalarWhereWithAggregatesInput>
-    OR?: Enumerable<productScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<productScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
-    name?: StringWithAggregatesFilter | string
-    weight?: DecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
-    require_date?: DateTimeWithAggregatesFilter | Date | string
-    requirer_id?: StringWithAggregatesFilter | string
-    parcel_id?: StringNullableWithAggregatesFilter | string | null
-  }
-
   export type parcelsWhereInput = {
     AND?: Enumerable<parcelsWhereInput>
     OR?: Enumerable<parcelsWhereInput>
@@ -11248,7 +10052,6 @@ export namespace Prisma {
     shipment_id?: StringNullableFilter | string | null
     shipments?: XOR<ShipmentsRelationFilter, shipmentsWhereInput> | null
     client?: XOR<UsersRelationFilter, usersWhereInput>
-    product?: ProductListRelationFilter
   }
 
   export type parcelsOrderByWithRelationInput = {
@@ -11261,7 +10064,6 @@ export namespace Prisma {
     shipment_id?: SortOrder
     shipments?: shipmentsOrderByWithRelationInput
     client?: usersOrderByWithRelationInput
-    product?: productOrderByRelationAggregateInput
   }
 
   export type parcelsWhereUniqueInput = {
@@ -11540,7 +10342,6 @@ export namespace Prisma {
     password: string
     phone: string
     drivers?: driversCreateNestedOneWithoutUsersInput
-    product?: productCreateNestedManyWithoutUsersInput
     clients?: parcelsCreateNestedManyWithoutClientInput
     userTypes?: userTypesCreateNestedOneWithoutUsersInput
     branches?: branchesCreateNestedOneWithoutUsersInput
@@ -11555,7 +10356,6 @@ export namespace Prisma {
     userType_id: number
     branch_id?: number | null
     drivers?: driversUncheckedCreateNestedOneWithoutUsersInput
-    product?: productUncheckedCreateNestedManyWithoutUsersInput
     clients?: parcelsUncheckedCreateNestedManyWithoutClientInput
   }
 
@@ -11566,7 +10366,6 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     drivers?: driversUpdateOneWithoutUsersNestedInput
-    product?: productUpdateManyWithoutUsersNestedInput
     clients?: parcelsUpdateManyWithoutClientNestedInput
     userTypes?: userTypesUpdateOneWithoutUsersNestedInput
     branches?: branchesUpdateOneWithoutUsersNestedInput
@@ -11581,7 +10380,6 @@ export namespace Prisma {
     userType_id?: IntFieldUpdateOperationsInput | number
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
     drivers?: driversUncheckedUpdateOneWithoutUsersNestedInput
-    product?: productUncheckedUpdateManyWithoutUsersNestedInput
     clients?: parcelsUncheckedUpdateManyWithoutClientNestedInput
   }
 
@@ -11724,64 +10522,6 @@ export namespace Prisma {
     branch_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type productCreateInput = {
-    name: string
-    weight: Decimal | DecimalJsLike | number | string
-    require_date: Date | string
-    parcels?: parcelsCreateNestedOneWithoutProductInput
-    users: usersCreateNestedOneWithoutProductInput
-  }
-
-  export type productUncheckedCreateInput = {
-    id?: number
-    name: string
-    weight: Decimal | DecimalJsLike | number | string
-    require_date: Date | string
-    requirer_id: string
-    parcel_id?: string | null
-  }
-
-  export type productUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    parcels?: parcelsUpdateOneWithoutProductNestedInput
-    users?: usersUpdateOneRequiredWithoutProductNestedInput
-  }
-
-  export type productUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    requirer_id?: StringFieldUpdateOperationsInput | string
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type productCreateManyInput = {
-    id?: number
-    name: string
-    weight: Decimal | DecimalJsLike | number | string
-    require_date: Date | string
-    requirer_id: string
-    parcel_id?: string | null
-  }
-
-  export type productUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type productUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    requirer_id?: StringFieldUpdateOperationsInput | string
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
   export type parcelsCreateInput = {
     id: string
     name: string
@@ -11790,7 +10530,6 @@ export namespace Prisma {
     admission_date: Date | string
     shipments?: shipmentsCreateNestedOneWithoutParcelsInput
     client: usersCreateNestedOneWithoutClientsInput
-    product?: productCreateNestedManyWithoutParcelsInput
   }
 
   export type parcelsUncheckedCreateInput = {
@@ -11801,7 +10540,6 @@ export namespace Prisma {
     admission_date: Date | string
     client_id: string
     shipment_id?: string | null
-    product?: productUncheckedCreateNestedManyWithoutParcelsInput
   }
 
   export type parcelsUpdateInput = {
@@ -11812,7 +10550,6 @@ export namespace Prisma {
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
     shipments?: shipmentsUpdateOneWithoutParcelsNestedInput
     client?: usersUpdateOneRequiredWithoutClientsNestedInput
-    product?: productUpdateManyWithoutParcelsNestedInput
   }
 
   export type parcelsUncheckedUpdateInput = {
@@ -11823,7 +10560,6 @@ export namespace Prisma {
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
     client_id?: StringFieldUpdateOperationsInput | string
     shipment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    product?: productUncheckedUpdateManyWithoutParcelsNestedInput
   }
 
   export type parcelsCreateManyInput = {
@@ -12152,12 +10888,6 @@ export namespace Prisma {
     isNot?: driversWhereInput | null
   }
 
-  export type ProductListRelationFilter = {
-    every?: productWhereInput
-    some?: productWhereInput
-    none?: productWhereInput
-  }
-
   export type ParcelsListRelationFilter = {
     every?: parcelsWhereInput
     some?: parcelsWhereInput
@@ -12172,10 +10902,6 @@ export namespace Prisma {
   export type BranchesRelationFilter = {
     is?: branchesWhereInput | null
     isNot?: branchesWhereInput | null
-  }
-
-  export type productOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type parcelsOrderByRelationAggregateInput = {
@@ -12386,17 +11112,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter
   }
 
-  export type DecimalFilter = {
-    equals?: Decimal | DecimalJsLike | number | string
-    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    lt?: Decimal | DecimalJsLike | number | string
-    lte?: Decimal | DecimalJsLike | number | string
-    gt?: Decimal | DecimalJsLike | number | string
-    gte?: Decimal | DecimalJsLike | number | string
-    not?: NestedDecimalFilter | Decimal | DecimalJsLike | number | string
-  }
-
   export type DateTimeFilter = {
     equals?: Date | string
     in?: Enumerable<Date> | Enumerable<string>
@@ -12406,78 +11121,6 @@ export namespace Prisma {
     gt?: Date | string
     gte?: Date | string
     not?: NestedDateTimeFilter | Date | string
-  }
-
-  export type ParcelsRelationFilter = {
-    is?: parcelsWhereInput | null
-    isNot?: parcelsWhereInput | null
-  }
-
-  export type productCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    weight?: SortOrder
-    require_date?: SortOrder
-    requirer_id?: SortOrder
-    parcel_id?: SortOrder
-  }
-
-  export type productAvgOrderByAggregateInput = {
-    id?: SortOrder
-    weight?: SortOrder
-  }
-
-  export type productMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    weight?: SortOrder
-    require_date?: SortOrder
-    requirer_id?: SortOrder
-    parcel_id?: SortOrder
-  }
-
-  export type productMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    weight?: SortOrder
-    require_date?: SortOrder
-    requirer_id?: SortOrder
-    parcel_id?: SortOrder
-  }
-
-  export type productSumOrderByAggregateInput = {
-    id?: SortOrder
-    weight?: SortOrder
-  }
-
-  export type DecimalWithAggregatesFilter = {
-    equals?: Decimal | DecimalJsLike | number | string
-    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    lt?: Decimal | DecimalJsLike | number | string
-    lte?: Decimal | DecimalJsLike | number | string
-    gt?: Decimal | DecimalJsLike | number | string
-    gte?: Decimal | DecimalJsLike | number | string
-    not?: NestedDecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter
-    _avg?: NestedDecimalFilter
-    _sum?: NestedDecimalFilter
-    _min?: NestedDecimalFilter
-    _max?: NestedDecimalFilter
-  }
-
-  export type DateTimeWithAggregatesFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeWithAggregatesFilter | Date | string
-    _count?: NestedIntFilter
-    _min?: NestedDateTimeFilter
-    _max?: NestedDateTimeFilter
   }
 
   export type parcelsCountOrderByAggregateInput = {
@@ -12516,6 +11159,31 @@ export namespace Prisma {
 
   export type parcelsSumOrderByAggregateInput = {
     volume_weight?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeWithAggregatesFilter | Date | string
+    _count?: NestedIntFilter
+    _min?: NestedDateTimeFilter
+    _max?: NestedDateTimeFilter
+  }
+
+  export type DecimalFilter = {
+    equals?: Decimal | DecimalJsLike | number | string
+    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    lt?: Decimal | DecimalJsLike | number | string
+    lte?: Decimal | DecimalJsLike | number | string
+    gt?: Decimal | DecimalJsLike | number | string
+    gte?: Decimal | DecimalJsLike | number | string
+    not?: NestedDecimalFilter | Decimal | DecimalJsLike | number | string
   }
 
   export type TrucksRelationFilter = {
@@ -12576,6 +11244,22 @@ export namespace Prisma {
     truck_id?: SortOrder
     destination_branch?: SortOrder
     departure_branch?: SortOrder
+  }
+
+  export type DecimalWithAggregatesFilter = {
+    equals?: Decimal | DecimalJsLike | number | string
+    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    lt?: Decimal | DecimalJsLike | number | string
+    lte?: Decimal | DecimalJsLike | number | string
+    gt?: Decimal | DecimalJsLike | number | string
+    gte?: Decimal | DecimalJsLike | number | string
+    not?: NestedDecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter
+    _avg?: NestedDecimalFilter
+    _sum?: NestedDecimalFilter
+    _min?: NestedDecimalFilter
+    _max?: NestedDecimalFilter
   }
 
   export type branchesCreateNestedManyWithoutCityInput = {
@@ -12862,13 +11546,6 @@ export namespace Prisma {
     connect?: driversWhereUniqueInput
   }
 
-  export type productCreateNestedManyWithoutUsersInput = {
-    create?: XOR<Enumerable<productCreateWithoutUsersInput>, Enumerable<productUncheckedCreateWithoutUsersInput>>
-    connectOrCreate?: Enumerable<productCreateOrConnectWithoutUsersInput>
-    createMany?: productCreateManyUsersInputEnvelope
-    connect?: Enumerable<productWhereUniqueInput>
-  }
-
   export type parcelsCreateNestedManyWithoutClientInput = {
     create?: XOR<Enumerable<parcelsCreateWithoutClientInput>, Enumerable<parcelsUncheckedCreateWithoutClientInput>>
     connectOrCreate?: Enumerable<parcelsCreateOrConnectWithoutClientInput>
@@ -12894,13 +11571,6 @@ export namespace Prisma {
     connect?: driversWhereUniqueInput
   }
 
-  export type productUncheckedCreateNestedManyWithoutUsersInput = {
-    create?: XOR<Enumerable<productCreateWithoutUsersInput>, Enumerable<productUncheckedCreateWithoutUsersInput>>
-    connectOrCreate?: Enumerable<productCreateOrConnectWithoutUsersInput>
-    createMany?: productCreateManyUsersInputEnvelope
-    connect?: Enumerable<productWhereUniqueInput>
-  }
-
   export type parcelsUncheckedCreateNestedManyWithoutClientInput = {
     create?: XOR<Enumerable<parcelsCreateWithoutClientInput>, Enumerable<parcelsUncheckedCreateWithoutClientInput>>
     connectOrCreate?: Enumerable<parcelsCreateOrConnectWithoutClientInput>
@@ -12916,20 +11586,6 @@ export namespace Prisma {
     delete?: boolean
     connect?: driversWhereUniqueInput
     update?: XOR<driversUpdateWithoutUsersInput, driversUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type productUpdateManyWithoutUsersNestedInput = {
-    create?: XOR<Enumerable<productCreateWithoutUsersInput>, Enumerable<productUncheckedCreateWithoutUsersInput>>
-    connectOrCreate?: Enumerable<productCreateOrConnectWithoutUsersInput>
-    upsert?: Enumerable<productUpsertWithWhereUniqueWithoutUsersInput>
-    createMany?: productCreateManyUsersInputEnvelope
-    set?: Enumerable<productWhereUniqueInput>
-    disconnect?: Enumerable<productWhereUniqueInput>
-    delete?: Enumerable<productWhereUniqueInput>
-    connect?: Enumerable<productWhereUniqueInput>
-    update?: Enumerable<productUpdateWithWhereUniqueWithoutUsersInput>
-    updateMany?: Enumerable<productUpdateManyWithWhereWithoutUsersInput>
-    deleteMany?: Enumerable<productScalarWhereInput>
   }
 
   export type parcelsUpdateManyWithoutClientNestedInput = {
@@ -12982,20 +11638,6 @@ export namespace Prisma {
     delete?: boolean
     connect?: driversWhereUniqueInput
     update?: XOR<driversUpdateWithoutUsersInput, driversUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type productUncheckedUpdateManyWithoutUsersNestedInput = {
-    create?: XOR<Enumerable<productCreateWithoutUsersInput>, Enumerable<productUncheckedCreateWithoutUsersInput>>
-    connectOrCreate?: Enumerable<productCreateOrConnectWithoutUsersInput>
-    upsert?: Enumerable<productUpsertWithWhereUniqueWithoutUsersInput>
-    createMany?: productCreateManyUsersInputEnvelope
-    set?: Enumerable<productWhereUniqueInput>
-    disconnect?: Enumerable<productWhereUniqueInput>
-    delete?: Enumerable<productWhereUniqueInput>
-    connect?: Enumerable<productWhereUniqueInput>
-    update?: Enumerable<productUpdateWithWhereUniqueWithoutUsersInput>
-    updateMany?: Enumerable<productUpdateManyWithWhereWithoutUsersInput>
-    deleteMany?: Enumerable<productScalarWhereInput>
   }
 
   export type parcelsUncheckedUpdateManyWithoutClientNestedInput = {
@@ -13180,48 +11822,6 @@ export namespace Prisma {
     update?: XOR<shipmentsUpdateWithoutTruckInput, shipmentsUncheckedUpdateWithoutTruckInput>
   }
 
-  export type parcelsCreateNestedOneWithoutProductInput = {
-    create?: XOR<parcelsCreateWithoutProductInput, parcelsUncheckedCreateWithoutProductInput>
-    connectOrCreate?: parcelsCreateOrConnectWithoutProductInput
-    connect?: parcelsWhereUniqueInput
-  }
-
-  export type usersCreateNestedOneWithoutProductInput = {
-    create?: XOR<usersCreateWithoutProductInput, usersUncheckedCreateWithoutProductInput>
-    connectOrCreate?: usersCreateOrConnectWithoutProductInput
-    connect?: usersWhereUniqueInput
-  }
-
-  export type DecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
-  export type parcelsUpdateOneWithoutProductNestedInput = {
-    create?: XOR<parcelsCreateWithoutProductInput, parcelsUncheckedCreateWithoutProductInput>
-    connectOrCreate?: parcelsCreateOrConnectWithoutProductInput
-    upsert?: parcelsUpsertWithoutProductInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: parcelsWhereUniqueInput
-    update?: XOR<parcelsUpdateWithoutProductInput, parcelsUncheckedUpdateWithoutProductInput>
-  }
-
-  export type usersUpdateOneRequiredWithoutProductNestedInput = {
-    create?: XOR<usersCreateWithoutProductInput, usersUncheckedCreateWithoutProductInput>
-    connectOrCreate?: usersCreateOrConnectWithoutProductInput
-    upsert?: usersUpsertWithoutProductInput
-    connect?: usersWhereUniqueInput
-    update?: XOR<usersUpdateWithoutProductInput, usersUncheckedUpdateWithoutProductInput>
-  }
-
   export type shipmentsCreateNestedOneWithoutParcelsInput = {
     create?: XOR<shipmentsCreateWithoutParcelsInput, shipmentsUncheckedCreateWithoutParcelsInput>
     connectOrCreate?: shipmentsCreateOrConnectWithoutParcelsInput
@@ -13234,18 +11834,8 @@ export namespace Prisma {
     connect?: usersWhereUniqueInput
   }
 
-  export type productCreateNestedManyWithoutParcelsInput = {
-    create?: XOR<Enumerable<productCreateWithoutParcelsInput>, Enumerable<productUncheckedCreateWithoutParcelsInput>>
-    connectOrCreate?: Enumerable<productCreateOrConnectWithoutParcelsInput>
-    createMany?: productCreateManyParcelsInputEnvelope
-    connect?: Enumerable<productWhereUniqueInput>
-  }
-
-  export type productUncheckedCreateNestedManyWithoutParcelsInput = {
-    create?: XOR<Enumerable<productCreateWithoutParcelsInput>, Enumerable<productUncheckedCreateWithoutParcelsInput>>
-    connectOrCreate?: Enumerable<productCreateOrConnectWithoutParcelsInput>
-    createMany?: productCreateManyParcelsInputEnvelope
-    connect?: Enumerable<productWhereUniqueInput>
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type shipmentsUpdateOneWithoutParcelsNestedInput = {
@@ -13264,34 +11854,6 @@ export namespace Prisma {
     upsert?: usersUpsertWithoutClientsInput
     connect?: usersWhereUniqueInput
     update?: XOR<usersUpdateWithoutClientsInput, usersUncheckedUpdateWithoutClientsInput>
-  }
-
-  export type productUpdateManyWithoutParcelsNestedInput = {
-    create?: XOR<Enumerable<productCreateWithoutParcelsInput>, Enumerable<productUncheckedCreateWithoutParcelsInput>>
-    connectOrCreate?: Enumerable<productCreateOrConnectWithoutParcelsInput>
-    upsert?: Enumerable<productUpsertWithWhereUniqueWithoutParcelsInput>
-    createMany?: productCreateManyParcelsInputEnvelope
-    set?: Enumerable<productWhereUniqueInput>
-    disconnect?: Enumerable<productWhereUniqueInput>
-    delete?: Enumerable<productWhereUniqueInput>
-    connect?: Enumerable<productWhereUniqueInput>
-    update?: Enumerable<productUpdateWithWhereUniqueWithoutParcelsInput>
-    updateMany?: Enumerable<productUpdateManyWithWhereWithoutParcelsInput>
-    deleteMany?: Enumerable<productScalarWhereInput>
-  }
-
-  export type productUncheckedUpdateManyWithoutParcelsNestedInput = {
-    create?: XOR<Enumerable<productCreateWithoutParcelsInput>, Enumerable<productUncheckedCreateWithoutParcelsInput>>
-    connectOrCreate?: Enumerable<productCreateOrConnectWithoutParcelsInput>
-    upsert?: Enumerable<productUpsertWithWhereUniqueWithoutParcelsInput>
-    createMany?: productCreateManyParcelsInputEnvelope
-    set?: Enumerable<productWhereUniqueInput>
-    disconnect?: Enumerable<productWhereUniqueInput>
-    delete?: Enumerable<productWhereUniqueInput>
-    connect?: Enumerable<productWhereUniqueInput>
-    update?: Enumerable<productUpdateWithWhereUniqueWithoutParcelsInput>
-    updateMany?: Enumerable<productUpdateManyWithWhereWithoutParcelsInput>
-    deleteMany?: Enumerable<productScalarWhereInput>
   }
 
   export type trucksCreateNestedOneWithoutShipmentsInput = {
@@ -13330,6 +11892,14 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<parcelsCreateOrConnectWithoutShipmentsInput>
     createMany?: parcelsCreateManyShipmentsInputEnvelope
     connect?: Enumerable<parcelsWhereUniqueInput>
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type trucksUpdateOneWithoutShipmentsNestedInput = {
@@ -13567,17 +12137,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter
   }
 
-  export type NestedDecimalFilter = {
-    equals?: Decimal | DecimalJsLike | number | string
-    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    lt?: Decimal | DecimalJsLike | number | string
-    lte?: Decimal | DecimalJsLike | number | string
-    gt?: Decimal | DecimalJsLike | number | string
-    gte?: Decimal | DecimalJsLike | number | string
-    not?: NestedDecimalFilter | Decimal | DecimalJsLike | number | string
-  }
-
   export type NestedDateTimeFilter = {
     equals?: Date | string
     in?: Enumerable<Date> | Enumerable<string>
@@ -13587,6 +12146,31 @@ export namespace Prisma {
     gt?: Date | string
     gte?: Date | string
     not?: NestedDateTimeFilter | Date | string
+  }
+
+  export type NestedDateTimeWithAggregatesFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeWithAggregatesFilter | Date | string
+    _count?: NestedIntFilter
+    _min?: NestedDateTimeFilter
+    _max?: NestedDateTimeFilter
+  }
+
+  export type NestedDecimalFilter = {
+    equals?: Decimal | DecimalJsLike | number | string
+    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    lt?: Decimal | DecimalJsLike | number | string
+    lte?: Decimal | DecimalJsLike | number | string
+    gt?: Decimal | DecimalJsLike | number | string
+    gte?: Decimal | DecimalJsLike | number | string
+    not?: NestedDecimalFilter | Decimal | DecimalJsLike | number | string
   }
 
   export type NestedDecimalWithAggregatesFilter = {
@@ -13603,20 +12187,6 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter
     _min?: NestedDecimalFilter
     _max?: NestedDecimalFilter
-  }
-
-  export type NestedDateTimeWithAggregatesFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeWithAggregatesFilter | Date | string
-    _count?: NestedIntFilter
-    _min?: NestedDateTimeFilter
-    _max?: NestedDateTimeFilter
   }
 
   export type branchesCreateWithoutCityInput = {
@@ -13687,7 +12257,6 @@ export namespace Prisma {
     password: string
     phone: string
     drivers?: driversCreateNestedOneWithoutUsersInput
-    product?: productCreateNestedManyWithoutUsersInput
     clients?: parcelsCreateNestedManyWithoutClientInput
     userTypes?: userTypesCreateNestedOneWithoutUsersInput
   }
@@ -13700,7 +12269,6 @@ export namespace Prisma {
     phone: string
     userType_id: number
     drivers?: driversUncheckedCreateNestedOneWithoutUsersInput
-    product?: productUncheckedCreateNestedManyWithoutUsersInput
     clients?: parcelsUncheckedCreateNestedManyWithoutClientInput
   }
 
@@ -13960,7 +12528,6 @@ export namespace Prisma {
     password: string
     phone: string
     drivers?: driversCreateNestedOneWithoutUsersInput
-    product?: productCreateNestedManyWithoutUsersInput
     clients?: parcelsCreateNestedManyWithoutClientInput
     branches?: branchesCreateNestedOneWithoutUsersInput
   }
@@ -13973,7 +12540,6 @@ export namespace Prisma {
     phone: string
     branch_id?: number | null
     drivers?: driversUncheckedCreateNestedOneWithoutUsersInput
-    product?: productUncheckedCreateNestedManyWithoutUsersInput
     clients?: parcelsUncheckedCreateNestedManyWithoutClientInput
   }
 
@@ -14020,31 +12586,6 @@ export namespace Prisma {
     create: XOR<driversCreateWithoutUsersInput, driversUncheckedCreateWithoutUsersInput>
   }
 
-  export type productCreateWithoutUsersInput = {
-    name: string
-    weight: Decimal | DecimalJsLike | number | string
-    require_date: Date | string
-    parcels?: parcelsCreateNestedOneWithoutProductInput
-  }
-
-  export type productUncheckedCreateWithoutUsersInput = {
-    id?: number
-    name: string
-    weight: Decimal | DecimalJsLike | number | string
-    require_date: Date | string
-    parcel_id?: string | null
-  }
-
-  export type productCreateOrConnectWithoutUsersInput = {
-    where: productWhereUniqueInput
-    create: XOR<productCreateWithoutUsersInput, productUncheckedCreateWithoutUsersInput>
-  }
-
-  export type productCreateManyUsersInputEnvelope = {
-    data: Enumerable<productCreateManyUsersInput>
-    skipDuplicates?: boolean
-  }
-
   export type parcelsCreateWithoutClientInput = {
     id: string
     name: string
@@ -14052,7 +12593,6 @@ export namespace Prisma {
     volume_weight: number
     admission_date: Date | string
     shipments?: shipmentsCreateNestedOneWithoutParcelsInput
-    product?: productCreateNestedManyWithoutParcelsInput
   }
 
   export type parcelsUncheckedCreateWithoutClientInput = {
@@ -14062,7 +12602,6 @@ export namespace Prisma {
     volume_weight: number
     admission_date: Date | string
     shipment_id?: string | null
-    product?: productUncheckedCreateNestedManyWithoutParcelsInput
   }
 
   export type parcelsCreateOrConnectWithoutClientInput = {
@@ -14132,34 +12671,6 @@ export namespace Prisma {
     truck_id?: NullableIntFieldUpdateOperationsInput | number | null
     shipments?: shipmentsUncheckedUpdateOneWithoutDriversNestedInput
     trucks?: trucksUncheckedUpdateManyWithoutDriverNestedInput
-  }
-
-  export type productUpsertWithWhereUniqueWithoutUsersInput = {
-    where: productWhereUniqueInput
-    update: XOR<productUpdateWithoutUsersInput, productUncheckedUpdateWithoutUsersInput>
-    create: XOR<productCreateWithoutUsersInput, productUncheckedCreateWithoutUsersInput>
-  }
-
-  export type productUpdateWithWhereUniqueWithoutUsersInput = {
-    where: productWhereUniqueInput
-    data: XOR<productUpdateWithoutUsersInput, productUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type productUpdateManyWithWhereWithoutUsersInput = {
-    where: productScalarWhereInput
-    data: XOR<productUpdateManyMutationInput, productUncheckedUpdateManyWithoutProductInput>
-  }
-
-  export type productScalarWhereInput = {
-    AND?: Enumerable<productScalarWhereInput>
-    OR?: Enumerable<productScalarWhereInput>
-    NOT?: Enumerable<productScalarWhereInput>
-    id?: IntFilter | number
-    name?: StringFilter | string
-    weight?: DecimalFilter | Decimal | DecimalJsLike | number | string
-    require_date?: DateTimeFilter | Date | string
-    requirer_id?: StringFilter | string
-    parcel_id?: StringNullableFilter | string | null
   }
 
   export type parcelsUpsertWithWhereUniqueWithoutClientInput = {
@@ -14299,7 +12810,6 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
-    product?: productCreateNestedManyWithoutUsersInput
     clients?: parcelsCreateNestedManyWithoutClientInput
     userTypes?: userTypesCreateNestedOneWithoutUsersInput
     branches?: branchesCreateNestedOneWithoutUsersInput
@@ -14313,7 +12823,6 @@ export namespace Prisma {
     phone: string
     userType_id: number
     branch_id?: number | null
-    product?: productUncheckedCreateNestedManyWithoutUsersInput
     clients?: parcelsUncheckedCreateNestedManyWithoutClientInput
   }
 
@@ -14380,7 +12889,6 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    product?: productUpdateManyWithoutUsersNestedInput
     clients?: parcelsUpdateManyWithoutClientNestedInput
     userTypes?: userTypesUpdateOneWithoutUsersNestedInput
     branches?: branchesUpdateOneWithoutUsersNestedInput
@@ -14394,7 +12902,6 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     userType_id?: IntFieldUpdateOperationsInput | number
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
-    product?: productUncheckedUpdateManyWithoutUsersNestedInput
     clients?: parcelsUncheckedUpdateManyWithoutClientNestedInput
   }
 
@@ -14550,114 +13057,6 @@ export namespace Prisma {
     shipments_departure?: shipmentsUncheckedUpdateManyWithoutBranch_departureNestedInput
   }
 
-  export type parcelsCreateWithoutProductInput = {
-    id: string
-    name: string
-    content: string
-    volume_weight: number
-    admission_date: Date | string
-    shipments?: shipmentsCreateNestedOneWithoutParcelsInput
-    client: usersCreateNestedOneWithoutClientsInput
-  }
-
-  export type parcelsUncheckedCreateWithoutProductInput = {
-    id: string
-    name: string
-    content: string
-    volume_weight: number
-    admission_date: Date | string
-    client_id: string
-    shipment_id?: string | null
-  }
-
-  export type parcelsCreateOrConnectWithoutProductInput = {
-    where: parcelsWhereUniqueInput
-    create: XOR<parcelsCreateWithoutProductInput, parcelsUncheckedCreateWithoutProductInput>
-  }
-
-  export type usersCreateWithoutProductInput = {
-    id: string
-    name: string
-    email: string
-    password: string
-    phone: string
-    drivers?: driversCreateNestedOneWithoutUsersInput
-    clients?: parcelsCreateNestedManyWithoutClientInput
-    userTypes?: userTypesCreateNestedOneWithoutUsersInput
-    branches?: branchesCreateNestedOneWithoutUsersInput
-  }
-
-  export type usersUncheckedCreateWithoutProductInput = {
-    id: string
-    name: string
-    email: string
-    password: string
-    phone: string
-    userType_id: number
-    branch_id?: number | null
-    drivers?: driversUncheckedCreateNestedOneWithoutUsersInput
-    clients?: parcelsUncheckedCreateNestedManyWithoutClientInput
-  }
-
-  export type usersCreateOrConnectWithoutProductInput = {
-    where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutProductInput, usersUncheckedCreateWithoutProductInput>
-  }
-
-  export type parcelsUpsertWithoutProductInput = {
-    update: XOR<parcelsUpdateWithoutProductInput, parcelsUncheckedUpdateWithoutProductInput>
-    create: XOR<parcelsCreateWithoutProductInput, parcelsUncheckedCreateWithoutProductInput>
-  }
-
-  export type parcelsUpdateWithoutProductInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    volume_weight?: FloatFieldUpdateOperationsInput | number
-    admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    shipments?: shipmentsUpdateOneWithoutParcelsNestedInput
-    client?: usersUpdateOneRequiredWithoutClientsNestedInput
-  }
-
-  export type parcelsUncheckedUpdateWithoutProductInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    volume_weight?: FloatFieldUpdateOperationsInput | number
-    admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    client_id?: StringFieldUpdateOperationsInput | string
-    shipment_id?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type usersUpsertWithoutProductInput = {
-    update: XOR<usersUpdateWithoutProductInput, usersUncheckedUpdateWithoutProductInput>
-    create: XOR<usersCreateWithoutProductInput, usersUncheckedCreateWithoutProductInput>
-  }
-
-  export type usersUpdateWithoutProductInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    drivers?: driversUpdateOneWithoutUsersNestedInput
-    clients?: parcelsUpdateManyWithoutClientNestedInput
-    userTypes?: userTypesUpdateOneWithoutUsersNestedInput
-    branches?: branchesUpdateOneWithoutUsersNestedInput
-  }
-
-  export type usersUncheckedUpdateWithoutProductInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    userType_id?: IntFieldUpdateOperationsInput | number
-    branch_id?: NullableIntFieldUpdateOperationsInput | number | null
-    drivers?: driversUncheckedUpdateOneWithoutUsersNestedInput
-    clients?: parcelsUncheckedUpdateManyWithoutClientNestedInput
-  }
-
   export type shipmentsCreateWithoutParcelsInput = {
     id: string
     status: number
@@ -14696,7 +13095,6 @@ export namespace Prisma {
     password: string
     phone: string
     drivers?: driversCreateNestedOneWithoutUsersInput
-    product?: productCreateNestedManyWithoutUsersInput
     userTypes?: userTypesCreateNestedOneWithoutUsersInput
     branches?: branchesCreateNestedOneWithoutUsersInput
   }
@@ -14710,37 +13108,11 @@ export namespace Prisma {
     userType_id: number
     branch_id?: number | null
     drivers?: driversUncheckedCreateNestedOneWithoutUsersInput
-    product?: productUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type usersCreateOrConnectWithoutClientsInput = {
     where: usersWhereUniqueInput
     create: XOR<usersCreateWithoutClientsInput, usersUncheckedCreateWithoutClientsInput>
-  }
-
-  export type productCreateWithoutParcelsInput = {
-    name: string
-    weight: Decimal | DecimalJsLike | number | string
-    require_date: Date | string
-    users: usersCreateNestedOneWithoutProductInput
-  }
-
-  export type productUncheckedCreateWithoutParcelsInput = {
-    id?: number
-    name: string
-    weight: Decimal | DecimalJsLike | number | string
-    require_date: Date | string
-    requirer_id: string
-  }
-
-  export type productCreateOrConnectWithoutParcelsInput = {
-    where: productWhereUniqueInput
-    create: XOR<productCreateWithoutParcelsInput, productUncheckedCreateWithoutParcelsInput>
-  }
-
-  export type productCreateManyParcelsInputEnvelope = {
-    data: Enumerable<productCreateManyParcelsInput>
-    skipDuplicates?: boolean
   }
 
   export type shipmentsUpsertWithoutParcelsInput = {
@@ -14786,7 +13158,6 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     drivers?: driversUpdateOneWithoutUsersNestedInput
-    product?: productUpdateManyWithoutUsersNestedInput
     userTypes?: userTypesUpdateOneWithoutUsersNestedInput
     branches?: branchesUpdateOneWithoutUsersNestedInput
   }
@@ -14800,23 +13171,6 @@ export namespace Prisma {
     userType_id?: IntFieldUpdateOperationsInput | number
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
     drivers?: driversUncheckedUpdateOneWithoutUsersNestedInput
-    product?: productUncheckedUpdateManyWithoutUsersNestedInput
-  }
-
-  export type productUpsertWithWhereUniqueWithoutParcelsInput = {
-    where: productWhereUniqueInput
-    update: XOR<productUpdateWithoutParcelsInput, productUncheckedUpdateWithoutParcelsInput>
-    create: XOR<productCreateWithoutParcelsInput, productUncheckedCreateWithoutParcelsInput>
-  }
-
-  export type productUpdateWithWhereUniqueWithoutParcelsInput = {
-    where: productWhereUniqueInput
-    data: XOR<productUpdateWithoutParcelsInput, productUncheckedUpdateWithoutParcelsInput>
-  }
-
-  export type productUpdateManyWithWhereWithoutParcelsInput = {
-    where: productScalarWhereInput
-    data: XOR<productUpdateManyMutationInput, productUncheckedUpdateManyWithoutProductInput>
   }
 
   export type trucksCreateWithoutShipmentsInput = {
@@ -14923,7 +13277,6 @@ export namespace Prisma {
     volume_weight: number
     admission_date: Date | string
     client: usersCreateNestedOneWithoutClientsInput
-    product?: productCreateNestedManyWithoutParcelsInput
   }
 
   export type parcelsUncheckedCreateWithoutShipmentsInput = {
@@ -14933,7 +13286,6 @@ export namespace Prisma {
     volume_weight: number
     admission_date: Date | string
     client_id: string
-    product?: productUncheckedCreateNestedManyWithoutParcelsInput
   }
 
   export type parcelsCreateOrConnectWithoutShipmentsInput = {
@@ -15147,7 +13499,6 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     drivers?: driversUpdateOneWithoutUsersNestedInput
-    product?: productUpdateManyWithoutUsersNestedInput
     clients?: parcelsUpdateManyWithoutClientNestedInput
     userTypes?: userTypesUpdateOneWithoutUsersNestedInput
   }
@@ -15160,7 +13511,6 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     userType_id?: IntFieldUpdateOperationsInput | number
     drivers?: driversUncheckedUpdateOneWithoutUsersNestedInput
-    product?: productUncheckedUpdateManyWithoutUsersNestedInput
     clients?: parcelsUncheckedUpdateManyWithoutClientNestedInput
   }
 
@@ -15293,7 +13643,6 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     drivers?: driversUpdateOneWithoutUsersNestedInput
-    product?: productUpdateManyWithoutUsersNestedInput
     clients?: parcelsUpdateManyWithoutClientNestedInput
     branches?: branchesUpdateOneWithoutUsersNestedInput
   }
@@ -15306,16 +13655,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
     drivers?: driversUncheckedUpdateOneWithoutUsersNestedInput
-    product?: productUncheckedUpdateManyWithoutUsersNestedInput
     clients?: parcelsUncheckedUpdateManyWithoutClientNestedInput
-  }
-
-  export type productCreateManyUsersInput = {
-    id?: number
-    name: string
-    weight: Decimal | DecimalJsLike | number | string
-    require_date: Date | string
-    parcel_id?: string | null
   }
 
   export type parcelsCreateManyClientInput = {
@@ -15327,29 +13667,6 @@ export namespace Prisma {
     shipment_id?: string | null
   }
 
-  export type productUpdateWithoutUsersInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    parcels?: parcelsUpdateOneWithoutProductNestedInput
-  }
-
-  export type productUncheckedUpdateWithoutUsersInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type productUncheckedUpdateManyWithoutProductInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
   export type parcelsUpdateWithoutClientInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -15357,7 +13674,6 @@ export namespace Prisma {
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
     shipments?: shipmentsUpdateOneWithoutParcelsNestedInput
-    product?: productUpdateManyWithoutParcelsNestedInput
   }
 
   export type parcelsUncheckedUpdateWithoutClientInput = {
@@ -15367,7 +13683,6 @@ export namespace Prisma {
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
     shipment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    product?: productUncheckedUpdateManyWithoutParcelsNestedInput
   }
 
   export type parcelsUncheckedUpdateManyWithoutClientsInput = {
@@ -15407,29 +13722,6 @@ export namespace Prisma {
     shipments?: shipmentsUncheckedUpdateOneWithoutTruckNestedInput
   }
 
-  export type productCreateManyParcelsInput = {
-    id?: number
-    name: string
-    weight: Decimal | DecimalJsLike | number | string
-    require_date: Date | string
-    requirer_id: string
-  }
-
-  export type productUpdateWithoutParcelsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: usersUpdateOneRequiredWithoutProductNestedInput
-  }
-
-  export type productUncheckedUpdateWithoutParcelsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    require_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    requirer_id?: StringFieldUpdateOperationsInput | string
-  }
-
   export type parcelsCreateManyShipmentsInput = {
     id: string
     name: string
@@ -15446,7 +13738,6 @@ export namespace Prisma {
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
     client?: usersUpdateOneRequiredWithoutClientsNestedInput
-    product?: productUpdateManyWithoutParcelsNestedInput
   }
 
   export type parcelsUncheckedUpdateWithoutShipmentsInput = {
@@ -15456,7 +13747,6 @@ export namespace Prisma {
     volume_weight?: FloatFieldUpdateOperationsInput | number
     admission_date?: DateTimeFieldUpdateOperationsInput | Date | string
     client_id?: StringFieldUpdateOperationsInput | string
-    product?: productUncheckedUpdateManyWithoutParcelsNestedInput
   }
 
   export type parcelsUncheckedUpdateManyWithoutParcelsInput = {

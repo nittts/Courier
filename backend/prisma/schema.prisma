@@ -53,7 +53,6 @@ model users {
   branch_id   Int?        @unique
 
   drivers     drivers?
-  product     product[]
   clients     parcels[]
   userTypes   userTypes? @relation(fields: [userType_id], references: [id])
   branches    branches?   @relation(fields: [branch_id], references: [id], onDelete: SetNull)
@@ -82,18 +81,6 @@ model trucks {
   branch        branches?   @relation(fields: [branch_id], references: [id], onDelete: Cascade)
 }
 
-model product {
-  id           Int       @id @default(autoincrement())
-  name         String    @db.VarChar(256)
-  weight       Decimal   @db.Decimal()
-  require_date DateTime  @db.Timestamp()
-  requirer_id  String
-  parcel_id    String?    @unique @db.VarChar(36) 
-
-  parcels      parcels?   @relation(fields: [parcel_id], references: [id], onDelete: Cascade)
-  users        users     @relation(fields: [requirer_id], references: [id], onUpdate: Cascade)
-}
-
 model parcels {
   id             String       @id @db.VarChar(36)
   name           String       @db.VarChar(256)
@@ -105,7 +92,6 @@ model parcels {
 
   shipments      shipments?    @relation(fields: [shipment_id], references: [id]) 
   client         users        @relation(fields: [client_id], references: [id], onDelete: Cascade)
-  product        product[]
 }
 
 model shipments {
