@@ -8,7 +8,9 @@
     "prisma:seed": "yarn prisma generate && yarn prisma db seed ",
     "prisma:deploy": "yarn prisma migrate deploy",
     "dev": "ts-node-dev --exit-child --watch src ./src",
-    "server": "yarn prisma:deploy && yarn prisma:seed && yarn dev"
+    "server": "yarn prisma:deploy && yarn prisma:seed && yarn dev",
+    "build": "tsc",
+    "start": "node ./dist/index.js && yarn server"
   },
   "dependencies": {
     "@prisma/client": "^4.7.1",
