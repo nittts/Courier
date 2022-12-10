@@ -3,6 +3,7 @@
 ### BUILD CONTROLLERS
 | all users;
 | user by id;
+| query users by type;
 | logged in user information;
 | create new user;
 | user login;
@@ -12,4 +13,4 @@
 
 STATUS - DONE
 
-| 0/8
+| 9/9
