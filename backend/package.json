@@ -10,7 +10,7 @@
     "dev": "ts-node-dev --exit-child --watch src ./src",
     "server": "yarn prisma:deploy && yarn prisma:seed && yarn dev",
     "build": "tsc",
-    "start": "node ./dist/index.js && yarn server"
+    "start": "node ./dist/src/index.js && yarn server"
   },
   "dependencies": {
     "@prisma/client": "^4.7.1",
