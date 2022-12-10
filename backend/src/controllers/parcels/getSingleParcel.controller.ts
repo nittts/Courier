@@ -6,9 +6,9 @@ const getSingleParcelController = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    const city = await getSingleParcelService(id);
+    const parcel = await getSingleParcelService(id);
 
-    return res.status(200).send({ message: "Success.", city });
+    return res.status(200).send({ message: "Success.", results: parcel });
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);

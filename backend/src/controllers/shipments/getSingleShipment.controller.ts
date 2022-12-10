@@ -8,7 +8,7 @@ const getSingleShipmentController = async (req: Request, res: Response) => {
   try {
     const shipment = await getSingleShipmentService(id);
 
-    return res.status(200).send({ message: "Success.", shipment });
+    return res.status(200).send({ message: "Success.", results: shipment });
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);

@@ -5,16 +5,11 @@ import { Request, Response } from "express";
 
 const updateParcelController = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { name, content, volume_weight, client_id, shipment_id } = req.body;
 
   try {
     const updatedParcel = await updateParcelService({
       id,
-      name,
-      content,
-      volume_weight,
-      client_id,
-      shipment_id,
+      ...req.body,
     } as IParcelUpdate);
 
     return res.status(200).send({ message: "Parcel updated.", results: updatedParcel });

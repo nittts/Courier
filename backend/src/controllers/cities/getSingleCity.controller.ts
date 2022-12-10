@@ -8,7 +8,7 @@ const getSingleCityController = async (req: Request, res: Response) => {
   try {
     const city = await getSingleCityService(Number(id));
 
-    return res.status(200).send({ message: "Success.", city });
+    return res.status(200).send({ message: "Success.", results: city });
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);

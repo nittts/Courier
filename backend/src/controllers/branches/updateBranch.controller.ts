@@ -5,15 +5,11 @@ import { Request, Response } from "express";
 
 const updateBranchController = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { name, address, branch_lat, branch_long } = req.body;
 
   try {
     const updatedBranch = await updateBranchService({
       id: Number(id),
-      name,
-      address,
-      branch_lat,
-      branch_long,
+      ...req.body,
     } as IBranchUpdate);
 
     return res.status(200).send({ message: "Branch Updated.", results: updatedBranch });
