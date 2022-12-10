@@ -14,6 +14,12 @@ const createCityService = async (data: ICity) => {
       throw new AppError(400, "Invalid PostCode.", "Bad Request");
     }
 
+    const alreadyExists = await prisma.cities.findFirst({ where: { name: data.name } });
+
+    if (alreadyExists) {
+      throw new AppError(400, "City Already Exists.", "Bad Request");
+    }
+
     const res = await prisma.cities.create({ data });
 
     return res;

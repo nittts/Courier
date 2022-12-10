@@ -14,7 +14,7 @@ const router = Router();
 
 router.get("", verifyAuthTokenMiddleware, queryCitiesController);
 router.get("/:id", verifyAuthTokenMiddleware, getSingleCityController);
-router.get("/all", verifyAuthTokenMiddleware, getCitiesController);
+router.get("/all", verifyAuthTokenMiddleware, verifyAdmMiddleware, getCitiesController);
 
 router.post("/", verifyAuthTokenMiddleware, verifyAdmMiddleware, createCityController);
 
