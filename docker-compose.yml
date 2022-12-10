@@ -31,6 +31,7 @@ services:
       - 8080:8080
     environment:
       - PORT=8080
+      - SECRET_KEY=SECRETHEHEHE
     networks:
       - network-backend
     restart: always
