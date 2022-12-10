@@ -9899,7 +9899,6 @@ export namespace Prisma {
 
   export type usersWhereUniqueInput = {
     id?: string
-    userType_id?: number
     branch_id?: number
   }
 

@@ -50,10 +50,10 @@ async function seed() {
   await prisma.users.createMany({
     data: [
       {
-        id: "adminidnew",
+        id: "0f2196b7-dc8d-4e81-a4c3-34c374fc4e4f",
         name: "Admin",
         email: "sudo@sudo.com",
-        password: "123456",
+        password: "$2y$10$eEndac041EOh8sbwYMdL8OICY0VQVNRUGM2/QgMrOb.RYdWIox18y",
         phone: "123456",
         userType_id: 1,
         branch_id: 1,

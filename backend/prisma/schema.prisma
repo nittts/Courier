@@ -49,7 +49,7 @@ model users {
   email       String      @db.VarChar(128)
   password    String      @db.VarChar(128)
   phone       String      @db.VarChar(20)
-  userType_id Int        @unique
+  userType_id Int         
   branch_id   Int?        @unique
 
   drivers     drivers?
