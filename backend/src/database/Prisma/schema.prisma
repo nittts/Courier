@@ -96,16 +96,16 @@ model parcels {
 
 model shipments {
   id                 String    @id @db.VarChar(36)
-  status             Int       @db.Integer
-  arrival_time       DateTime  @db.Timestamp()
+  status             String       @db.VarChar(36)
+  arrival_time       DateTime?  @db.Timestamp()
   departure_time     DateTime  @db.Timestamp()
   weight             Decimal   @db.Decimal()
 
-  truck_id           Int       @unique
-  driver_id          String    @unique
+  truck_id           Int       @unique 
+  driver_id          String    @unique @db.VarChar(36)
   destination_branch Int       @unique
   departure_branch   Int       @unique
-  parcel_id          String    @unique
+  parcel_id          String?    @unique @db.VarChar(36)
 
   truck              trucks?   @relation(fields: [truck_id], references: [id] )
   drivers            drivers?  @relation(fields: [driver_id], references: [user_id])

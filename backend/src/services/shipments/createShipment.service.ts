@@ -1,8 +1,8 @@
-import { IParcelCreate } from "../../interfaces/Parcels/parcel.types";
 import prisma from "../../database/Prisma/database";
 import { AppError } from "../../errors";
+import { IShipmentCreate } from "../../interfaces/Shipments/shipment.types";
 
-const createParcelService = async (data: IParcelCreate) => {
+const createShipmentService = async (data: IShipmentCreate) => {
   try {
     const missingValues = Object.entries(data).find((item) => typeof item[1] === "undefined");
 
@@ -10,7 +10,7 @@ const createParcelService = async (data: IParcelCreate) => {
       throw new AppError(400, `${missingValues[0]} field is Required.`, "Bad Request");
     }
 
-    const res = await prisma.parcels.create({ data });
+    const res = await prisma.shipments.create({ data });
 
     return res;
   } catch (err) {
@@ -21,4 +21,4 @@ const createParcelService = async (data: IParcelCreate) => {
   }
 };
 
-export default createParcelService;
+export default createShipmentService;

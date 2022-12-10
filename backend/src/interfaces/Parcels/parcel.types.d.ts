@@ -9,6 +9,8 @@ export interface IParcel {
 }
 
 export interface IParcelCreate {
+  id: string;
+  admission_date: Date;
   name: string;
   content: string;
   volume_weight: number;

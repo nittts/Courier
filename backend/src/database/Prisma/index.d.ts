@@ -101,15 +101,15 @@ export type parcels = {
  */
 export type shipments = {
   id: string
-  status: number
-  arrival_time: Date
+  status: string
+  arrival_time: Date | null
   departure_time: Date
   weight: Prisma.Decimal
   truck_id: number
   driver_id: string
   destination_branch: number
   departure_branch: number
-  parcel_id: string
+  parcel_id: string | null
 }
 
 
@@ -8506,7 +8506,6 @@ export namespace Prisma {
   }
 
   export type ShipmentsAvgAggregateOutputType = {
-    status: number | null
     weight: Decimal | null
     truck_id: number | null
     destination_branch: number | null
@@ -8514,7 +8513,6 @@ export namespace Prisma {
   }
 
   export type ShipmentsSumAggregateOutputType = {
-    status: number | null
     weight: Decimal | null
     truck_id: number | null
     destination_branch: number | null
@@ -8523,7 +8521,7 @@ export namespace Prisma {
 
   export type ShipmentsMinAggregateOutputType = {
     id: string | null
-    status: number | null
+    status: string | null
     arrival_time: Date | null
     departure_time: Date | null
     weight: Decimal | null
@@ -8536,7 +8534,7 @@ export namespace Prisma {
 
   export type ShipmentsMaxAggregateOutputType = {
     id: string | null
-    status: number | null
+    status: string | null
     arrival_time: Date | null
     departure_time: Date | null
     weight: Decimal | null
@@ -8563,7 +8561,6 @@ export namespace Prisma {
 
 
   export type ShipmentsAvgAggregateInputType = {
-    status?: true
     weight?: true
     truck_id?: true
     destination_branch?: true
@@ -8571,7 +8568,6 @@ export namespace Prisma {
   }
 
   export type ShipmentsSumAggregateInputType = {
-    status?: true
     weight?: true
     truck_id?: true
     destination_branch?: true
@@ -8712,15 +8708,15 @@ export namespace Prisma {
 
   export type ShipmentsGroupByOutputType = {
     id: string
-    status: number
-    arrival_time: Date
+    status: string
+    arrival_time: Date | null
     departure_time: Date
     weight: Decimal
     truck_id: number
     driver_id: string
     destination_branch: number
     departure_branch: number
-    parcel_id: string
+    parcel_id: string | null
     _count: ShipmentsCountAggregateOutputType | null
     _avg: ShipmentsAvgAggregateOutputType | null
     _sum: ShipmentsSumAggregateOutputType | null
@@ -10104,15 +10100,15 @@ export namespace Prisma {
     OR?: Enumerable<shipmentsWhereInput>
     NOT?: Enumerable<shipmentsWhereInput>
     id?: StringFilter | string
-    status?: IntFilter | number
-    arrival_time?: DateTimeFilter | Date | string
+    status?: StringFilter | string
+    arrival_time?: DateTimeNullableFilter | Date | string | null
     departure_time?: DateTimeFilter | Date | string
     weight?: DecimalFilter | Decimal | DecimalJsLike | number | string
     truck_id?: IntFilter | number
     driver_id?: StringFilter | string
     destination_branch?: IntFilter | number
     departure_branch?: IntFilter | number
-    parcel_id?: StringFilter | string
+    parcel_id?: StringNullableFilter | string | null
     truck?: XOR<TrucksRelationFilter, trucksWhereInput> | null
     drivers?: XOR<DriversRelationFilter, driversWhereInput> | null
     branch_destination?: XOR<BranchesRelationFilter, branchesWhereInput> | null
@@ -10170,15 +10166,15 @@ export namespace Prisma {
     OR?: Enumerable<shipmentsScalarWhereWithAggregatesInput>
     NOT?: Enumerable<shipmentsScalarWhereWithAggregatesInput>
     id?: StringWithAggregatesFilter | string
-    status?: IntWithAggregatesFilter | number
-    arrival_time?: DateTimeWithAggregatesFilter | Date | string
+    status?: StringWithAggregatesFilter | string
+    arrival_time?: DateTimeNullableWithAggregatesFilter | Date | string | null
     departure_time?: DateTimeWithAggregatesFilter | Date | string
     weight?: DecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
     truck_id?: IntWithAggregatesFilter | number
     driver_id?: StringWithAggregatesFilter | string
     destination_branch?: IntWithAggregatesFilter | number
     departure_branch?: IntWithAggregatesFilter | number
-    parcel_id?: StringWithAggregatesFilter | string
+    parcel_id?: StringNullableWithAggregatesFilter | string | null
   }
 
   export type citiesCreateInput = {
@@ -10592,11 +10588,11 @@ export namespace Prisma {
 
   export type shipmentsCreateInput = {
     id: string
-    status: number
-    arrival_time: Date | string
+    status: string
+    arrival_time?: Date | string | null
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    parcel_id: string
+    parcel_id?: string | null
     truck?: trucksCreateNestedOneWithoutShipmentsInput
     drivers?: driversCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
@@ -10606,25 +10602,25 @@ export namespace Prisma {
 
   export type shipmentsUncheckedCreateInput = {
     id: string
-    status: number
-    arrival_time: Date | string
+    status: string
+    arrival_time?: Date | string | null
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
     truck_id: number
     driver_id: string
     destination_branch: number
     departure_branch: number
-    parcel_id: string
+    parcel_id?: string | null
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
   export type shipmentsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
     drivers?: driversUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
@@ -10634,51 +10630,51 @@ export namespace Prisma {
 
   export type shipmentsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     truck_id?: IntFieldUpdateOperationsInput | number
     driver_id?: StringFieldUpdateOperationsInput | string
     destination_branch?: IntFieldUpdateOperationsInput | number
     departure_branch?: IntFieldUpdateOperationsInput | number
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
   export type shipmentsCreateManyInput = {
     id: string
-    status: number
-    arrival_time: Date | string
+    status: string
+    arrival_time?: Date | string | null
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
     truck_id: number
     driver_id: string
     destination_branch: number
     departure_branch: number
-    parcel_id: string
+    parcel_id?: string | null
   }
 
   export type shipmentsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type shipmentsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     truck_id?: IntFieldUpdateOperationsInput | number
     driver_id?: StringFieldUpdateOperationsInput | string
     destination_branch?: IntFieldUpdateOperationsInput | number
     departure_branch?: IntFieldUpdateOperationsInput | number
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type IntFilter = {
@@ -11175,6 +11171,17 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
+  export type DateTimeNullableFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableFilter | Date | string | null
+  }
+
   export type DecimalFilter = {
     equals?: Decimal | DecimalJsLike | number | string
     in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
@@ -11205,7 +11212,6 @@ export namespace Prisma {
   }
 
   export type shipmentsAvgOrderByAggregateInput = {
-    status?: SortOrder
     weight?: SortOrder
     truck_id?: SortOrder
     destination_branch?: SortOrder
@@ -11239,11 +11245,24 @@ export namespace Prisma {
   }
 
   export type shipmentsSumOrderByAggregateInput = {
-    status?: SortOrder
     weight?: SortOrder
     truck_id?: SortOrder
     destination_branch?: SortOrder
     departure_branch?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedDateTimeNullableFilter
+    _max?: NestedDateTimeNullableFilter
   }
 
   export type DecimalWithAggregatesFilter = {
@@ -11894,6 +11913,10 @@ export namespace Prisma {
     connect?: Enumerable<parcelsWhereUniqueInput>
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type DecimalFieldUpdateOperationsInput = {
     set?: Decimal | DecimalJsLike | number | string
     increment?: Decimal | DecimalJsLike | number | string
@@ -12162,6 +12185,17 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
+  export type NestedDateTimeNullableFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableFilter | Date | string | null
+  }
+
   export type NestedDecimalFilter = {
     equals?: Decimal | DecimalJsLike | number | string
     in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
@@ -12171,6 +12205,20 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string
     gte?: Decimal | DecimalJsLike | number | string
     not?: NestedDecimalFilter | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedDateTimeNullableFilter
+    _max?: NestedDateTimeNullableFilter
   }
 
   export type NestedDecimalWithAggregatesFilter = {
@@ -12313,11 +12361,11 @@ export namespace Prisma {
 
   export type shipmentsCreateWithoutBranch_destinationInput = {
     id: string
-    status: number
-    arrival_time: Date | string
+    status: string
+    arrival_time?: Date | string | null
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    parcel_id: string
+    parcel_id?: string | null
     truck?: trucksCreateNestedOneWithoutShipmentsInput
     drivers?: driversCreateNestedOneWithoutShipmentsInput
     branch_departure?: branchesCreateNestedOneWithoutShipments_departureInput
@@ -12326,14 +12374,14 @@ export namespace Prisma {
 
   export type shipmentsUncheckedCreateWithoutBranch_destinationInput = {
     id: string
-    status: number
-    arrival_time: Date | string
+    status: string
+    arrival_time?: Date | string | null
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
     truck_id: number
     driver_id: string
     departure_branch: number
-    parcel_id: string
+    parcel_id?: string | null
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
@@ -12349,11 +12397,11 @@ export namespace Prisma {
 
   export type shipmentsCreateWithoutBranch_departureInput = {
     id: string
-    status: number
-    arrival_time: Date | string
+    status: string
+    arrival_time?: Date | string | null
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    parcel_id: string
+    parcel_id?: string | null
     truck?: trucksCreateNestedOneWithoutShipmentsInput
     drivers?: driversCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
@@ -12362,14 +12410,14 @@ export namespace Prisma {
 
   export type shipmentsUncheckedCreateWithoutBranch_departureInput = {
     id: string
-    status: number
-    arrival_time: Date | string
+    status: string
+    arrival_time?: Date | string | null
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
     truck_id: number
     driver_id: string
     destination_branch: number
-    parcel_id: string
+    parcel_id?: string | null
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
@@ -12478,15 +12526,15 @@ export namespace Prisma {
     OR?: Enumerable<shipmentsScalarWhereInput>
     NOT?: Enumerable<shipmentsScalarWhereInput>
     id?: StringFilter | string
-    status?: IntFilter | number
-    arrival_time?: DateTimeFilter | Date | string
+    status?: StringFilter | string
+    arrival_time?: DateTimeNullableFilter | Date | string | null
     departure_time?: DateTimeFilter | Date | string
     weight?: DecimalFilter | Decimal | DecimalJsLike | number | string
     truck_id?: IntFilter | number
     driver_id?: StringFilter | string
     destination_branch?: IntFilter | number
     departure_branch?: IntFilter | number
-    parcel_id?: StringFilter | string
+    parcel_id?: StringNullableFilter | string | null
   }
 
   export type shipmentsUpsertWithWhereUniqueWithoutBranch_departureInput = {
@@ -12746,11 +12794,11 @@ export namespace Prisma {
 
   export type shipmentsCreateWithoutDriversInput = {
     id: string
-    status: number
-    arrival_time: Date | string
+    status: string
+    arrival_time?: Date | string | null
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    parcel_id: string
+    parcel_id?: string | null
     truck?: trucksCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
     branch_departure?: branchesCreateNestedOneWithoutShipments_departureInput
@@ -12759,14 +12807,14 @@ export namespace Prisma {
 
   export type shipmentsUncheckedCreateWithoutDriversInput = {
     id: string
-    status: number
-    arrival_time: Date | string
+    status: string
+    arrival_time?: Date | string | null
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
     truck_id: number
     destination_branch: number
     departure_branch: number
-    parcel_id: string
+    parcel_id?: string | null
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
@@ -12838,11 +12886,11 @@ export namespace Prisma {
 
   export type shipmentsUpdateWithoutDriversInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
     branch_departure?: branchesUpdateOneWithoutShipments_departureNestedInput
@@ -12851,14 +12899,14 @@ export namespace Prisma {
 
   export type shipmentsUncheckedUpdateWithoutDriversInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     truck_id?: IntFieldUpdateOperationsInput | number
     destination_branch?: IntFieldUpdateOperationsInput | number
     departure_branch?: IntFieldUpdateOperationsInput | number
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
@@ -12907,11 +12955,11 @@ export namespace Prisma {
 
   export type shipmentsCreateWithoutTruckInput = {
     id: string
-    status: number
-    arrival_time: Date | string
+    status: string
+    arrival_time?: Date | string | null
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    parcel_id: string
+    parcel_id?: string | null
     drivers?: driversCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
     branch_departure?: branchesCreateNestedOneWithoutShipments_departureInput
@@ -12920,14 +12968,14 @@ export namespace Prisma {
 
   export type shipmentsUncheckedCreateWithoutTruckInput = {
     id: string
-    status: number
-    arrival_time: Date | string
+    status: string
+    arrival_time?: Date | string | null
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
     driver_id: string
     destination_branch: number
     departure_branch: number
-    parcel_id: string
+    parcel_id?: string | null
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
@@ -12988,11 +13036,11 @@ export namespace Prisma {
 
   export type shipmentsUpdateWithoutTruckInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     drivers?: driversUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
     branch_departure?: branchesUpdateOneWithoutShipments_departureNestedInput
@@ -13001,14 +13049,14 @@ export namespace Prisma {
 
   export type shipmentsUncheckedUpdateWithoutTruckInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     driver_id?: StringFieldUpdateOperationsInput | string
     destination_branch?: IntFieldUpdateOperationsInput | number
     departure_branch?: IntFieldUpdateOperationsInput | number
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
@@ -13059,11 +13107,11 @@ export namespace Prisma {
 
   export type shipmentsCreateWithoutParcelsInput = {
     id: string
-    status: number
-    arrival_time: Date | string
+    status: string
+    arrival_time?: Date | string | null
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
-    parcel_id: string
+    parcel_id?: string | null
     truck?: trucksCreateNestedOneWithoutShipmentsInput
     drivers?: driversCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
@@ -13072,15 +13120,15 @@ export namespace Prisma {
 
   export type shipmentsUncheckedCreateWithoutParcelsInput = {
     id: string
-    status: number
-    arrival_time: Date | string
+    status: string
+    arrival_time?: Date | string | null
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
     truck_id: number
     driver_id: string
     destination_branch: number
     departure_branch: number
-    parcel_id: string
+    parcel_id?: string | null
   }
 
   export type shipmentsCreateOrConnectWithoutParcelsInput = {
@@ -13122,11 +13170,11 @@ export namespace Prisma {
 
   export type shipmentsUpdateWithoutParcelsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
     drivers?: driversUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
@@ -13135,15 +13183,15 @@ export namespace Prisma {
 
   export type shipmentsUncheckedUpdateWithoutParcelsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     truck_id?: IntFieldUpdateOperationsInput | number
     driver_id?: StringFieldUpdateOperationsInput | string
     destination_branch?: IntFieldUpdateOperationsInput | number
     departure_branch?: IntFieldUpdateOperationsInput | number
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type usersUpsertWithoutClientsInput = {
@@ -13470,26 +13518,26 @@ export namespace Prisma {
 
   export type shipmentsCreateManyBranch_destinationInput = {
     id: string
-    status: number
-    arrival_time: Date | string
+    status: string
+    arrival_time?: Date | string | null
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
     truck_id: number
     driver_id: string
     departure_branch: number
-    parcel_id: string
+    parcel_id?: string | null
   }
 
   export type shipmentsCreateManyBranch_departureInput = {
     id: string
-    status: number
-    arrival_time: Date | string
+    status: string
+    arrival_time?: Date | string | null
     departure_time: Date | string
     weight: Decimal | DecimalJsLike | number | string
     truck_id: number
     driver_id: string
     destination_branch: number
-    parcel_id: string
+    parcel_id?: string | null
   }
 
   export type usersUpdateWithoutBranchesInput = {
@@ -13553,11 +13601,11 @@ export namespace Prisma {
 
   export type shipmentsUpdateWithoutBranch_destinationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
     drivers?: driversUpdateOneWithoutShipmentsNestedInput
     branch_departure?: branchesUpdateOneWithoutShipments_departureNestedInput
@@ -13566,36 +13614,36 @@ export namespace Prisma {
 
   export type shipmentsUncheckedUpdateWithoutBranch_destinationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     truck_id?: IntFieldUpdateOperationsInput | number
     driver_id?: StringFieldUpdateOperationsInput | string
     departure_branch?: IntFieldUpdateOperationsInput | number
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
   export type shipmentsUncheckedUpdateManyWithoutShipments_destinationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     truck_id?: IntFieldUpdateOperationsInput | number
     driver_id?: StringFieldUpdateOperationsInput | string
     departure_branch?: IntFieldUpdateOperationsInput | number
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type shipmentsUpdateWithoutBranch_departureInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
     drivers?: driversUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
@@ -13604,27 +13652,27 @@ export namespace Prisma {
 
   export type shipmentsUncheckedUpdateWithoutBranch_departureInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     truck_id?: IntFieldUpdateOperationsInput | number
     driver_id?: StringFieldUpdateOperationsInput | string
     destination_branch?: IntFieldUpdateOperationsInput | number
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
   export type shipmentsUncheckedUpdateManyWithoutShipments_departureInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
-    arrival_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     truck_id?: IntFieldUpdateOperationsInput | number
     driver_id?: StringFieldUpdateOperationsInput | string
     destination_branch?: IntFieldUpdateOperationsInput | number
-    parcel_id?: StringFieldUpdateOperationsInput | string
+    parcel_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type usersCreateManyUserTypesInput = {

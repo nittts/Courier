@@ -1,6 +1,5 @@
-// import shipmentsRouter from "./shipments/shipments.routes";
+import shipmentsRouter from "./shipments/shipments.routes";
 import branchesRouter from "./branches/branches.routes";
-// import productsRouter from "./products/products.routes";
 import parcelsRouter from "./parcels/parcels.routes";
 import citiesRouter from "./cities/cities.routes";
 // import truckRouter from "./trucks/trucks.routes";
@@ -10,8 +9,7 @@ import { Request, Response, Router } from "express";
 
 const AppRouter = Router();
 
-// AppRouter.use("/shipments", shipmentsRouter);
-// AppRouter.use("/products", productsRouter);
+AppRouter.use("/shipments", shipmentsRouter);
 AppRouter.use("/branches", branchesRouter);
 AppRouter.use("/parcels", parcelsRouter);
 AppRouter.use("/cities", citiesRouter);
