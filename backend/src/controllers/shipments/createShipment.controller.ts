@@ -1,8 +1,8 @@
+import createShipmentService from "../../services/shipments/createShipment.service";
+import { IShipmentCreate } from "../../interfaces/Shipments/shipment.types";
 import { AppError, handleError } from "../../errors";
 import { Request, Response } from "express";
 import { v4 as uuid } from "uuid";
-import createShipmentService from "../../services/shipments/createShipment.service";
-import { IShipmentCreate } from "../../interfaces/Shipments/shipment.types";
 
 const createShipmentController = async (req: Request, res: Response) => {
   const {

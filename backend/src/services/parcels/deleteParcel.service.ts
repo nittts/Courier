@@ -5,7 +5,7 @@ const deleteParcelService = async (id: string) => {
   try {
     const findParcel = await prisma.parcels.findFirst({ where: { id } });
 
-    if (findParcel === null) {
+    if (!findParcel) {
       throw new AppError(404, "Parcel not Found.", "Not Found");
     }
 

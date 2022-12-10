@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { AppError, handleError } from "../../errors";
 import userLoginService from "../../services/users/userLogin.service";
+import { AppError, handleError } from "../../errors";
+import { Request, Response } from "express";
 
 const userLoginController = async (req: Request, res: Response) => {
   const { email, password } = req.body;

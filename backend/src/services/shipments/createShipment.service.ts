@@ -1,6 +1,6 @@
+import { IShipmentCreate } from "../../interfaces/Shipments/shipment.types";
 import prisma from "../../database/Prisma/database";
 import { AppError } from "../../errors";
-import { IShipmentCreate } from "../../interfaces/Shipments/shipment.types";
 
 const createShipmentService = async (data: IShipmentCreate) => {
   try {

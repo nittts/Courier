@@ -1,14 +1,14 @@
 import createUserService from "../../services/users/createUser.service";
-import { Request, Response } from "express";
 import { AppError, handleError } from "../../errors";
-import * as bcrypt from "bcrypt";
+import { Request, Response } from "express";
 import { v4 as uuid } from "uuid";
+import * as bcrypt from "bcrypt";
 
 const createUserController = async (req: Request, res: Response) => {
   const { name, email, password, phone, userType_id, branch_id } = req.body;
 
   try {
-    const hashedPwd = await bcrypt.hashSync(password, 10);
+    const hashedPwd = bcrypt.hashSync(password, 10);
 
     const newUser = await createUserService({
       id: uuid(),

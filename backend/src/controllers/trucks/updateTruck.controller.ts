@@ -1,6 +1,6 @@
+import updateTruckService from "../../services/trucks/updateTruck.service";
 import { AppError, handleError } from "../../errors";
 import { Request, Response } from "express";
-import updateTruckService from "../../services/trucks/updateTruck.service";
 
 const updateTruckController = async (req: Request, res: Response) => {
   const { id } = req.params;

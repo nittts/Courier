@@ -5,7 +5,7 @@ const deleteShipmentService = async (id: string) => {
   try {
     const findShipment = await prisma.shipments.findFirst({ where: { id } });
 
-    if (findShipment === null) {
+    if (!findShipment) {
       throw new AppError(404, "Shipment not Found.", "Not Found");
     }
 

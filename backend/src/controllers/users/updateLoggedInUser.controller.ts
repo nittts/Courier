@@ -1,6 +1,6 @@
 import updateLoggedInUserService from "../../services/users/updateLoggedInUser.service";
-import { Request, Response } from "express";
 import { AppError, handleError } from "../../errors";
+import { Request, Response } from "express";
 
 const updateLoggedInUserController = async (req: Request, res: Response) => {
   const { id } = req.user;

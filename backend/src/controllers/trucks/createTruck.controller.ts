@@ -1,6 +1,6 @@
 import createTruckService from "../../services/trucks/createTruck.service";
-import { AppError, handleError } from "../../errors";
 import { ITruckCreate } from "../../interfaces/trucks/truck.types";
+import { AppError, handleError } from "../../errors";
 import { Request, Response } from "express";
 
 const createTruckController = async (req: Request, res: Response) => {

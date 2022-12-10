@@ -5,7 +5,7 @@ const deleteTruckService = async (id: number) => {
   try {
     const findTruck = await prisma.trucks.findFirst({ where: { id } });
 
-    if (findTruck === null) {
+    if (!findTruck) {
       throw new AppError(404, "Truck not Found.", "Not Found");
     }
 

@@ -1,7 +1,7 @@
 import queryParcelsService from "../../services/parcels/queryParcels.service";
-import { Request, Response } from "express";
-import { AppError, handleError } from "../../errors";
 import { IParcelQuerySearch } from "../../interfaces/Parcels/parcel.types";
+import { AppError, handleError } from "../../errors";
+import { Request, Response } from "express";
 
 const queryParcelsController = async (req: Request, res: Response) => {
   const {

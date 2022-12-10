@@ -1,7 +1,7 @@
 import queryParcelsByWeightService from "../../services/parcels/queryParcelsByWeight.service";
-import { Request, Response } from "express";
-import { AppError, handleError } from "../../errors";
 import { IParcelWeight } from "../../interfaces/Parcels/parcel.types";
+import { AppError, handleError } from "../../errors";
+import { Request, Response } from "express";
 
 const queryParcelsByWeightController = async (req: Request, res: Response) => {
   const {

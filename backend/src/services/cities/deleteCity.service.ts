@@ -5,7 +5,7 @@ const deleteCityService = async (id: number) => {
   try {
     const findCity = await prisma.cities.findFirst({ where: { id } });
 
-    if (findCity === null) {
+    if (!findCity) {
       throw new AppError(404, "City not Found.", "Not Found");
     }
 

@@ -1,6 +1,6 @@
 import getTrucksService from "../../services/trucks/getTrucks.service";
-import { Request, Response } from "express";
 import { AppError, handleError } from "../../errors";
+import { Request, Response } from "express";
 
 const getTrucksController = async (req: Request, res: Response) => {
   try {

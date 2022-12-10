@@ -1,6 +1,6 @@
+import { IUser } from "../../interfaces/Users/user.types";
 import prisma from "../../database/Prisma/database";
 import { AppError } from "../../errors";
-import { IUser } from "../../interfaces/Users/user.types";
 
 const createUserService = async (data: IUser) => {
   try {

@@ -1,6 +1,6 @@
 import getParcelsService from "../../services/parcels/getParcels.service";
-import { Request, Response } from "express";
 import { handleError, AppError } from "../../errors";
+import { Request, Response } from "express";
 
 const getParcelsController = async (req: Request, res: Response) => {
   try {

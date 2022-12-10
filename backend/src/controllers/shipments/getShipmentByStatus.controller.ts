@@ -1,6 +1,6 @@
 import getShipmentsByStatusService from "../../services/shipments/getShipmentByStatus.service";
-import { Request, Response } from "express";
 import { AppError, handleError } from "../../errors";
+import { Request, Response } from "express";
 
 const getShipmentsByStatusController = async (req: Request, res: Response) => {
   const { status } = req.params;

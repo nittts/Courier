@@ -5,7 +5,7 @@ const deleteUserService = async (id: string) => {
   try {
     const findUser = await prisma.users.findFirst({ where: { id } });
 
-    if (findUser === null) {
+    if (!findUser) {
       throw new AppError(404, "User not Found.", "Not Found");
     }
 

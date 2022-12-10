@@ -1,7 +1,7 @@
 import queryUserByTypeService from "../../services/users/queryUserByType.service";
-import { Request, Response } from "express";
-import { AppError, handleError } from "../../errors";
 import { IUserTypeSearch } from "../../interfaces/Users/user.types";
+import { AppError, handleError } from "../../errors";
+import { Request, Response } from "express";
 
 const queryUserByTypeController = async (req: Request, res: Response) => {
   const { id, name } = req.query;

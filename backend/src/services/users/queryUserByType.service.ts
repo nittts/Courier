@@ -1,6 +1,6 @@
+import { IUserTypeSearch } from "../../interfaces/Users/user.types";
 import prisma from "../../database/Prisma/database";
 import { AppError } from "../../errors";
-import { IUserTypeSearch } from "../../interfaces/Users/user.types";
 
 const queryUserByTypeService = async (data: IUserTypeSearch) => {
   try {

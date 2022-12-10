@@ -1,6 +1,6 @@
 import getUsersService from "../../services/users/getUsers.service";
-import { Request, Response } from "express";
 import { AppError, handleError } from "../../errors";
+import { Request, Response } from "express";
 
 const getUsersController = async (req: Request, res: Response) => {
   try {

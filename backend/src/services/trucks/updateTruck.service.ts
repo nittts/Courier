@@ -1,6 +1,6 @@
+import { ITruckUpdate } from "../../interfaces/trucks/truck.types";
 import prisma from "../../database/Prisma/database";
 import { AppError } from "../../errors";
-import { ITruckUpdate } from "../../interfaces/trucks/truck.types";
 
 const updateTruckService = async (data: ITruckUpdate) => {
   const { id } = data;

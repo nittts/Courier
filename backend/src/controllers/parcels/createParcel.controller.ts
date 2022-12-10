@@ -1,8 +1,8 @@
 import createParcelService from "../../services/parcels/createParcel.service";
+import { IParcelCreate } from "../../interfaces/Parcels/parcel.types";
 import { AppError, handleError } from "../../errors";
 import { Request, Response } from "express";
 import { v4 as uuid } from "uuid";
-import { IParcelCreate } from "../../interfaces/Parcels/parcel.types";
 
 const createParcelController = async (req: Request, res: Response) => {
   const { name, content, volume_weight, client_id, shipment_id } = req.body;

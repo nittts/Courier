@@ -5,7 +5,7 @@ const deleteBranchService = async (id: number) => {
   try {
     const findBranch = await prisma.branches.findFirst({ where: { id } });
 
-    if (findBranch === null) {
+    if (!findBranch) {
       throw new AppError(404, "Branch not Found.", "Not Found");
     }
 

@@ -1,6 +1,6 @@
+import updateShipmentService from "../../services/shipments/updateShipment.service";
 import { AppError, handleError } from "../../errors";
 import { Request, Response } from "express";
-import updateShipmentService from "../../services/shipments/updateShipment.service";
 
 const updateShipmentController = async (req: Request, res: Response) => {
   const { id } = req.params;

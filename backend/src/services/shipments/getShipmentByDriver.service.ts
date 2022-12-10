@@ -1,6 +1,6 @@
-import { AppError } from "../../errors";
-import prisma from "../../database/Prisma/database";
 import { IShipmentDriverSearch } from "../../interfaces/Shipments/shipment.types";
+import prisma from "../../database/Prisma/database";
+import { AppError } from "../../errors";
 
 interface IShipmentDriver {
   id: string;

@@ -1,6 +1,6 @@
+import getLoggedInUserService from "../../services/users/getLoggedInUser.service";
 import { AppError, handleError } from "../../errors";
 import { Request, Response } from "express";
-import getLoggedInUserService from "../../services/users/getLoggedInUser.service";
 
 const getLoggedInUserController = async (req: Request, res: Response) => {
   const { id } = req.user;

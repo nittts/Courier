@@ -1,6 +1,6 @@
 import updateUserService from "../../services/users/updateUser.service";
-import { Request, Response } from "express";
 import { AppError, handleError } from "../../errors";
+import { Request, Response } from "express";
 
 const updateUserController = async (req: Request, res: Response) => {
   const { id } = req.params;

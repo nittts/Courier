@@ -1,7 +1,7 @@
 import prisma from "../../database/Prisma/database";
+import { AppError } from "../../errors";
 import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { AppError } from "../../errors";
 
 const userLoginService = async (email: string, password: string) => {
   try {

@@ -1,0 +1,13 @@
+## TODO
+
+### INCLUDE CREATION SCHEMAS FOR ROUTES
+| Branches
+| Cities
+| Parcels
+| Shipments
+| Users
+| Trucks
+
+STATUS - DONE
+
+| 0/6

@@ -1,6 +1,6 @@
+import deleteTruckService from "../../services/trucks/deleteTruck.service";
 import { AppError, handleError } from "../../errors";
 import { Request, Response } from "express";
-import deleteTruckService from "../../services/trucks/deleteTruck.service";
 
 const deleteTruckController = async (req: Request, res: Response) => {
   const { id } = req.params;

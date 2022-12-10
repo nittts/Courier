@@ -14,11 +14,14 @@ import { Router } from "express";
 const router = Router();
 
 router.get("", verifyAuthTokenMiddleware, queryBranchesController);
+router.get("/:id", verifyAuthTokenMiddleware, getSingleBranchController);
 router.get("/all", verifyAuthTokenMiddleware, verifyAdmMiddleware, getBranchesController);
 router.get("/here", verifyAuthTokenMiddleware, getUserBranchController);
-router.get("/:id", verifyAuthTokenMiddleware, getSingleBranchController);
+//
 router.post("/", verifyAuthTokenMiddleware, verifyAdmMiddleware, createBranchController);
+//
 router.patch("/:id", verifyAuthTokenMiddleware, verifyAdmMiddleware, updateBranchController);
+//
 router.delete("/:id", verifyAuthTokenMiddleware, verifyAdmMiddleware, deleteBranchController);
 
 export default router;

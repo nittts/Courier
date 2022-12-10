@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { AppError, handleError } from "../../errors";
 import getShipmentByDriverService from "../../services/shipments/getShipmentByDriver.service";
 import { IShipmentDriverSearch } from "../../interfaces/Shipments/shipment.types";
+import { AppError, handleError } from "../../errors";
+import { Request, Response } from "express";
 
 const getShipmentByDriverController = async (req: Request, res: Response) => {
   const { id, name } = req.query;
