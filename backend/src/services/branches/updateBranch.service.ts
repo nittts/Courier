@@ -1,5 +1,5 @@
 import { IBranchUpdate } from "../../interfaces/Branches/branch.types";
-import prisma from "../../database/Prisma/database";
+import prisma from "../../database/database";
 import { AppError } from "../../errors";
 
 const updateBranchService = async (data: IBranchUpdate) => {

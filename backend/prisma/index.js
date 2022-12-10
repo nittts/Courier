@@ -80,8 +80,8 @@ const regularDirname = hasDirname && fs.existsSync(path.join(__dirname, 'schema.
 
 // if the client has been bundled, we need to look for the folders
 const foundDirname = !regularDirname && findSync(process.cwd(), [
-    "src/database/Prisma",
-    "database/Prisma",
+    "prisma",
+    
 ], ['d'], ['d'], 1)[0]
 
 const dirname = regularDirname || foundDirname || __dirname
@@ -205,7 +205,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/nittts/Desktop/codes/courier/backend/src/database/Prisma",
+      "value": "/home/nittts/Desktop/codes/courier/backend/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -225,10 +225,10 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": "../.env",
+    "schemaEnvPath": "../.env"
   },
-  "relativePath": "../../../prisma",
+  "relativePath": "",
   "clientVersion": "4.7.1",
   "engineVersion": "272861e07ab64f234d3ffc4094e32bd61775599c",
   "datasourceNames": [
@@ -255,9 +255,9 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
-path.join(process.cwd(), "src/database/Prisma/libquery_engine-debian-openssl-3.0.x.so.node")
+path.join(process.cwd(), "prisma/libquery_engine-debian-openssl-3.0.x.so.node")
 
 path.join(__dirname, "libquery_engine-linux-musl.so.node");
-path.join(process.cwd(), "src/database/Prisma/libquery_engine-linux-musl.so.node")
+path.join(process.cwd(), "prisma/libquery_engine-linux-musl.so.node")
 path.join(__dirname, "schema.prisma");
-path.join(process.cwd(), "src/database/Prisma/schema.prisma")
+path.join(process.cwd(), "prisma/schema.prisma")

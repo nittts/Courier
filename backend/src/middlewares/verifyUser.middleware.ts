@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import prisma from "../database/Prisma/database";
+import prisma from "../database/database";
 
 const verifyAdmMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   const ReqUser = req.user;

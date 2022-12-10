@@ -1,5 +1,5 @@
 import { IShipmentUpdate } from "../../interfaces/Shipments/shipment.types";
-import prisma from "../../database/Prisma/database";
+import prisma from "../../database/database";
 import { AppError } from "../../errors";
 
 const updateShipmentService = async (data: IShipmentUpdate) => {

@@ -1,5 +1,5 @@
 import { ICityQuerySearch } from "../../interfaces/Cities/city.types";
-import prisma from "../../database/Prisma/database";
+import prisma from "../../database/database";
 import { AppError } from "../../errors";
 
 const queryCitiesService = async (queries: ICityQuerySearch) => {

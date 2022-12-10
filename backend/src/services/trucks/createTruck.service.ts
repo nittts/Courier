@@ -1,5 +1,5 @@
 import { ITruckCreate } from "../../interfaces/trucks/truck.types";
-import prisma from "../../database/Prisma/database";
+import prisma from "../../database/database";
 import { AppError } from "../../errors";
 
 const createTruckService = async (data: ITruckCreate) => {

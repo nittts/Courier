@@ -1,5 +1,5 @@
 import { IUserUpdate } from "../../interfaces/Users/user.types";
-import prisma from "../../database/Prisma/database";
+import prisma from "../../database/database";
 import { AppError } from "../../errors";
 
 const updateUserService = async (data: IUserUpdate) => {

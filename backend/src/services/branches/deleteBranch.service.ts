@@ -1,4 +1,4 @@
-import prisma from "../../database/Prisma/database";
+import prisma from "../../database/database";
 import { AppError } from "../../errors";
 
 const deleteBranchService = async (id: number) => {

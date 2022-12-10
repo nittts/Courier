@@ -1,4 +1,4 @@
-import prisma from "../src/database/Prisma/database";
+import prisma from "../src/database/database";
 
 async function seed() {
   await prisma.userTypes.createMany({

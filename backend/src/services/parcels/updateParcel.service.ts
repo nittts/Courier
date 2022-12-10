@@ -1,5 +1,5 @@
 import { IParcelUpdate } from "../../interfaces/Parcels/parcel.types";
-import prisma from "../../database/Prisma/database";
+import prisma from "../../database/database";
 import { AppError } from "../../errors";
 
 const updateParcelService = async (data: IParcelUpdate) => {

@@ -1,5 +1,5 @@
 import { IParcelWeight } from "../../interfaces/Parcels/parcel.types";
-import prisma from "../../database/Prisma/database";
+import prisma from "../../database/database";
 import { AppError } from "../../errors";
 
 const queryParcelsByWeightService = async ({ max, min }: IParcelWeight) => {

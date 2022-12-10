@@ -1,5 +1,5 @@
 import { IShipmentDriverSearch } from "../../interfaces/Shipments/shipment.types";
-import prisma from "../../database/Prisma/database";
+import prisma from "../../database/database";
 import { AppError } from "../../errors";
 
 interface IShipmentDriver {
