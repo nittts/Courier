@@ -7,15 +7,16 @@ import getShipmentsByStatusController from "../../controllers/shipments/getShipm
 import getShipmentsController from "../../controllers/shipments/getShipments.controller";
 import getSingleShipmentController from "../../controllers/shipments/getSingleShipment.controller";
 import updateShipmentController from "../../controllers/shipments/updateShipment.controller";
+import verifyAuthTokenMiddleware from "../../middlewares/verifyToken.middleware";
 
 const router = Router();
 
-router.get("/all", getShipmentsController);
-router.get("/:id", getSingleShipmentController);
-router.get("/driver", getShipmentByDriverController);
-router.get("/:status", getShipmentsByStatusController);
-router.post("/", createShipmentController);
-router.patch("/:id", updateShipmentController);
-router.delete("/:id", deleteShipmentController);
+router.get("/all", verifyAuthTokenMiddleware, getShipmentsController);
+router.get("/:id", verifyAuthTokenMiddleware, getSingleShipmentController);
+router.get("/driver", verifyAuthTokenMiddleware, getShipmentByDriverController);
+router.get("/:status", verifyAuthTokenMiddleware, getShipmentsByStatusController);
+router.post("/", verifyAuthTokenMiddleware, createShipmentController);
+router.patch("/:id", verifyAuthTokenMiddleware, updateShipmentController);
+router.delete("/:id", verifyAuthTokenMiddleware, deleteShipmentController);
 
 export default router;

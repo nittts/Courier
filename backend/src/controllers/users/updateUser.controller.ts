@@ -3,12 +3,10 @@ import { Request, Response } from "express";
 import { AppError, handleError } from "../../errors";
 
 const updateUserController = async (req: Request, res: Response) => {
-  const requester_type = req.user.userType_id;
   const { id } = req.params;
 
   try {
     const data = {
-      requester_type,
       id,
       ...req.body,
     };

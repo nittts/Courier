@@ -7,13 +7,16 @@ import getCitiesController from "../../controllers/cities/getCities.controller";
 
 import { Router } from "express";
 
+import verifyAdmMiddleware from "../../middlewares/verifyUser.middleware";
+import verifyAuthTokenMiddleware from "../../middlewares/verifyToken.middleware";
+
 const router = Router();
 
-router.get("", queryCitiesController);
-router.get("/all", getCitiesController);
-router.get("/:id", getSingleCityController);
-router.patch("/:id", updateCityController);
-router.post("/", createCityController);
-router.delete("/:id", deleteCityController);
+router.get("", verifyAuthTokenMiddleware, queryCitiesController);
+router.get("/all", verifyAuthTokenMiddleware, getCitiesController);
+router.get("/:id", verifyAuthTokenMiddleware, getSingleCityController);
+router.patch("/:id", verifyAuthTokenMiddleware, verifyAdmMiddleware, updateCityController);
+router.post("/", verifyAuthTokenMiddleware, verifyAdmMiddleware, createCityController);
+router.delete("/:id", verifyAuthTokenMiddleware, verifyAdmMiddleware, deleteCityController);
 
 export default router;

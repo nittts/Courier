@@ -6,16 +6,19 @@ import deleteBranchController from "../../controllers/branches/deleteBranch.cont
 import updateBranchController from "../../controllers/branches/updateBranch.controller";
 import getBranchesController from "../../controllers/branches/getBranches.controller";
 
+import verifyAuthTokenMiddleware from "../../middlewares/verifyToken.middleware";
+import verifyAdmMiddleware from "../../middlewares/verifyUser.middleware";
+
 import { Router } from "express";
 
 const router = Router();
 
-router.get("", queryBranchesController);
-router.get("/all", getBranchesController);
-router.get("/here", getUserBranchController);
-router.get("/:id", getSingleBranchController);
-router.post("/", createBranchController);
-router.patch("/:id", updateBranchController);
-router.delete("/:id", deleteBranchController);
+router.get("", verifyAuthTokenMiddleware, queryBranchesController);
+router.get("/all", verifyAuthTokenMiddleware, verifyAdmMiddleware, getBranchesController);
+router.get("/here", verifyAuthTokenMiddleware, getUserBranchController);
+router.get("/:id", verifyAuthTokenMiddleware, getSingleBranchController);
+router.post("/", verifyAuthTokenMiddleware, verifyAdmMiddleware, createBranchController);
+router.patch("/:id", verifyAuthTokenMiddleware, verifyAdmMiddleware, updateBranchController);
+router.delete("/:id", verifyAuthTokenMiddleware, verifyAdmMiddleware, deleteBranchController);
 
 export default router;

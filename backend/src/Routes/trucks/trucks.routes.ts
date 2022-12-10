@@ -6,13 +6,16 @@ import getTrucksController from "../../controllers/trucks/getTrucks.controller";
 import queryTrucksAvailabilityController from "../../controllers/trucks/queryTrucksAvailability.controller";
 import updateTruckController from "../../controllers/trucks/updateTruck.controller";
 
+import verifyAuthTokenMiddleware from "../../middlewares/verifyToken.middleware";
+import verifyAdmMiddleware from "../../middlewares/verifyUser.middleware";
+
 const router = Router();
 
-router.get("/all", getTrucksController);
-router.get("/:id", getSingleTruckController);
-router.post("/", createTruckController);
+router.get("/all", verifyAuthTokenMiddleware, verifyAdmMiddleware, getTrucksController);
+router.get("/:id", verifyAuthTokenMiddleware, getSingleTruckController);
+router.post("/", verifyAuthTokenMiddleware, verifyAdmMiddleware, createTruckController);
 router.get("/status/:available", queryTrucksAvailabilityController);
-router.patch("/:id", updateTruckController);
-router.delete("/:id", deleteTruckController);
+router.patch("/:id", verifyAuthTokenMiddleware, updateTruckController);
+router.delete("/:id", verifyAuthTokenMiddleware, verifyAdmMiddleware, deleteTruckController);
 
 export default router;

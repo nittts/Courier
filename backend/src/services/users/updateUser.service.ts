@@ -10,10 +10,6 @@ const updateUserService = async (data: IUserUpdate) => {
       throw new AppError(400, "User id field Missing.", "Bad Request");
     }
 
-    if (data.requester_type >= 2 && typeof data.userType_id !== "undefined") {
-      throw new AppError(401, "Only admins can update Users permissions type.", "Unauthorized");
-    }
-
     const UserExists = await prisma.users.findFirst({ where: { id } });
 
     if (!UserExists) {

@@ -9,16 +9,19 @@ import updateLoggedInUserController from "../../controllers/users/updateLoggedIn
 import updateUserController from "../../controllers/users/updateUser.controller";
 import userLoginController from "../../controllers/users/userLogin.controller";
 
+import verifyAuthTokenMiddleware from "../../middlewares/verifyToken.middleware";
+import verifyAdmMiddleware from "../../middlewares/verifyUser.middleware";
+
 const router = Router();
 
-router.get("/all", getUsersController);
-router.get("/:id", getSingleUserController);
-router.get("/type", queryUserByTypeController);
-router.get("/profile", getLoggedInUserController);
+router.get("/all", verifyAuthTokenMiddleware, verifyAdmMiddleware, getUsersController);
+router.get("/:id", verifyAuthTokenMiddleware, getSingleUserController);
+router.get("/type", verifyAuthTokenMiddleware, verifyAdmMiddleware, queryUserByTypeController);
+router.get("/profile", verifyAuthTokenMiddleware, getLoggedInUserController);
 router.post("/", createUserController);
 router.post("/login", userLoginController);
-router.patch("/:id", updateUserController);
-router.patch("/profile/update", updateLoggedInUserController);
-router.delete("/:id", deleteUserController);
+router.patch("/:id", verifyAuthTokenMiddleware, verifyAdmMiddleware, updateUserController);
+router.patch("/profile/update", verifyAuthTokenMiddleware, updateLoggedInUserController);
+router.delete("/:id", verifyAuthTokenMiddleware, verifyAdmMiddleware, deleteUserController);
 
 export default router;

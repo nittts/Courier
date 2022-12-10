@@ -14,7 +14,6 @@ export interface IUserTypeSearch {
 }
 
 export interface IUserUpdate {
-  requester_type: number;
   id: string;
   name?: string;
   email?: string;

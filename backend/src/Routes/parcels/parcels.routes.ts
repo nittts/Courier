@@ -7,14 +7,16 @@ import queryParcelsController from "../../controllers/parcels/queryParcels.contr
 import queryParcelsByWeightController from "../../controllers/parcels/queryParcelsByWeight.controller";
 import updateParcelController from "../../controllers/parcels/updateParcel.controller";
 
+import verifyAuthTokenMiddleware from "../../middlewares/verifyToken.middleware";
+
 const router = Router();
 
-router.get("", queryParcelsController);
-router.get("/all", getParcelsController);
-router.get("/weight", queryParcelsByWeightController);
-router.get("/:id", getSingleParcelController);
-router.post("/", createParcelController);
-router.patch("/:id", updateParcelController);
-router.delete("/:id", deleteParcelController);
+router.get("", verifyAuthTokenMiddleware, queryParcelsController);
+router.get("/all", verifyAuthTokenMiddleware, getParcelsController);
+router.get("/weight", verifyAuthTokenMiddleware, queryParcelsByWeightController);
+router.get("/:id", verifyAuthTokenMiddleware, getSingleParcelController);
+router.post("/", verifyAuthTokenMiddleware, createParcelController);
+router.patch("/:id", verifyAuthTokenMiddleware, updateParcelController);
+router.delete("/:id", verifyAuthTokenMiddleware, deleteParcelController);
 
 export default router;
