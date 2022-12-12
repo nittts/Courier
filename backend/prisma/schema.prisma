@@ -116,6 +116,6 @@ model shipments {
 
   truck                 trucks?   @relation(fields: [truck_id], references: [id])
   users                 users     @relation(fields: [driver_id], references: [id])
-  branch_destination    branches? @relation(name: "destination", fields: [destination_branch], references: [id],  onDelete: SetNull)
-  branch_departure      branches? @relation(name: "departure", fields: [departure_branch], references: [id],  onDelete: SetNull)
+  branch_destination    branches? @relation(name: "destination", fields: [destination_branch], references: [id],  onDelete: Cascade)
+  branch_departure      branches? @relation(name: "departure", fields: [departure_branch], references: [id],  onDelete: Cascade)
 }
