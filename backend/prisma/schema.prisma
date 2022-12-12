@@ -25,8 +25,8 @@ model branches {
   name                  String      @unique @db.VarChar(256)
   address               String      @db.VarChar(256)
   city_id               Int
-  branch_lat            String     @db.Char(21)
-  branch_long           String     @db.Char(21) 
+  branch_lat            String      @db.Char(21)
+  branch_long           String      @db.Char(21) 
 
   users                 users[]
   trucks                trucks[]
@@ -38,7 +38,7 @@ model branches {
 
 model userTypes {
   id   Int      @id @default(autoincrement())
-  type String   @unique @db.VarChar(36)
+  type String   @unique @db.VarChar(128)
 
   users users[]
 }
@@ -50,22 +50,15 @@ model users {
   password    String      @db.VarChar(128)
   phone       String      @db.VarChar(20)
   userType_id Int         
-  branch_id   Int?        @unique
+  branch_id   Int?        
 
-  drivers     drivers?
-  clients     parcels[]
+  trucks      trucks[]
+  parcels     parcels[]  
+  shipments   shipments?
   userTypes   userTypes? @relation(fields: [userType_id], references: [id])
-  branches    branches?   @relation(fields: [branch_id], references: [id], onDelete: SetNull)
+  branches    branches?  @relation(fields: [branch_id], references: [id], onDelete: SetNull)
 }
 
-model drivers {
-  user_id   String      @unique
-  truck_id  Int?
-
-  shipments shipments?
-  trucks    trucks[]
-  users     users       @relation(fields: [user_id], references: [id])
-}
 
 model trucks {
   id            Int         @id @default(autoincrement())
@@ -74,42 +67,54 @@ model trucks {
   max_weight    Float       @db.DoublePrecision
   available     Boolean
   driver_id     String?     @db.VarChar(36)
-  branch_id     Int         @unique
+  branch_id     Int         
 
   shipments     shipments?
-  driver        drivers?    @relation(fields: [driver_id], references: [user_id], onDelete: SetNull)
+  users         users?      @relation(fields: [driver_id], references: [id], onDelete: SetNull)
   branch        branches?   @relation(fields: [branch_id], references: [id], onDelete: Cascade)
 }
 
-model parcels {
-  id             String       @id @db.VarChar(36)
-  name           String       @db.VarChar(256)
-  content        String       @db.VarChar(256)
-  volume_weight  Float        @db.DoublePrecision
-  admission_date DateTime     @db.Timestamp()
-  client_id      String       @db.VarChar(36)
-  shipment_id    String?      @db.VarChar(36) @unique
 
-  shipments      shipments?    @relation(fields: [shipment_id], references: [id]) 
-  client         users        @relation(fields: [client_id], references: [id], onDelete: Cascade)
+model products {
+  id        Int       @id @default(autoincrement()) @db.Integer
+  name      String    @db.VarChar(256)
+  weight    Decimal   @db.Decimal()
+  parcel_id String?   @db.VarChar(36)
+
+  parcels   parcels?  @relation(fields: [parcel_id], references: [id], onDelete: Cascade)
+}
+
+model parcels {
+  id                    String       @id @db.VarChar(36)
+  name                  String       @db.VarChar(256)
+  content               String       @db.VarChar(256)
+  volume_weight         Float        @db.DoublePrecision
+  admission_date        DateTime     @db.Timestamp()
+  client_id             String?      @db.VarChar(36)
+  shipment_id           String?      @db.VarChar(36) @unique
+
+  products              products[]
+
+  shipments             shipments?   @relation(fields: [shipment_id], references: [id], onDelete: Cascade)
+  users                 users?        @relation(fields:  [client_id], references: [id], onDelete: Cascade)
 }
 
 model shipments {
-  id                 String    @id @db.VarChar(36)
-  status             String       @db.VarChar(36)
-  arrival_time       DateTime?  @db.Timestamp()
-  departure_time     DateTime  @db.Timestamp()
-  weight             Decimal   @db.Decimal()
+  id                    String    @id @db.VarChar(36)
+  status                String    @db.VarChar(128)
+  arrival_time          DateTime? @db.Timestamp()
+  departure_time        DateTime  @db.Timestamp()
+  weight                Float     @db.DoublePrecision
 
-  truck_id           Int       @unique 
-  driver_id          String    @unique @db.VarChar(36)
-  destination_branch Int       @unique
-  departure_branch   Int       @unique
-  parcel_id          String?    @unique @db.VarChar(36)
+  truck_id              Int       @unique 
+  driver_id             String    @unique @db.VarChar(36)
+  destination_branch    Int       @unique
+  departure_branch      Int       @unique       
 
-  truck              trucks?   @relation(fields: [truck_id], references: [id] )
-  drivers            drivers?  @relation(fields: [driver_id], references: [user_id])
-  branch_destination branches? @relation(name: "destination", fields: [destination_branch], references: [id])
-  branch_departure   branches? @relation(name: "departure", fields: [departure_branch], references: [id])
-  parcels            parcels[]
+  parcels               parcels[] 
+
+  truck                 trucks?   @relation(fields: [truck_id], references: [id])
+  users                 users     @relation(fields: [driver_id], references: [id])
+  branch_destination    branches? @relation(name: "destination", fields: [destination_branch], references: [id])
+  branch_departure      branches? @relation(name: "departure", fields: [departure_branch], references: [id])
 }

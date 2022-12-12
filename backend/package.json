@@ -26,7 +26,8 @@
     "pg": "^8.8.0",
     "prisma": "^4.7.1",
     "tsc": "^2.0.4",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "yup": "^0.32.11"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

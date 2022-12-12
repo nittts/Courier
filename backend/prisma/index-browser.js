@@ -104,11 +104,6 @@ exports.Prisma.CitiesScalarFieldEnum = makeEnum({
   postcode: 'postcode'
 });
 
-exports.Prisma.DriversScalarFieldEnum = makeEnum({
-  user_id: 'user_id',
-  truck_id: 'truck_id'
-});
-
 exports.Prisma.ParcelsScalarFieldEnum = makeEnum({
   id: 'id',
   name: 'name',
@@ -117,6 +112,13 @@ exports.Prisma.ParcelsScalarFieldEnum = makeEnum({
   admission_date: 'admission_date',
   client_id: 'client_id',
   shipment_id: 'shipment_id'
+});
+
+exports.Prisma.ProductsScalarFieldEnum = makeEnum({
+  id: 'id',
+  name: 'name',
+  weight: 'weight',
+  parcel_id: 'parcel_id'
 });
 
 exports.Prisma.QueryMode = makeEnum({
@@ -133,8 +135,7 @@ exports.Prisma.ShipmentsScalarFieldEnum = makeEnum({
   truck_id: 'truck_id',
   driver_id: 'driver_id',
   destination_branch: 'destination_branch',
-  departure_branch: 'departure_branch',
-  parcel_id: 'parcel_id'
+  departure_branch: 'departure_branch'
 });
 
 exports.Prisma.SortOrder = makeEnum({
@@ -180,8 +181,8 @@ exports.Prisma.ModelName = makeEnum({
   branches: 'branches',
   userTypes: 'userTypes',
   users: 'users',
-  drivers: 'drivers',
   trucks: 'trucks',
+  products: 'products',
   parcels: 'parcels',
   shipments: 'shipments'
 });
