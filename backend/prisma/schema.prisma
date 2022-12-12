@@ -33,7 +33,7 @@ model branches {
 
   shipments_destination shipments[] @relation("destination")
   shipments_departure   shipments[] @relation("departure")
-  city                  cities      @relation(fields: [city_id], references: [id])
+  city                  cities      @relation(fields: [city_id], references: [id], onDelete: Cascade)
 }
 
 model userTypes {
@@ -109,13 +109,13 @@ model shipments {
 
   truck_id              Int       @unique 
   driver_id             String    @unique @db.VarChar(40)
-  destination_branch    Int       @unique
-  departure_branch      Int       @unique       
+  destination_branch    Int?       @unique
+  departure_branch      Int?       @unique       
 
   parcels               parcels[] 
 
   truck                 trucks?   @relation(fields: [truck_id], references: [id])
   users                 users     @relation(fields: [driver_id], references: [id])
-  branch_destination    branches? @relation(name: "destination", fields: [destination_branch], references: [id])
-  branch_departure      branches? @relation(name: "departure", fields: [departure_branch], references: [id])
+  branch_destination    branches? @relation(name: "destination", fields: [destination_branch], references: [id],  onDelete: SetNull)
+  branch_departure      branches? @relation(name: "departure", fields: [departure_branch], references: [id],  onDelete: SetNull)
 }

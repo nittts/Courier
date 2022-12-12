@@ -1,9 +1,11 @@
 import { Request, Response, Router } from "express";
 import userRouter from "./Users/user.routes";
+import cityRouter from "./Cities/city.routes";
 
 const indexRouter = Router();
 
 indexRouter.use("/users", userRouter);
+indexRouter.use("/cities", cityRouter);
 
 indexRouter.get("/", (req: Request, res: Response) => {
   return res.send({

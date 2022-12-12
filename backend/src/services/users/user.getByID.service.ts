@@ -38,7 +38,7 @@ const userGetByIDService = async (id: string) => {
       });
 
     if (!res) {
-      throw new AppError(401, "User not found.", "Not Found");
+      throw new AppError(404, "User not found.", "Not Found");
     }
 
     return { message: "User Found.", results: res };

@@ -110,8 +110,8 @@ export type shipments = {
   weight: number
   truck_id: number
   driver_id: string
-  destination_branch: number
-  departure_branch: number
+  destination_branch: number | null
+  departure_branch: number | null
 }
 
 
@@ -8740,8 +8740,8 @@ export namespace Prisma {
     weight: number
     truck_id: number
     driver_id: string
-    destination_branch: number
-    departure_branch: number
+    destination_branch: number | null
+    departure_branch: number | null
     _count: ShipmentsCountAggregateOutputType | null
     _avg: ShipmentsAvgAggregateOutputType | null
     _sum: ShipmentsSumAggregateOutputType | null
@@ -10141,8 +10141,8 @@ export namespace Prisma {
     weight?: FloatFilter | number
     truck_id?: IntFilter | number
     driver_id?: StringFilter | string
-    destination_branch?: IntFilter | number
-    departure_branch?: IntFilter | number
+    destination_branch?: IntNullableFilter | number | null
+    departure_branch?: IntNullableFilter | number | null
     parcels?: ParcelsListRelationFilter
     truck?: XOR<TrucksRelationFilter, trucksWhereInput> | null
     users?: XOR<UsersRelationFilter, usersWhereInput>
@@ -10203,8 +10203,8 @@ export namespace Prisma {
     weight?: FloatWithAggregatesFilter | number
     truck_id?: IntWithAggregatesFilter | number
     driver_id?: StringWithAggregatesFilter | string
-    destination_branch?: IntWithAggregatesFilter | number
-    departure_branch?: IntWithAggregatesFilter | number
+    destination_branch?: IntNullableWithAggregatesFilter | number | null
+    departure_branch?: IntNullableWithAggregatesFilter | number | null
   }
 
   export type citiesCreateInput = {
@@ -10655,8 +10655,8 @@ export namespace Prisma {
     weight: number
     truck_id: number
     driver_id: string
-    destination_branch: number
-    departure_branch: number
+    destination_branch?: number | null
+    departure_branch?: number | null
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
@@ -10681,8 +10681,8 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     truck_id?: IntFieldUpdateOperationsInput | number
     driver_id?: StringFieldUpdateOperationsInput | string
-    destination_branch?: IntFieldUpdateOperationsInput | number
-    departure_branch?: IntFieldUpdateOperationsInput | number
+    destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
+    departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
@@ -10694,8 +10694,8 @@ export namespace Prisma {
     weight: number
     truck_id: number
     driver_id: string
-    destination_branch: number
-    departure_branch: number
+    destination_branch?: number | null
+    departure_branch?: number | null
   }
 
   export type shipmentsUpdateManyMutationInput = {
@@ -10714,8 +10714,8 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     truck_id?: IntFieldUpdateOperationsInput | number
     driver_id?: StringFieldUpdateOperationsInput | string
-    destination_branch?: IntFieldUpdateOperationsInput | number
-    departure_branch?: IntFieldUpdateOperationsInput | number
+    destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
+    departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type IntFilter = {
@@ -12454,7 +12454,7 @@ export namespace Prisma {
     weight: number
     truck_id: number
     driver_id: string
-    departure_branch: number
+    departure_branch?: number | null
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
@@ -12488,7 +12488,7 @@ export namespace Prisma {
     weight: number
     truck_id: number
     driver_id: string
-    destination_branch: number
+    destination_branch?: number | null
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
@@ -12604,8 +12604,8 @@ export namespace Prisma {
     weight?: FloatFilter | number
     truck_id?: IntFilter | number
     driver_id?: StringFilter | string
-    destination_branch?: IntFilter | number
-    departure_branch?: IntFilter | number
+    destination_branch?: IntNullableFilter | number | null
+    departure_branch?: IntNullableFilter | number | null
   }
 
   export type shipmentsUpsertWithWhereUniqueWithoutBranch_departureInput = {
@@ -12770,8 +12770,8 @@ export namespace Prisma {
     departure_time: Date | string
     weight: number
     truck_id: number
-    destination_branch: number
-    departure_branch: number
+    destination_branch?: number | null
+    departure_branch?: number | null
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
@@ -12891,8 +12891,8 @@ export namespace Prisma {
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
     truck_id?: IntFieldUpdateOperationsInput | number
-    destination_branch?: IntFieldUpdateOperationsInput | number
-    departure_branch?: IntFieldUpdateOperationsInput | number
+    destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
+    departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
@@ -12957,8 +12957,8 @@ export namespace Prisma {
     departure_time: Date | string
     weight: number
     driver_id: string
-    destination_branch: number
-    departure_branch: number
+    destination_branch?: number | null
+    departure_branch?: number | null
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
 
@@ -13050,8 +13050,8 @@ export namespace Prisma {
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
     driver_id?: StringFieldUpdateOperationsInput | string
-    destination_branch?: IntFieldUpdateOperationsInput | number
-    departure_branch?: IntFieldUpdateOperationsInput | number
+    destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
+    departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
@@ -13205,8 +13205,8 @@ export namespace Prisma {
     weight: number
     truck_id: number
     driver_id: string
-    destination_branch: number
-    departure_branch: number
+    destination_branch?: number | null
+    departure_branch?: number | null
   }
 
   export type shipmentsCreateOrConnectWithoutParcelsInput = {
@@ -13296,8 +13296,8 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     truck_id?: IntFieldUpdateOperationsInput | number
     driver_id?: StringFieldUpdateOperationsInput | string
-    destination_branch?: IntFieldUpdateOperationsInput | number
-    departure_branch?: IntFieldUpdateOperationsInput | number
+    destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
+    departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type usersUpsertWithoutParcelsInput = {
@@ -13665,7 +13665,7 @@ export namespace Prisma {
     weight: number
     truck_id: number
     driver_id: string
-    departure_branch: number
+    departure_branch?: number | null
   }
 
   export type shipmentsCreateManyBranch_departureInput = {
@@ -13676,7 +13676,7 @@ export namespace Prisma {
     weight: number
     truck_id: number
     driver_id: string
-    destination_branch: number
+    destination_branch?: number | null
   }
 
   export type usersUpdateWithoutBranchesInput = {
@@ -13763,7 +13763,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     truck_id?: IntFieldUpdateOperationsInput | number
     driver_id?: StringFieldUpdateOperationsInput | string
-    departure_branch?: IntFieldUpdateOperationsInput | number
+    departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
@@ -13775,7 +13775,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     truck_id?: IntFieldUpdateOperationsInput | number
     driver_id?: StringFieldUpdateOperationsInput | string
-    departure_branch?: IntFieldUpdateOperationsInput | number
+    departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type shipmentsUpdateWithoutBranch_departureInput = {
@@ -13798,7 +13798,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     truck_id?: IntFieldUpdateOperationsInput | number
     driver_id?: StringFieldUpdateOperationsInput | string
-    destination_branch?: IntFieldUpdateOperationsInput | number
+    destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
 
@@ -13810,7 +13810,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     truck_id?: IntFieldUpdateOperationsInput | number
     driver_id?: StringFieldUpdateOperationsInput | string
-    destination_branch?: IntFieldUpdateOperationsInput | number
+    destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type usersCreateManyUserTypesInput = {
