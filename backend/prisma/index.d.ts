@@ -108,8 +108,8 @@ export type shipments = {
   arrival_time: Date | null
   departure_time: Date
   weight: number
-  truck_id: number
-  driver_id: string
+  truck_id: number | null
+  driver_id: string | null
   destination_branch: number | null
   departure_branch: number | null
 }
@@ -8738,8 +8738,8 @@ export namespace Prisma {
     arrival_time: Date | null
     departure_time: Date
     weight: number
-    truck_id: number
-    driver_id: string
+    truck_id: number | null
+    driver_id: string | null
     destination_branch: number | null
     departure_branch: number | null
     _count: ShipmentsCountAggregateOutputType | null
@@ -8800,7 +8800,7 @@ export namespace Prisma {
     [P in TruthyKeys<S['include']>]:
         P extends 'parcels' ? Array < parcelsGetPayload<S['include'][P]>>  :
         P extends 'truck' ? trucksGetPayload<S['include'][P]> | null :
-        P extends 'users' ? usersGetPayload<S['include'][P]> :
+        P extends 'users' ? usersGetPayload<S['include'][P]> | null :
         P extends 'branch_destination' ? branchesGetPayload<S['include'][P]> | null :
         P extends 'branch_departure' ? branchesGetPayload<S['include'][P]> | null :
         P extends '_count' ? ShipmentsCountOutputTypeGetPayload<S['include'][P]> :  never
@@ -8810,7 +8810,7 @@ export namespace Prisma {
     [P in TruthyKeys<S['select']>]:
         P extends 'parcels' ? Array < parcelsGetPayload<S['select'][P]>>  :
         P extends 'truck' ? trucksGetPayload<S['select'][P]> | null :
-        P extends 'users' ? usersGetPayload<S['select'][P]> :
+        P extends 'users' ? usersGetPayload<S['select'][P]> | null :
         P extends 'branch_destination' ? branchesGetPayload<S['select'][P]> | null :
         P extends 'branch_departure' ? branchesGetPayload<S['select'][P]> | null :
         P extends '_count' ? ShipmentsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof shipments ? shipments[P] : never
@@ -10139,13 +10139,13 @@ export namespace Prisma {
     arrival_time?: DateTimeNullableFilter | Date | string | null
     departure_time?: DateTimeFilter | Date | string
     weight?: FloatFilter | number
-    truck_id?: IntFilter | number
-    driver_id?: StringFilter | string
+    truck_id?: IntNullableFilter | number | null
+    driver_id?: StringNullableFilter | string | null
     destination_branch?: IntNullableFilter | number | null
     departure_branch?: IntNullableFilter | number | null
     parcels?: ParcelsListRelationFilter
     truck?: XOR<TrucksRelationFilter, trucksWhereInput> | null
-    users?: XOR<UsersRelationFilter, usersWhereInput>
+    users?: XOR<UsersRelationFilter, usersWhereInput> | null
     branch_destination?: XOR<BranchesRelationFilter, branchesWhereInput> | null
     branch_departure?: XOR<BranchesRelationFilter, branchesWhereInput> | null
   }
@@ -10201,8 +10201,8 @@ export namespace Prisma {
     arrival_time?: DateTimeNullableWithAggregatesFilter | Date | string | null
     departure_time?: DateTimeWithAggregatesFilter | Date | string
     weight?: FloatWithAggregatesFilter | number
-    truck_id?: IntWithAggregatesFilter | number
-    driver_id?: StringWithAggregatesFilter | string
+    truck_id?: IntNullableWithAggregatesFilter | number | null
+    driver_id?: StringNullableWithAggregatesFilter | string | null
     destination_branch?: IntNullableWithAggregatesFilter | number | null
     departure_branch?: IntNullableWithAggregatesFilter | number | null
   }
@@ -10642,7 +10642,7 @@ export namespace Prisma {
     weight: number
     parcels?: parcelsCreateNestedManyWithoutShipmentsInput
     truck?: trucksCreateNestedOneWithoutShipmentsInput
-    users: usersCreateNestedOneWithoutShipmentsInput
+    users?: usersCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
     branch_departure?: branchesCreateNestedOneWithoutShipments_departureInput
   }
@@ -10653,8 +10653,8 @@ export namespace Prisma {
     arrival_time?: Date | string | null
     departure_time: Date | string
     weight: number
-    truck_id: number
-    driver_id: string
+    truck_id?: number | null
+    driver_id?: string | null
     destination_branch?: number | null
     departure_branch?: number | null
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
@@ -10668,7 +10668,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     parcels?: parcelsUpdateManyWithoutShipmentsNestedInput
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
-    users?: usersUpdateOneRequiredWithoutShipmentsNestedInput
+    users?: usersUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
     branch_departure?: branchesUpdateOneWithoutShipments_departureNestedInput
   }
@@ -10679,8 +10679,8 @@ export namespace Prisma {
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
-    truck_id?: IntFieldUpdateOperationsInput | number
-    driver_id?: StringFieldUpdateOperationsInput | string
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
+    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
     destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
     departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
@@ -10692,8 +10692,8 @@ export namespace Prisma {
     arrival_time?: Date | string | null
     departure_time: Date | string
     weight: number
-    truck_id: number
-    driver_id: string
+    truck_id?: number | null
+    driver_id?: string | null
     destination_branch?: number | null
     departure_branch?: number | null
   }
@@ -10712,8 +10712,8 @@ export namespace Prisma {
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
-    truck_id?: IntFieldUpdateOperationsInput | number
-    driver_id?: StringFieldUpdateOperationsInput | string
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
+    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
     destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
     departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
   }
@@ -12022,10 +12022,12 @@ export namespace Prisma {
     update?: XOR<trucksUpdateWithoutShipmentsInput, trucksUncheckedUpdateWithoutShipmentsInput>
   }
 
-  export type usersUpdateOneRequiredWithoutShipmentsNestedInput = {
+  export type usersUpdateOneWithoutShipmentsNestedInput = {
     create?: XOR<usersCreateWithoutShipmentsInput, usersUncheckedCreateWithoutShipmentsInput>
     connectOrCreate?: usersCreateOrConnectWithoutShipmentsInput
     upsert?: usersUpsertWithoutShipmentsInput
+    disconnect?: boolean
+    delete?: boolean
     connect?: usersWhereUniqueInput
     update?: XOR<usersUpdateWithoutShipmentsInput, usersUncheckedUpdateWithoutShipmentsInput>
   }
@@ -12442,7 +12444,7 @@ export namespace Prisma {
     weight: number
     parcels?: parcelsCreateNestedManyWithoutShipmentsInput
     truck?: trucksCreateNestedOneWithoutShipmentsInput
-    users: usersCreateNestedOneWithoutShipmentsInput
+    users?: usersCreateNestedOneWithoutShipmentsInput
     branch_departure?: branchesCreateNestedOneWithoutShipments_departureInput
   }
 
@@ -12452,8 +12454,8 @@ export namespace Prisma {
     arrival_time?: Date | string | null
     departure_time: Date | string
     weight: number
-    truck_id: number
-    driver_id: string
+    truck_id?: number | null
+    driver_id?: string | null
     departure_branch?: number | null
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
@@ -12476,7 +12478,7 @@ export namespace Prisma {
     weight: number
     parcels?: parcelsCreateNestedManyWithoutShipmentsInput
     truck?: trucksCreateNestedOneWithoutShipmentsInput
-    users: usersCreateNestedOneWithoutShipmentsInput
+    users?: usersCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
   }
 
@@ -12486,8 +12488,8 @@ export namespace Prisma {
     arrival_time?: Date | string | null
     departure_time: Date | string
     weight: number
-    truck_id: number
-    driver_id: string
+    truck_id?: number | null
+    driver_id?: string | null
     destination_branch?: number | null
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
   }
@@ -12602,8 +12604,8 @@ export namespace Prisma {
     arrival_time?: DateTimeNullableFilter | Date | string | null
     departure_time?: DateTimeFilter | Date | string
     weight?: FloatFilter | number
-    truck_id?: IntFilter | number
-    driver_id?: StringFilter | string
+    truck_id?: IntNullableFilter | number | null
+    driver_id?: StringNullableFilter | string | null
     destination_branch?: IntNullableFilter | number | null
     departure_branch?: IntNullableFilter | number | null
   }
@@ -12769,7 +12771,7 @@ export namespace Prisma {
     arrival_time?: Date | string | null
     departure_time: Date | string
     weight: number
-    truck_id: number
+    truck_id?: number | null
     destination_branch?: number | null
     departure_branch?: number | null
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
@@ -12890,7 +12892,7 @@ export namespace Prisma {
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
-    truck_id?: IntFieldUpdateOperationsInput | number
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
     destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
     departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
@@ -12945,7 +12947,7 @@ export namespace Prisma {
     departure_time: Date | string
     weight: number
     parcels?: parcelsCreateNestedManyWithoutShipmentsInput
-    users: usersCreateNestedOneWithoutShipmentsInput
+    users?: usersCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
     branch_departure?: branchesCreateNestedOneWithoutShipments_departureInput
   }
@@ -12956,7 +12958,7 @@ export namespace Prisma {
     arrival_time?: Date | string | null
     departure_time: Date | string
     weight: number
-    driver_id: string
+    driver_id?: string | null
     destination_branch?: number | null
     departure_branch?: number | null
     parcels?: parcelsUncheckedCreateNestedManyWithoutShipmentsInput
@@ -13038,7 +13040,7 @@ export namespace Prisma {
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
     parcels?: parcelsUpdateManyWithoutShipmentsNestedInput
-    users?: usersUpdateOneRequiredWithoutShipmentsNestedInput
+    users?: usersUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
     branch_departure?: branchesUpdateOneWithoutShipments_departureNestedInput
   }
@@ -13049,7 +13051,7 @@ export namespace Prisma {
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
-    driver_id?: StringFieldUpdateOperationsInput | string
+    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
     destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
     departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
@@ -13192,7 +13194,7 @@ export namespace Prisma {
     departure_time: Date | string
     weight: number
     truck?: trucksCreateNestedOneWithoutShipmentsInput
-    users: usersCreateNestedOneWithoutShipmentsInput
+    users?: usersCreateNestedOneWithoutShipmentsInput
     branch_destination?: branchesCreateNestedOneWithoutShipments_destinationInput
     branch_departure?: branchesCreateNestedOneWithoutShipments_departureInput
   }
@@ -13203,8 +13205,8 @@ export namespace Prisma {
     arrival_time?: Date | string | null
     departure_time: Date | string
     weight: number
-    truck_id: number
-    driver_id: string
+    truck_id?: number | null
+    driver_id?: string | null
     destination_branch?: number | null
     departure_branch?: number | null
   }
@@ -13283,7 +13285,7 @@ export namespace Prisma {
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
-    users?: usersUpdateOneRequiredWithoutShipmentsNestedInput
+    users?: usersUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
     branch_departure?: branchesUpdateOneWithoutShipments_departureNestedInput
   }
@@ -13294,8 +13296,8 @@ export namespace Prisma {
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
-    truck_id?: IntFieldUpdateOperationsInput | number
-    driver_id?: StringFieldUpdateOperationsInput | string
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
+    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
     destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
     departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
   }
@@ -13663,8 +13665,8 @@ export namespace Prisma {
     arrival_time?: Date | string | null
     departure_time: Date | string
     weight: number
-    truck_id: number
-    driver_id: string
+    truck_id?: number | null
+    driver_id?: string | null
     departure_branch?: number | null
   }
 
@@ -13674,8 +13676,8 @@ export namespace Prisma {
     arrival_time?: Date | string | null
     departure_time: Date | string
     weight: number
-    truck_id: number
-    driver_id: string
+    truck_id?: number | null
+    driver_id?: string | null
     destination_branch?: number | null
   }
 
@@ -13751,7 +13753,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     parcels?: parcelsUpdateManyWithoutShipmentsNestedInput
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
-    users?: usersUpdateOneRequiredWithoutShipmentsNestedInput
+    users?: usersUpdateOneWithoutShipmentsNestedInput
     branch_departure?: branchesUpdateOneWithoutShipments_departureNestedInput
   }
 
@@ -13761,8 +13763,8 @@ export namespace Prisma {
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
-    truck_id?: IntFieldUpdateOperationsInput | number
-    driver_id?: StringFieldUpdateOperationsInput | string
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
+    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
     departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
@@ -13773,8 +13775,8 @@ export namespace Prisma {
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
-    truck_id?: IntFieldUpdateOperationsInput | number
-    driver_id?: StringFieldUpdateOperationsInput | string
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
+    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
     departure_branch?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -13786,7 +13788,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     parcels?: parcelsUpdateManyWithoutShipmentsNestedInput
     truck?: trucksUpdateOneWithoutShipmentsNestedInput
-    users?: usersUpdateOneRequiredWithoutShipmentsNestedInput
+    users?: usersUpdateOneWithoutShipmentsNestedInput
     branch_destination?: branchesUpdateOneWithoutShipments_destinationNestedInput
   }
 
@@ -13796,8 +13798,8 @@ export namespace Prisma {
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
-    truck_id?: IntFieldUpdateOperationsInput | number
-    driver_id?: StringFieldUpdateOperationsInput | string
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
+    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
     destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
     parcels?: parcelsUncheckedUpdateManyWithoutShipmentsNestedInput
   }
@@ -13808,8 +13810,8 @@ export namespace Prisma {
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
-    truck_id?: IntFieldUpdateOperationsInput | number
-    driver_id?: StringFieldUpdateOperationsInput | string
+    truck_id?: NullableIntFieldUpdateOperationsInput | number | null
+    driver_id?: NullableStringFieldUpdateOperationsInput | string | null
     destination_branch?: NullableIntFieldUpdateOperationsInput | number | null
   }
 

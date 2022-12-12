@@ -107,15 +107,15 @@ model shipments {
   departure_time        DateTime  @db.Timestamp()
   weight                Float     @db.DoublePrecision
 
-  truck_id              Int       @unique 
-  driver_id             String    @unique @db.VarChar(40)
+  truck_id              Int?       @unique 
+  driver_id             String?    @unique @db.VarChar(40)
   destination_branch    Int?       @unique
   departure_branch      Int?       @unique       
 
   parcels               parcels[] 
 
-  truck                 trucks?   @relation(fields: [truck_id], references: [id])
-  users                 users     @relation(fields: [driver_id], references: [id])
+  truck                 trucks?   @relation(fields: [truck_id], references: [id], onDelete: SetNull)
+  users                 users?    @relation(fields: [driver_id], references: [id],onDelete: SetNull)
   branch_destination    branches? @relation(name: "destination", fields: [destination_branch], references: [id],  onDelete: Cascade)
   branch_departure      branches? @relation(name: "departure", fields: [departure_branch], references: [id],  onDelete: Cascade)
 }

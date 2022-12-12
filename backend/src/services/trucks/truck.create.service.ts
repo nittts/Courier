@@ -1,17 +1,17 @@
 import prisma from "../../database/database";
 import { Prisma } from "@prisma/client";
 import { AppError } from "../../errors";
-import { ICityCreate } from "../../interfaces/cities/city.types";
+import { ITruckCreate } from "../../interfaces/trucks/truck.types";
 
-const cityCreateService = async (data: ICityCreate) => {
+const truckCreateService = async (data: ITruckCreate) => {
   try {
-    const cityExists = await prisma.cities.findFirst({ where: { name: data.name } });
+    const truckExists = await prisma.trucks.findFirst({ where: { license_plate: data.license_plate } });
 
-    if (cityExists) {
-      throw new AppError(401, "City Already Exists.", "Unauthorized");
+    if (truckExists) {
+      throw new AppError(401, "Truck Already Exists.", "Unauthorized");
     }
 
-    const res = await prisma.cities
+    const res = await prisma.trucks
       .create({
         data,
       })
@@ -23,7 +23,7 @@ const cityCreateService = async (data: ICityCreate) => {
         });
       });
 
-    return { message: "City created with success.", results: res };
+    return { message: "Truck created with success.", results: res };
   } catch (err) {
     console.log(err);
 
@@ -41,4 +41,4 @@ const cityCreateService = async (data: ICityCreate) => {
   }
 };
 
-export default cityCreateService;
+export default truckCreateService;

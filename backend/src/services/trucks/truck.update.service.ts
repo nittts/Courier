@@ -1,19 +1,14 @@
-import prisma from "../../database/database";
 import { Prisma } from "@prisma/client";
+import prisma from "../../database/database";
 import { AppError } from "../../errors";
-import { ICityCreate } from "../../interfaces/cities/city.types";
+import { ITruckUpdate } from "../../interfaces/trucks/truck.types";
 
-const cityCreateService = async (data: ICityCreate) => {
+const updateTruckService = async (id: number, data: ITruckUpdate) => {
   try {
-    const cityExists = await prisma.cities.findFirst({ where: { name: data.name } });
-
-    if (cityExists) {
-      throw new AppError(401, "City Already Exists.", "Unauthorized");
-    }
-
-    const res = await prisma.cities
-      .create({
-        data,
+    const res = await prisma.trucks
+      .update({
+        where: { id },
+        data: { ...data, branch_id: isNaN(Number(data.branch_id)) ? undefined : Number(data.branch_id) },
       })
       .catch((err) => {
         throw new Prisma.PrismaClientKnownRequestError(err.message, {
@@ -23,10 +18,8 @@ const cityCreateService = async (data: ICityCreate) => {
         });
       });
 
-    return { message: "City created with success.", results: res };
+    return { message: "Truck Updated with success.", results: res };
   } catch (err) {
-    console.log(err);
-
     if (err instanceof AppError) {
       throw new AppError(err.statusCode, err.message, err.status);
     }
@@ -41,4 +34,4 @@ const cityCreateService = async (data: ICityCreate) => {
   }
 };
 
-export default cityCreateService;
+export default updateTruckService;

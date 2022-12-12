@@ -1,19 +1,12 @@
-import prisma from "../../database/database";
 import { Prisma } from "@prisma/client";
+import prisma from "../../database/database";
 import { AppError } from "../../errors";
-import { ICityCreate } from "../../interfaces/cities/city.types";
 
-const cityCreateService = async (data: ICityCreate) => {
+const truckDeleteService = async (id: number) => {
   try {
-    const cityExists = await prisma.cities.findFirst({ where: { name: data.name } });
-
-    if (cityExists) {
-      throw new AppError(401, "City Already Exists.", "Unauthorized");
-    }
-
-    const res = await prisma.cities
-      .create({
-        data,
+    const res = await prisma.trucks
+      .delete({
+        where: { id },
       })
       .catch((err) => {
         throw new Prisma.PrismaClientKnownRequestError(err.message, {
@@ -23,10 +16,12 @@ const cityCreateService = async (data: ICityCreate) => {
         });
       });
 
-    return { message: "City created with success.", results: res };
-  } catch (err) {
-    console.log(err);
+    if (!res) {
+      throw new AppError(404, "Truck not Found.", "Not found");
+    }
 
+    return { message: "Truck deleted with success", results: res };
+  } catch (err) {
     if (err instanceof AppError) {
       throw new AppError(err.statusCode, err.message, err.status);
     }
@@ -41,4 +36,4 @@ const cityCreateService = async (data: ICityCreate) => {
   }
 };
 
-export default cityCreateService;
+export default truckDeleteService;
