@@ -4,34 +4,42 @@ import { Prisma } from "@prisma/client";
 
 const userGetAllService = async (page: number, perPage: number) => {
   try {
-    const res = await prisma.users.findMany({
-      skip: page * 1,
-      take: perPage,
-      orderBy: {
-        name: "asc",
-      },
-      include: {
-        branches: {
-          select: {
-            name: true,
-            address: true,
-            city: {
-              select: {
-                name: true,
+    const res = await prisma.users
+      .findMany({
+        skip: page * 1,
+        take: perPage,
+        orderBy: {
+          name: "asc",
+        },
+        include: {
+          branches: {
+            select: {
+              name: true,
+              address: true,
+              city: {
+                select: {
+                  name: true,
+                },
               },
             },
           },
-        },
-        trucks: true,
-        parcels: true,
-        shipments: true,
-        userTypes: {
-          select: {
-            type: true,
+          trucks: true,
+          parcels: true,
+          shipments: true,
+          userTypes: {
+            select: {
+              type: true,
+            },
           },
         },
-      },
-    });
+      })
+      .catch((err) => {
+        throw new Prisma.PrismaClientKnownRequestError(err.message, {
+          code: err.code,
+          clientVersion: "4.7.1",
+          meta: err.meta,
+        });
+      });
 
     const count = await prisma.users.count();
 
@@ -46,9 +54,12 @@ const userGetAllService = async (page: number, perPage: number) => {
     if (err instanceof AppError) {
       throw new AppError(err.statusCode, err.message, err.status);
     }
-
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
-      throw new AppError(500, "Unkown Server error. Please Contact Support.", "Internal Server Error");
+      throw new Prisma.PrismaClientKnownRequestError(err.message, {
+        code: err.code,
+        clientVersion: "4.7.1",
+        meta: err.meta,
+      });
     }
   }
 };

@@ -5,10 +5,18 @@ import { IUserUpdate } from "../../interfaces/users/user.types";
 
 const updateUserService = async (id: string, data: IUserUpdate) => {
   try {
-    const res = await prisma.users.update({
-      where: { id },
-      data,
-    });
+    const res = await prisma.users
+      .update({
+        where: { id },
+        data,
+      })
+      .catch((err) => {
+        throw new Prisma.PrismaClientKnownRequestError(err.message, {
+          code: err.code,
+          clientVersion: "4.7.1",
+          meta: err.meta,
+        });
+      });
 
     return { message: "User Updated with success.", results: res };
   } catch (err) {
@@ -16,9 +24,12 @@ const updateUserService = async (id: string, data: IUserUpdate) => {
       throw new AppError(err.statusCode, err.message, err.status);
     }
 
-    console.log(err);
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
-      throw new AppError(500, "Unkown Server error. Please Contact Support.", "Internal Server Error");
+      throw new Prisma.PrismaClientKnownRequestError(err.message, {
+        code: err.code,
+        clientVersion: "4.7.1",
+        meta: err.meta,
+      });
     }
   }
 };

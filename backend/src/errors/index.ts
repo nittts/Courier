@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { Response } from "express";
 
 export class AppError extends Error {
@@ -19,5 +20,16 @@ export const handleError = (err: AppError, res: Response) => {
     statusCode,
     message,
     status,
+  });
+};
+
+export const handlePrismaError = (err: Prisma.PrismaClientKnownRequestError, res: Response) => {
+  const { message, code, meta } = err;
+
+  return res.status(500).json({
+    statusCode: 500,
+    message,
+    PrismaCode: code,
+    cause: meta?.target,
   });
 };

@@ -1,5 +1,6 @@
+import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
-import { AppError, handleError } from "../../errors";
+import { AppError, handleError, handlePrismaError } from "../../errors";
 import userLoginService from "../../services/users/user.login.service";
 
 const userLoginController = async (req: Request, res: Response) => {
@@ -12,6 +13,9 @@ const userLoginController = async (req: Request, res: Response) => {
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);
+    }
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      handlePrismaError(err, res);
     }
   }
 };

@@ -17,22 +17,32 @@ const userQueryService = async (queries: IUserQueries) => {
       queries.type_id = Number(queries.type_id);
     }
 
-    const res = await prisma.users.findMany({
-      where: {
-        OR: [{ user_type_id: queries.type_id }, { phone: queries.phone }, { name: queries.name }],
-      },
-    });
+    const res = await prisma.users
+      .findMany({
+        where: {
+          OR: [{ user_type_id: queries.type_id }, { phone: queries.phone }, { name: queries.name }],
+        },
+      })
+      .catch((err) => {
+        throw new Prisma.PrismaClientKnownRequestError(err.message, {
+          code: err.code,
+          clientVersion: "4.7.1",
+          meta: err.meta,
+        });
+      });
 
     return { message: "User Found.", results: res };
   } catch (err) {
-    console.log(err);
-
     if (err instanceof AppError) {
       throw new AppError(err.statusCode, err.message, err.status);
     }
 
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
-      throw new AppError(500, "Unkown Server error. Please Contact Support.", "Internal Server Error");
+      throw new Prisma.PrismaClientKnownRequestError(err.message, {
+        code: err.code,
+        clientVersion: "4.7.1",
+        meta: err.meta,
+      });
     }
   }
 };

@@ -12,12 +12,20 @@ const userCreateService = async (data: IUser) => {
       throw new AppError(401, "User already Exists.", "Unauthorized");
     }
 
-    const res = await prisma.users.create({
-      data: { ...data, id: `USR-${uuid()}` },
-      include: {
-        userTypes: true,
-      },
-    });
+    const res = await prisma.users
+      .create({
+        data: { ...data, id: `USR-${uuid()}` },
+        include: {
+          userTypes: true,
+        },
+      })
+      .catch((err) => {
+        throw new Prisma.PrismaClientKnownRequestError(err.message, {
+          code: err.code,
+          clientVersion: "4.7.1",
+          meta: err.meta,
+        });
+      });
 
     const { password, ...returnUser } = res;
 
@@ -30,7 +38,11 @@ const userCreateService = async (data: IUser) => {
     }
 
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
-      throw new AppError(500, "Unkown Server error. Please Contact Support.", "Internal Server Error");
+      throw new Prisma.PrismaClientKnownRequestError(err.message, {
+        code: err.code,
+        clientVersion: "4.7.1",
+        meta: err.meta,
+      });
     }
   }
 };

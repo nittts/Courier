@@ -4,9 +4,17 @@ import { AppError } from "../../errors";
 
 const userDeleteService = async (id: string) => {
   try {
-    const res = await prisma.users.delete({
-      where: { id },
-    });
+    const res = await prisma.users
+      .delete({
+        where: { id },
+      })
+      .catch((err) => {
+        throw new Prisma.PrismaClientKnownRequestError(err.message, {
+          code: err.code,
+          clientVersion: "4.7.1",
+          meta: err.meta,
+        });
+      });
 
     if (!res) {
       throw new AppError(404, "User not Found.", "Not found");
@@ -14,14 +22,16 @@ const userDeleteService = async (id: string) => {
 
     return { message: "User deleted with success", results: res };
   } catch (err) {
-    console.log({ err });
-
     if (err instanceof AppError) {
       throw new AppError(err.statusCode, err.message, err.status);
     }
 
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
-      throw new AppError(500, "Unkown Server error. Please Contact Support.", "Internal Server Error");
+      throw new Prisma.PrismaClientKnownRequestError(err.message, {
+        code: err.code,
+        clientVersion: "4.7.1",
+        meta: err.meta,
+      });
     }
   }
 };

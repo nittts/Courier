@@ -3,10 +3,18 @@ import { AppError } from "../../errors";
 import { IUserLogin } from "../../interfaces/users/user.types";
 import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { Prisma } from "@prisma/client";
 
 const userLoginService = async ({ email, password }: IUserLogin) => {
   try {
-    const user = await prisma.users.findFirst({ where: { email } });
+    const user = await prisma.users.findFirst({ where: { email } }).catch((err) => {
+      throw new Prisma.PrismaClientKnownRequestError(err.message, {
+        code: err.code,
+        clientVersion: "4.7.1",
+        meta: err.meta,
+      });
+    });
+
     if (!user) {
       throw new AppError(404, "Invalid Email / Password.", "Not found");
     }
@@ -22,6 +30,14 @@ const userLoginService = async ({ email, password }: IUserLogin) => {
   } catch (err) {
     if (err instanceof AppError) {
       throw new AppError(err.statusCode, err.message, err.status);
+    }
+
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      throw new Prisma.PrismaClientKnownRequestError(err.message, {
+        code: err.code,
+        clientVersion: "4.7.1",
+        meta: err.meta,
+      });
     }
   }
 };

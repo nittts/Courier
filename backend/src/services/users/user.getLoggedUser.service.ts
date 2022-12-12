@@ -4,30 +4,38 @@ import { Prisma } from "@prisma/client";
 
 const userGetLoggedUserService = async (id: string) => {
   try {
-    const res = await prisma.users.findFirst({
-      where: { id },
-      include: {
-        branches: {
-          select: {
-            name: true,
-            address: true,
-            city: {
-              select: {
-                name: true,
+    const res = await prisma.users
+      .findFirst({
+        where: { id },
+        include: {
+          branches: {
+            select: {
+              name: true,
+              address: true,
+              city: {
+                select: {
+                  name: true,
+                },
               },
             },
           },
-        },
-        trucks: true,
-        parcels: true,
-        shipments: true,
-        userTypes: {
-          select: {
-            type: true,
+          trucks: true,
+          parcels: true,
+          shipments: true,
+          userTypes: {
+            select: {
+              type: true,
+            },
           },
         },
-      },
-    });
+      })
+      .catch((err) => {
+        throw new Prisma.PrismaClientKnownRequestError(err.message, {
+          code: err.code,
+          clientVersion: "4.7.1",
+          meta: err.meta,
+        });
+      });
 
     return { message: "Logged User Found.", results: res };
   } catch (err) {
@@ -36,7 +44,11 @@ const userGetLoggedUserService = async (id: string) => {
     }
 
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
-      throw new AppError(500, "Unkown Server error. Please Contact Support.", "Internal Server Error");
+      throw new Prisma.PrismaClientKnownRequestError(err.message, {
+        code: err.code,
+        clientVersion: "4.7.1",
+        meta: err.meta,
+      });
     }
   }
 };

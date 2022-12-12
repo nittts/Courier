@@ -1,5 +1,6 @@
+import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
-import { AppError, handleError } from "../../errors";
+import { AppError, handleError, handlePrismaError } from "../../errors";
 import userDeleteService from "../../services/users/user.delete.service";
 
 const userDeleteController = async (req: Request, res: Response) => {
@@ -10,7 +11,12 @@ const userDeleteController = async (req: Request, res: Response) => {
 
     return res.status(200).send(serviceResponse);
   } catch (err) {
-    handleError(err as AppError, res);
+    if (err instanceof AppError) {
+      handleError(err, res);
+    }
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      handlePrismaError(err, res);
+    }
   }
 };
 

@@ -1,6 +1,7 @@
-import { AppError, handleError } from "../../errors";
+import { AppError, handleError, handlePrismaError } from "../../errors";
 import { Request, Response } from "express";
 import userGetAllService from "../../services/users/user.getAll.service";
+import { Prisma } from "@prisma/client";
 
 const userGetAllController = async (req: Request, res: Response) => {
   try {
@@ -12,6 +13,9 @@ const userGetAllController = async (req: Request, res: Response) => {
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);
+    }
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      handlePrismaError(err, res);
     }
   }
 };
