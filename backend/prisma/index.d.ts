@@ -54,8 +54,9 @@ export type users = {
   email: string
   password: string
   phone: string
-  userType_id: number
+  user_type_id: number
   branch_id: number | null
+  createdOn: Date
 }
 
 /**
@@ -4329,12 +4330,12 @@ export namespace Prisma {
   }
 
   export type UsersAvgAggregateOutputType = {
-    userType_id: number | null
+    user_type_id: number | null
     branch_id: number | null
   }
 
   export type UsersSumAggregateOutputType = {
-    userType_id: number | null
+    user_type_id: number | null
     branch_id: number | null
   }
 
@@ -4344,8 +4345,9 @@ export namespace Prisma {
     email: string | null
     password: string | null
     phone: string | null
-    userType_id: number | null
+    user_type_id: number | null
     branch_id: number | null
+    createdOn: Date | null
   }
 
   export type UsersMaxAggregateOutputType = {
@@ -4354,8 +4356,9 @@ export namespace Prisma {
     email: string | null
     password: string | null
     phone: string | null
-    userType_id: number | null
+    user_type_id: number | null
     branch_id: number | null
+    createdOn: Date | null
   }
 
   export type UsersCountAggregateOutputType = {
@@ -4364,19 +4367,20 @@ export namespace Prisma {
     email: number
     password: number
     phone: number
-    userType_id: number
+    user_type_id: number
     branch_id: number
+    createdOn: number
     _all: number
   }
 
 
   export type UsersAvgAggregateInputType = {
-    userType_id?: true
+    user_type_id?: true
     branch_id?: true
   }
 
   export type UsersSumAggregateInputType = {
-    userType_id?: true
+    user_type_id?: true
     branch_id?: true
   }
 
@@ -4386,8 +4390,9 @@ export namespace Prisma {
     email?: true
     password?: true
     phone?: true
-    userType_id?: true
+    user_type_id?: true
     branch_id?: true
+    createdOn?: true
   }
 
   export type UsersMaxAggregateInputType = {
@@ -4396,8 +4401,9 @@ export namespace Prisma {
     email?: true
     password?: true
     phone?: true
-    userType_id?: true
+    user_type_id?: true
     branch_id?: true
+    createdOn?: true
   }
 
   export type UsersCountAggregateInputType = {
@@ -4406,8 +4412,9 @@ export namespace Prisma {
     email?: true
     password?: true
     phone?: true
-    userType_id?: true
+    user_type_id?: true
     branch_id?: true
+    createdOn?: true
     _all?: true
   }
 
@@ -4509,8 +4516,9 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
-    userType_id: number
+    user_type_id: number
     branch_id: number | null
+    createdOn: Date
     _count: UsersCountAggregateOutputType | null
     _avg: UsersAvgAggregateOutputType | null
     _sum: UsersSumAggregateOutputType | null
@@ -4538,8 +4546,9 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     phone?: boolean
-    userType_id?: boolean
+    user_type_id?: boolean
     branch_id?: boolean
+    createdOn?: boolean
     trucks?: boolean | trucksFindManyArgs
     parcels?: boolean | parcelsFindManyArgs
     shipments?: boolean | shipmentsArgs
@@ -9728,8 +9737,9 @@ export namespace Prisma {
     email: 'email',
     password: 'password',
     phone: 'phone',
-    userType_id: 'userType_id',
-    branch_id: 'branch_id'
+    user_type_id: 'user_type_id',
+    branch_id: 'branch_id',
+    createdOn: 'createdOn'
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
@@ -9891,8 +9901,9 @@ export namespace Prisma {
     email?: StringFilter | string
     password?: StringFilter | string
     phone?: StringFilter | string
-    userType_id?: IntFilter | number
+    user_type_id?: IntFilter | number
     branch_id?: IntNullableFilter | number | null
+    createdOn?: DateTimeFilter | Date | string
     trucks?: TrucksListRelationFilter
     parcels?: ParcelsListRelationFilter
     shipments?: XOR<ShipmentsRelationFilter, shipmentsWhereInput> | null
@@ -9906,8 +9917,9 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     phone?: SortOrder
-    userType_id?: SortOrder
+    user_type_id?: SortOrder
     branch_id?: SortOrder
+    createdOn?: SortOrder
     trucks?: trucksOrderByRelationAggregateInput
     parcels?: parcelsOrderByRelationAggregateInput
     shipments?: shipmentsOrderByWithRelationInput
@@ -9925,8 +9937,9 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     phone?: SortOrder
-    userType_id?: SortOrder
+    user_type_id?: SortOrder
     branch_id?: SortOrder
+    createdOn?: SortOrder
     _count?: usersCountOrderByAggregateInput
     _avg?: usersAvgOrderByAggregateInput
     _max?: usersMaxOrderByAggregateInput
@@ -9943,8 +9956,9 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter | string
     password?: StringWithAggregatesFilter | string
     phone?: StringWithAggregatesFilter | string
-    userType_id?: IntWithAggregatesFilter | number
+    user_type_id?: IntWithAggregatesFilter | number
     branch_id?: IntNullableWithAggregatesFilter | number | null
+    createdOn?: DateTimeWithAggregatesFilter | Date | string
   }
 
   export type trucksWhereInput = {
@@ -10353,6 +10367,7 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
+    createdOn: Date | string
     trucks?: trucksCreateNestedManyWithoutUsersInput
     parcels?: parcelsCreateNestedManyWithoutUsersInput
     shipments?: shipmentsCreateNestedOneWithoutUsersInput
@@ -10366,8 +10381,9 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
-    userType_id: number
+    user_type_id: number
     branch_id?: number | null
+    createdOn: Date | string
     trucks?: trucksUncheckedCreateNestedManyWithoutUsersInput
     parcels?: parcelsUncheckedCreateNestedManyWithoutUsersInput
     shipments?: shipmentsUncheckedCreateNestedOneWithoutUsersInput
@@ -10379,6 +10395,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    createdOn?: DateTimeFieldUpdateOperationsInput | Date | string
     trucks?: trucksUpdateManyWithoutUsersNestedInput
     parcels?: parcelsUpdateManyWithoutUsersNestedInput
     shipments?: shipmentsUpdateOneWithoutUsersNestedInput
@@ -10392,8 +10409,9 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    userType_id?: IntFieldUpdateOperationsInput | number
+    user_type_id?: IntFieldUpdateOperationsInput | number
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    createdOn?: DateTimeFieldUpdateOperationsInput | Date | string
     trucks?: trucksUncheckedUpdateManyWithoutUsersNestedInput
     parcels?: parcelsUncheckedUpdateManyWithoutUsersNestedInput
     shipments?: shipmentsUncheckedUpdateOneWithoutUsersNestedInput
@@ -10405,8 +10423,9 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
-    userType_id: number
+    user_type_id: number
     branch_id?: number | null
+    createdOn: Date | string
   }
 
   export type usersUpdateManyMutationInput = {
@@ -10415,6 +10434,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    createdOn?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type usersUncheckedUpdateManyInput = {
@@ -10423,8 +10443,9 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    userType_id?: IntFieldUpdateOperationsInput | number
+    user_type_id?: IntFieldUpdateOperationsInput | number
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    createdOn?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type trucksCreateInput = {
@@ -10899,6 +10920,17 @@ export namespace Prisma {
     not?: NestedIntNullableFilter | number | null
   }
 
+  export type DateTimeFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeFilter | Date | string
+  }
+
   export type ParcelsListRelationFilter = {
     every?: parcelsWhereInput
     some?: parcelsWhereInput
@@ -10930,12 +10962,13 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     phone?: SortOrder
-    userType_id?: SortOrder
+    user_type_id?: SortOrder
     branch_id?: SortOrder
+    createdOn?: SortOrder
   }
 
   export type usersAvgOrderByAggregateInput = {
-    userType_id?: SortOrder
+    user_type_id?: SortOrder
     branch_id?: SortOrder
   }
 
@@ -10945,8 +10978,9 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     phone?: SortOrder
-    userType_id?: SortOrder
+    user_type_id?: SortOrder
     branch_id?: SortOrder
+    createdOn?: SortOrder
   }
 
   export type usersMinOrderByAggregateInput = {
@@ -10955,12 +10989,13 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     phone?: SortOrder
-    userType_id?: SortOrder
+    user_type_id?: SortOrder
     branch_id?: SortOrder
+    createdOn?: SortOrder
   }
 
   export type usersSumOrderByAggregateInput = {
-    userType_id?: SortOrder
+    user_type_id?: SortOrder
     branch_id?: SortOrder
   }
 
@@ -10978,6 +11013,20 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter
     _min?: NestedIntNullableFilter
     _max?: NestedIntNullableFilter
+  }
+
+  export type DateTimeWithAggregatesFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeWithAggregatesFilter | Date | string
+    _count?: NestedIntFilter
+    _min?: NestedDateTimeFilter
+    _max?: NestedDateTimeFilter
   }
 
   export type FloatFilter = {
@@ -11163,17 +11212,6 @@ export namespace Prisma {
     _max?: NestedDecimalFilter
   }
 
-  export type DateTimeFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeFilter | Date | string
-  }
-
   export type ProductsListRelationFilter = {
     every?: productsWhereInput
     some?: productsWhereInput
@@ -11220,20 +11258,6 @@ export namespace Prisma {
 
   export type parcelsSumOrderByAggregateInput = {
     volume_weight?: SortOrder
-  }
-
-  export type DateTimeWithAggregatesFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeWithAggregatesFilter | Date | string
-    _count?: NestedIntFilter
-    _min?: NestedDateTimeFilter
-    _max?: NestedDateTimeFilter
   }
 
   export type DateTimeNullableFilter = {
@@ -11646,6 +11670,10 @@ export namespace Prisma {
     connect?: shipmentsWhereUniqueInput
   }
 
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type trucksUpdateManyWithoutUsersNestedInput = {
     create?: XOR<Enumerable<trucksCreateWithoutUsersInput>, Enumerable<trucksUncheckedCreateWithoutUsersInput>>
     connectOrCreate?: Enumerable<trucksCreateOrConnectWithoutUsersInput>
@@ -11878,10 +11906,6 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<productsCreateOrConnectWithoutParcelsInput>
     createMany?: productsCreateManyParcelsInputEnvelope
     connect?: Enumerable<productsWhereUniqueInput>
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type productsUpdateManyWithoutParcelsNestedInput = {
@@ -12120,6 +12144,17 @@ export namespace Prisma {
     not?: NestedIntNullableFilter | number | null
   }
 
+  export type NestedDateTimeFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeFilter | Date | string
+  }
+
   export type NestedIntNullableWithAggregatesFilter = {
     equals?: number | null
     in?: Enumerable<number> | null
@@ -12145,6 +12180,20 @@ export namespace Prisma {
     gt?: number
     gte?: number
     not?: NestedFloatNullableFilter | number | null
+  }
+
+  export type NestedDateTimeWithAggregatesFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeWithAggregatesFilter | Date | string
+    _count?: NestedIntFilter
+    _min?: NestedDateTimeFilter
+    _max?: NestedDateTimeFilter
   }
 
   export type NestedBoolFilter = {
@@ -12232,31 +12281,6 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter
     _min?: NestedDecimalFilter
     _max?: NestedDecimalFilter
-  }
-
-  export type NestedDateTimeFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeFilter | Date | string
-  }
-
-  export type NestedDateTimeWithAggregatesFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeWithAggregatesFilter | Date | string
-    _count?: NestedIntFilter
-    _min?: NestedDateTimeFilter
-    _max?: NestedDateTimeFilter
   }
 
   export type NestedDateTimeNullableFilter = {
@@ -12351,6 +12375,7 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
+    createdOn: Date | string
     trucks?: trucksCreateNestedManyWithoutUsersInput
     parcels?: parcelsCreateNestedManyWithoutUsersInput
     shipments?: shipmentsCreateNestedOneWithoutUsersInput
@@ -12363,7 +12388,8 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
-    userType_id: number
+    user_type_id: number
+    createdOn: Date | string
     trucks?: trucksUncheckedCreateNestedManyWithoutUsersInput
     parcels?: parcelsUncheckedCreateNestedManyWithoutUsersInput
     shipments?: shipmentsUncheckedCreateNestedOneWithoutUsersInput
@@ -12517,8 +12543,9 @@ export namespace Prisma {
     email?: StringFilter | string
     password?: StringFilter | string
     phone?: StringFilter | string
-    userType_id?: IntFilter | number
+    user_type_id?: IntFilter | number
     branch_id?: IntNullableFilter | number | null
+    createdOn?: DateTimeFilter | Date | string
   }
 
   export type trucksUpsertWithWhereUniqueWithoutBranchInput = {
@@ -12619,6 +12646,7 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
+    createdOn: Date | string
     trucks?: trucksCreateNestedManyWithoutUsersInput
     parcels?: parcelsCreateNestedManyWithoutUsersInput
     shipments?: shipmentsCreateNestedOneWithoutUsersInput
@@ -12632,6 +12660,7 @@ export namespace Prisma {
     password: string
     phone: string
     branch_id?: number | null
+    createdOn: Date | string
     trucks?: trucksUncheckedCreateNestedManyWithoutUsersInput
     parcels?: parcelsUncheckedCreateNestedManyWithoutUsersInput
     shipments?: shipmentsUncheckedCreateNestedOneWithoutUsersInput
@@ -12944,6 +12973,7 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
+    createdOn: Date | string
     parcels?: parcelsCreateNestedManyWithoutUsersInput
     shipments?: shipmentsCreateNestedOneWithoutUsersInput
     userTypes?: userTypesCreateNestedOneWithoutUsersInput
@@ -12956,8 +12986,9 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
-    userType_id: number
+    user_type_id: number
     branch_id?: number | null
+    createdOn: Date | string
     parcels?: parcelsUncheckedCreateNestedManyWithoutUsersInput
     shipments?: shipmentsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -13035,6 +13066,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    createdOn?: DateTimeFieldUpdateOperationsInput | Date | string
     parcels?: parcelsUpdateManyWithoutUsersNestedInput
     shipments?: shipmentsUpdateOneWithoutUsersNestedInput
     userTypes?: userTypesUpdateOneWithoutUsersNestedInput
@@ -13047,8 +13079,9 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    userType_id?: IntFieldUpdateOperationsInput | number
+    user_type_id?: IntFieldUpdateOperationsInput | number
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    createdOn?: DateTimeFieldUpdateOperationsInput | Date | string
     parcels?: parcelsUncheckedUpdateManyWithoutUsersNestedInput
     shipments?: shipmentsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -13187,6 +13220,7 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
+    createdOn: Date | string
     trucks?: trucksCreateNestedManyWithoutUsersInput
     shipments?: shipmentsCreateNestedOneWithoutUsersInput
     userTypes?: userTypesCreateNestedOneWithoutUsersInput
@@ -13199,8 +13233,9 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
-    userType_id: number
+    user_type_id: number
     branch_id?: number | null
+    createdOn: Date | string
     trucks?: trucksUncheckedCreateNestedManyWithoutUsersInput
     shipments?: shipmentsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -13276,6 +13311,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    createdOn?: DateTimeFieldUpdateOperationsInput | Date | string
     trucks?: trucksUpdateManyWithoutUsersNestedInput
     shipments?: shipmentsUpdateOneWithoutUsersNestedInput
     userTypes?: userTypesUpdateOneWithoutUsersNestedInput
@@ -13288,8 +13324,9 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    userType_id?: IntFieldUpdateOperationsInput | number
+    user_type_id?: IntFieldUpdateOperationsInput | number
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    createdOn?: DateTimeFieldUpdateOperationsInput | Date | string
     trucks?: trucksUncheckedUpdateManyWithoutUsersNestedInput
     shipments?: shipmentsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -13354,6 +13391,7 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
+    createdOn: Date | string
     trucks?: trucksCreateNestedManyWithoutUsersInput
     parcels?: parcelsCreateNestedManyWithoutUsersInput
     userTypes?: userTypesCreateNestedOneWithoutUsersInput
@@ -13366,8 +13404,9 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
-    userType_id: number
+    user_type_id: number
     branch_id?: number | null
+    createdOn: Date | string
     trucks?: trucksUncheckedCreateNestedManyWithoutUsersInput
     parcels?: parcelsUncheckedCreateNestedManyWithoutUsersInput
   }
@@ -13484,6 +13523,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    createdOn?: DateTimeFieldUpdateOperationsInput | Date | string
     trucks?: trucksUpdateManyWithoutUsersNestedInput
     parcels?: parcelsUpdateManyWithoutUsersNestedInput
     userTypes?: userTypesUpdateOneWithoutUsersNestedInput
@@ -13496,8 +13536,9 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    userType_id?: IntFieldUpdateOperationsInput | number
+    user_type_id?: IntFieldUpdateOperationsInput | number
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    createdOn?: DateTimeFieldUpdateOperationsInput | Date | string
     trucks?: trucksUncheckedUpdateManyWithoutUsersNestedInput
     parcels?: parcelsUncheckedUpdateManyWithoutUsersNestedInput
   }
@@ -13603,7 +13644,8 @@ export namespace Prisma {
     email: string
     password: string
     phone: string
-    userType_id: number
+    user_type_id: number
+    createdOn: Date | string
   }
 
   export type trucksCreateManyBranchInput = {
@@ -13643,6 +13685,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    createdOn?: DateTimeFieldUpdateOperationsInput | Date | string
     trucks?: trucksUpdateManyWithoutUsersNestedInput
     parcels?: parcelsUpdateManyWithoutUsersNestedInput
     shipments?: shipmentsUpdateOneWithoutUsersNestedInput
@@ -13655,7 +13698,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    userType_id?: IntFieldUpdateOperationsInput | number
+    user_type_id?: IntFieldUpdateOperationsInput | number
+    createdOn?: DateTimeFieldUpdateOperationsInput | Date | string
     trucks?: trucksUncheckedUpdateManyWithoutUsersNestedInput
     parcels?: parcelsUncheckedUpdateManyWithoutUsersNestedInput
     shipments?: shipmentsUncheckedUpdateOneWithoutUsersNestedInput
@@ -13667,7 +13711,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    userType_id?: IntFieldUpdateOperationsInput | number
+    user_type_id?: IntFieldUpdateOperationsInput | number
+    createdOn?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type trucksUpdateWithoutBranchInput = {
@@ -13775,6 +13820,7 @@ export namespace Prisma {
     password: string
     phone: string
     branch_id?: number | null
+    createdOn: Date | string
   }
 
   export type usersUpdateWithoutUserTypesInput = {
@@ -13783,6 +13829,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    createdOn?: DateTimeFieldUpdateOperationsInput | Date | string
     trucks?: trucksUpdateManyWithoutUsersNestedInput
     parcels?: parcelsUpdateManyWithoutUsersNestedInput
     shipments?: shipmentsUpdateOneWithoutUsersNestedInput
@@ -13796,6 +13843,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     branch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    createdOn?: DateTimeFieldUpdateOperationsInput | Date | string
     trucks?: trucksUncheckedUpdateManyWithoutUsersNestedInput
     parcels?: parcelsUncheckedUpdateManyWithoutUsersNestedInput
     shipments?: shipmentsUncheckedUpdateOneWithoutUsersNestedInput

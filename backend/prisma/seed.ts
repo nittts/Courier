@@ -2,7 +2,7 @@ import prisma from "../src/database/database";
 
 async function seed() {
   await prisma.userTypes.createMany({
-    data: [{ type: "Admin" }, { type: "Manager" }, { type: "Employee" }, { type: "Driver" }, { type: "Client" }],
+    data: [{ type: "Admin" }, { type: "Manager" }, { type: "Employee" }, { type: "Driver" }],
   });
 
   await prisma.cities.createMany({
@@ -50,40 +50,44 @@ async function seed() {
   await prisma.users.createMany({
     data: [
       {
-        id: "0f2196b7-dc8d-4e81-a4c3-34c374fc4e4f",
+        id: "USR-0f2196b7-dc8d-4e81-a4c3-34c374fc4e4f",
         name: "Admin",
         email: "sudo@sudo.com",
         password: "$2y$10$eEndac041EOh8sbwYMdL8OICY0VQVNRUGM2/QgMrOb.RYdWIox18y",
         phone: "123456",
-        userType_id: 1,
+        user_type_id: 1,
         branch_id: 1,
+        createdOn: new Date(),
       },
       {
-        id: "8b0dd641-8c3e-4376-b385-a34d753b8c0d",
+        id: "USR-8b0dd641-8c3e-4376-b385-a34d753b8c0d",
         name: "Manager",
         email: "manager@manager.com",
         password: "$2y$10$eEndac041EOh8sbwYMdL8OICY0VQVNRUGM2/QgMrOb.RYdWIox18y",
         phone: "123456",
-        userType_id: 2,
+        user_type_id: 2,
         branch_id: 1,
+        createdOn: new Date(),
       },
       {
-        id: "78abd298-2eaa-4867-998e-a295e9c94c4e",
+        id: "USR-78abd298-2eaa-4867-998e-a295e9c94c4e",
         name: "Employee",
         email: "employee@employee.com",
         password: "$2y$10$eEndac041EOh8sbwYMdL8OICY0VQVNRUGM2/QgMrOb.RYdWIox18y",
         phone: "123456",
-        userType_id: 3,
+        user_type_id: 3,
         branch_id: 1,
+        createdOn: new Date(),
       },
       {
-        id: "609fc98b-13b6-49f2-af68-e7d0f2256d99",
+        id: "USR-609fc98b-13b6-49f2-af68-e7d0f2256d99",
         name: "Client",
         email: "client@client.com",
         password: "$2y$10$eEndac041EOh8sbwYMdL8OICY0VQVNRUGM2/QgMrOb.RYdWIox18y",
         phone: "123456",
-        userType_id: 4,
+        user_type_id: 4,
         branch_id: 1,
+        createdOn: new Date(),
       },
     ],
   });

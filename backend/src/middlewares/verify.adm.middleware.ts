@@ -13,7 +13,7 @@ const verifyAdmMiddleware = async (req: Request, res: Response, next: NextFuncti
     }
 
     if (ReqUser.id !== id) {
-      if (user && user.userType_id >= 2) {
+      if (user && user.user_type_id >= 2) {
         return res.status(401).json({ status: "Unauthorized", message: "No admin Authorization." });
       }
 

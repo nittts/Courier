@@ -13,7 +13,7 @@ datasource db {
 }
 
 model cities {
-  id       Int        @id @default(autoincrement())
+  id       Int        @id @default(autoincrement()) @db.Integer
   name     String     @unique @db.VarChar(256)
   postcode String     @db.VarChar(12)
 
@@ -21,7 +21,7 @@ model cities {
 }
 
 model branches {
-  id                    Int         @id @default(autoincrement())
+  id                    Int         @id @default(autoincrement()) @db.Integer
   name                  String      @unique @db.VarChar(256)
   address               String      @db.VarChar(256)
   city_id               Int
@@ -37,31 +37,32 @@ model branches {
 }
 
 model userTypes {
-  id   Int      @id @default(autoincrement())
+  id   Int      @id @default(autoincrement()) @db.Integer
   type String   @unique @db.VarChar(128)
 
   users users[]
 }
 
 model users {
-  id          String      @id @db.VarChar(36)
-  name        String      @db.VarChar(256)
-  email       String      @db.VarChar(128)
-  password    String      @db.VarChar(128)
-  phone       String      @db.VarChar(20)
-  userType_id Int         
-  branch_id   Int?        
+  id           String      @id @db.VarChar(40)
+  name         String      @db.VarChar(256)
+  email        String      @db.VarChar(128)
+  password     String      @db.VarChar(128)
+  phone        String      @db.VarChar(20)
+  user_type_id Int        @db.Integer
+  branch_id    Int?        
+  createdOn    DateTime    @db.Timestamp()
 
   trucks      trucks[]
   parcels     parcels[]  
   shipments   shipments?
-  userTypes   userTypes? @relation(fields: [userType_id], references: [id])
+  userTypes   userTypes? @relation(fields: [user_type_id], references: [id], onDelete: Cascade)
   branches    branches?  @relation(fields: [branch_id], references: [id], onDelete: SetNull)
 }
 
 
 model trucks {
-  id            Int         @id @default(autoincrement())
+  id            Int         @id @default(autoincrement()) @db.Integer
   license_plate String      @unique @db.VarChar(20)
   brand         String      @db.VarChar(128)
   max_weight    Float       @db.DoublePrecision
@@ -85,7 +86,7 @@ model products {
 }
 
 model parcels {
-  id                    String       @id @db.VarChar(36)
+  id                    String       @id @db.VarChar(40)
   name                  String       @db.VarChar(256)
   content               String       @db.VarChar(256)
   volume_weight         Float        @db.DoublePrecision
@@ -100,7 +101,7 @@ model parcels {
 }
 
 model shipments {
-  id                    String    @id @db.VarChar(36)
+  id                    String    @id @db.VarChar(41)
   status                String    @db.VarChar(128)
   arrival_time          DateTime? @db.Timestamp()
   departure_time        DateTime  @db.Timestamp()
