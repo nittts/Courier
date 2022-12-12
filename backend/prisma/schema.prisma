@@ -67,7 +67,7 @@ model trucks {
   brand         String      @db.VarChar(128)
   max_weight    Float       @db.DoublePrecision
   available     Boolean
-  driver_id     String?     @db.VarChar(36)
+  driver_id     String?     @db.VarChar(40)
   branch_id     Int         
 
   shipments     shipments?
@@ -80,7 +80,7 @@ model products {
   id        Int       @id @default(autoincrement()) @db.Integer
   name      String    @db.VarChar(256)
   weight    Decimal   @db.Decimal()
-  parcel_id String?   @db.VarChar(36)
+  parcel_id String?   @db.VarChar(40)
 
   parcels   parcels?  @relation(fields: [parcel_id], references: [id], onDelete: Cascade)
 }
@@ -91,8 +91,8 @@ model parcels {
   content               String       @db.VarChar(256)
   volume_weight         Float        @db.DoublePrecision
   admission_date        DateTime     @db.Timestamp()
-  client_id             String?      @db.VarChar(36)
-  shipment_id           String?      @db.VarChar(36) @unique
+  client_id             String?      @db.VarChar(40)
+  shipment_id           String?      @db.VarChar(41) @unique
 
   products              products[]
 
@@ -108,7 +108,7 @@ model shipments {
   weight                Float     @db.DoublePrecision
 
   truck_id              Int       @unique 
-  driver_id             String    @unique @db.VarChar(36)
+  driver_id             String    @unique @db.VarChar(40)
   destination_branch    Int       @unique
   departure_branch      Int       @unique       
 

@@ -11,6 +11,7 @@ import userUpdateController from "../../controllers/users/user.update.controller
 import verifyAdmMiddleware from "../../middlewares/verify.adm.middleware";
 import userGetAllController from "../../controllers/users/user.getAll.controller";
 import userQueryController from "../../controllers/users/user.query.controller";
+import userDeleteController from "../../controllers/users/user.delete.service";
 
 const router = Router();
 
@@ -22,12 +23,8 @@ router.get("/all", userGetAllController);
 router.get("/search", userQueryController);
 router.get("/:id", userGetByIDController);
 
-router.patch(
-  "/:id",
-  verifyAuthTokenMiddleware,
-  verifyAdmMiddleware,
-  userUpdateValidator(userUpdateSchema),
-  userUpdateController
-);
+router.patch("/:id", userUpdateValidator(userUpdateSchema), userUpdateController);
+
+router.delete("/:id", userDeleteController);
 
 export default router;
