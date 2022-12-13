@@ -10,7 +10,7 @@
     "dev": "ts-node-dev --exit-child --watch src ./src",
     "server": "yarn prisma:deploy && yarn prisma:seed && yarn dev",
     "clean": "rm -rf ./dist",
-    "copy-files": "cp ./prisma/schema.prisma ./dist/prisma",
+    "copy-files": "cp ./prisma ./dist/prisma",
     "build": "yarn clean && tsc && yarn copy-files",
     "start:default": "yarn prisma:deploy && node ./dist/src/index.js",
     "start:vercel": "vercel dev",
