@@ -1,7 +1,7 @@
+import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
 import { AppError, handleError, handlePrismaError } from "../../errors";
 import userGetByIDService from "../../services/users/user.getByID.service";
-import { Request, Response } from "express";
-import { Prisma } from "@prisma/client";
 
 const userGetByIDController = async (req: Request, res: Response) => {
   const { id } = req.params;

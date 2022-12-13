@@ -1,8 +1,7 @@
-import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
+import { AppError, handleError, handlePrismaError } from "../../errors";
 import updateTruckService from "../../services/trucks/truck.update.service";
-import { ITruckCreate } from "../../interfaces/trucks/truck.types";
 
 const truckUpdateController = async (req: Request, res: Response) => {
   const { id } = req.params;

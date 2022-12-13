@@ -1,6 +1,6 @@
-import { IBranchCreate, IBranchUpdate } from "../../interfaces/branches/branch.types";
 import { SchemaOf, ValidationError } from "yup";
 import { NextFunction, Request, Response } from "express";
+import { IBranchCreate, IBranchUpdate } from "../../interfaces/branches/branch.types";
 
 const branchCreateValidator =
   (schema: SchemaOf<IBranchCreate>) => async (req: Request, res: Response, next: NextFunction) => {
@@ -14,8 +14,6 @@ const branchCreateValidator =
       next();
     } catch (err) {
       if (err instanceof ValidationError) {
-        const newObject = Object.assign({}, err.errors);
-
         return res.status(400).send({
           statusCode: 400,
           message: err.errors.join(" "),
@@ -43,8 +41,6 @@ const branchUpdateValidator =
       next();
     } catch (err) {
       if (err instanceof ValidationError) {
-        const newObject = Object.assign({}, err.errors);
-
         return res.status(400).send({
           statusCode: 400,
           message: err.errors.join(" "),

@@ -1,7 +1,7 @@
-import branchCreateService from "../../services/branches/branch.create.service";
+import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Prisma } from "@prisma/client";
+import branchCreateService from "../../services/branches/branch.create.service";
 
 const branchCreateController = async (req: Request, res: Response) => {
   const branchData = req.body;

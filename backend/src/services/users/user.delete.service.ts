@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
-import prisma from "../../database/database";
 import { AppError } from "../../errors";
+import prisma from "../../database/database";
 
 const userDeleteService = async (id: string) => {
   try {

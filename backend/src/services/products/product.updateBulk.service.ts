@@ -1,6 +1,6 @@
-import prisma from "../../database/database";
-import { Prisma } from "@prisma/client";
 import { AppError } from "../../errors";
+import { Prisma } from "@prisma/client";
+import prisma from "../../database/database";
 import { IProductUpdateBulk } from "../../interfaces/products/product.type";
 
 const productUpdateBulkService = async (data: IProductUpdateBulk[]) => {

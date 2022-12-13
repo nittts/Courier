@@ -1,8 +1,8 @@
-import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Request, Response } from "express";
-import cityQueryService from "../../services/Cities/city.query.service";
-import { ICityQueries } from "../../interfaces/cities/city.types";
 import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
+import { ICityQueries } from "../../interfaces/cities/city.types";
+import cityQueryService from "../../services/Cities/city.query.service";
+import { AppError, handleError, handlePrismaError } from "../../errors";
 
 const cityQueryController = async (req: Request, res: Response) => {
   const { postcode, name } = req.query;

@@ -1,8 +1,8 @@
-import truckCreateService from "../../services/trucks/truck.create.service";
-import { Request, Response } from "express";
-import { AppError, handleError, handlePrismaError } from "../../errors";
 import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
 import { ITruckCreate } from "../../interfaces/trucks/truck.types";
+import { AppError, handleError, handlePrismaError } from "../../errors";
+import truckCreateService from "../../services/trucks/truck.create.service";
 
 const truckCreateController = async (req: Request, res: Response) => {
   const truckData = req.body;

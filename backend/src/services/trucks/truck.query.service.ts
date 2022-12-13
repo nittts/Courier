@@ -1,6 +1,6 @@
-import prisma from "../../database/database";
 import { AppError } from "../../errors";
 import { Prisma } from "@prisma/client";
+import prisma from "../../database/database";
 import { ITruckQueries } from "../../interfaces/trucks/truck.types";
 
 const truckQueryService = async (queries: ITruckQueries) => {

@@ -1,6 +1,6 @@
-import { IProductCreateTuple, IProductUpdateProps, IProductUpdateTuple } from "../../interfaces/products/product.type";
 import { SchemaOf, ValidationError } from "yup";
 import { NextFunction, Request, Response } from "express";
+import { IProductCreateTuple, IProductUpdateProps, IProductUpdateTuple } from "../../interfaces/products/product.type";
 
 const productCreateValidator =
   (schema: SchemaOf<IProductCreateTuple>) => async (req: Request, res: Response, next: NextFunction) => {
@@ -14,8 +14,6 @@ const productCreateValidator =
       next();
     } catch (err) {
       if (err instanceof ValidationError) {
-        const newObject = Object.assign({}, err.errors);
-
         return res.status(400).send({
           statusCode: 400,
           message: err.errors.join(" "),
@@ -43,8 +41,6 @@ const productUpdateBulkValidator =
       next();
     } catch (err) {
       if (err instanceof ValidationError) {
-        const newObject = Object.assign({}, err.errors);
-
         return res.status(400).send({
           statusCode: 400,
           message: err.errors.join(" "),

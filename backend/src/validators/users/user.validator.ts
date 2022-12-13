@@ -1,6 +1,6 @@
-import { IUserCreate, IUserLogin, IUserUpdate } from "../../interfaces/users/user.types";
 import { SchemaOf, ValidationError } from "yup";
 import { NextFunction, Request, Response } from "express";
+import { IUserCreate, IUserLogin, IUserUpdate } from "../../interfaces/users/user.types";
 
 const UserCreateValidator =
   (schema: SchemaOf<IUserCreate>) => async (req: Request, res: Response, next: NextFunction) => {
@@ -14,8 +14,6 @@ const UserCreateValidator =
       next();
     } catch (err) {
       if (err instanceof ValidationError) {
-        const newObject = Object.assign({}, err.errors);
-
         return res.status(400).send({
           statusCode: 400,
           message: err.errors.join(" "),
@@ -43,8 +41,6 @@ const userLoginValidator =
       next();
     } catch (err) {
       if (err instanceof ValidationError) {
-        const newObject = Object.assign({}, err.errors);
-
         return res.status(400).send({
           statusCode: 400,
           message: err.errors.join(" "),

@@ -1,6 +1,6 @@
-import { ITruckCreate, ITruckUpdate } from "../../interfaces/trucks/truck.types";
 import { SchemaOf, ValidationError } from "yup";
 import { NextFunction, Request, Response } from "express";
+import { ITruckCreate, ITruckUpdate } from "../../interfaces/trucks/truck.types";
 
 const truckCreateValidator =
   (schema: SchemaOf<ITruckCreate>) => async (req: Request, res: Response, next: NextFunction) => {
@@ -14,8 +14,6 @@ const truckCreateValidator =
       next();
     } catch (err) {
       if (err instanceof ValidationError) {
-        const newObject = Object.assign({}, err.errors);
-
         return res.status(400).send({
           statusCode: 400,
           message: err.errors.join(" "),
@@ -43,8 +41,6 @@ const truckUpdateValidator =
       next();
     } catch (err) {
       if (err instanceof ValidationError) {
-        const newObject = Object.assign({}, err.errors);
-
         return res.status(400).send({
           statusCode: 400,
           message: err.errors.join(" "),

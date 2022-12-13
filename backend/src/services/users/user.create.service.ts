@@ -1,8 +1,8 @@
-import prisma from "../../database/database";
-import { AppError } from "../../errors";
-import { IUser } from "../../interfaces/users/user.types";
-import { Prisma } from "@prisma/client";
 import { v4 as uuid } from "uuid";
+import { AppError } from "../../errors";
+import { Prisma } from "@prisma/client";
+import prisma from "../../database/database";
+import { IUser } from "../../interfaces/users/user.types";
 
 const userCreateService = async (data: IUser) => {
   try {

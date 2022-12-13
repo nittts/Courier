@@ -1,6 +1,6 @@
-import { handleError, handlePrismaError, AppError } from "../../errors";
-import { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
+import { handleError, handlePrismaError, AppError } from "../../errors";
 import productGetByIDService from "../../services/products/product.getByID.service";
 
 const productGetByIDController = async (req: Request, res: Response) => {

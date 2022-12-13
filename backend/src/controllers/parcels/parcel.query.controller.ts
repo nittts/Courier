@@ -1,7 +1,7 @@
-import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
 import { IParcelQueries } from "../../interfaces/parcels/parcel.type";
+import { AppError, handleError, handlePrismaError } from "../../errors";
 import parcelQueryService from "../../services/parcels/parcel.query.service";
 
 const productQueryController = async (req: Request, res: Response) => {

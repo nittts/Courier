@@ -1,6 +1,6 @@
-import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
+import { AppError, handleError, handlePrismaError } from "../../errors";
 import parcelUpdateSingleService from "../../services/parcels/parcel.updateSingle.service";
 
 const parcelUpdateSingleController = async (req: Request, res: Response) => {

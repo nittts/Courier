@@ -1,8 +1,8 @@
+import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Prisma } from "@prisma/client";
-import parcelUpdateBulkService from "../../services/parcels/parcel.updateBulk.service";
 import { IParcelUpdateBulk } from "../../interfaces/parcels/parcel.type";
+import parcelUpdateBulkService from "../../services/parcels/parcel.updateBulk.service";
 
 const parcelUpdateBulkController = async (req: Request, res: Response) => {
   const { data } = req.body;

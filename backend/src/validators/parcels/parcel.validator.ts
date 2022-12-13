@@ -1,6 +1,6 @@
-import { IParcelCreate, IParcelUpdateProps, IParcelUpdateTuple } from "../../interfaces/parcels/parcel.type";
 import { SchemaOf, ValidationError } from "yup";
 import { NextFunction, Request, Response } from "express";
+import { IParcelCreate, IParcelUpdateProps, IParcelUpdateTuple } from "../../interfaces/parcels/parcel.type";
 
 const parcelCreateValidator =
   (schema: SchemaOf<IParcelCreate>) => async (req: Request, res: Response, next: NextFunction) => {
@@ -14,8 +14,6 @@ const parcelCreateValidator =
       next();
     } catch (err) {
       if (err instanceof ValidationError) {
-        const newObject = Object.assign({}, err.errors);
-
         return res.status(400).send({
           statusCode: 400,
           message: err.errors.join(" "),
@@ -43,8 +41,6 @@ const parcelUpdateBulkValidator =
       next();
     } catch (err) {
       if (err instanceof ValidationError) {
-        const newObject = Object.assign({}, err.errors);
-
         return res.status(400).send({
           statusCode: 400,
           message: err.errors.join(" "),

@@ -1,11 +1,6 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import {
-  IProductCreate,
-  IProductCreateTuple,
-  IProductUpdateProps,
-  IProductUpdateTuple,
-} from "../../interfaces/products/product.type";
+import { IProductCreateTuple, IProductUpdateProps, IProductUpdateTuple } from "../../interfaces/products/product.type";
 
 const productCreateSchema: SchemaOf<IProductCreateTuple> = yup.object().shape({
   data: yup

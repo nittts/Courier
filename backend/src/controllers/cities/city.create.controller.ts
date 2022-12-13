@@ -1,7 +1,7 @@
-import cityCreateService from "../../services/Cities/city.create.service";
+import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Prisma } from "@prisma/client";
+import cityCreateService from "../../services/Cities/city.create.service";
 
 const cityCreateController = async (req: Request, res: Response) => {
   const cityData = req.body;

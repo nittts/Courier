@@ -1,12 +1,14 @@
-import { Router } from "express";
+import { truckCreateSchema, truckUpdateSchema } from "../../schemas/trucks/truck.schema";
+import { truckCreateValidator, truckUpdateValidator } from "../../validators/trucks/truck.validator";
+
+import truckQueryController from "../../controllers/trucks/truck.query.controller";
 import truckCreateController from "../../controllers/trucks/truck.create.controller";
 import truckDeleteController from "../../controllers/trucks/truck.delete.controller";
 import truckGetAllController from "../../controllers/trucks/truck.getAll.controller";
-import truckGetByIDController from "../../controllers/trucks/truck.getByID.controller";
-import truckQueryController from "../../controllers/trucks/truck.query.controller";
 import truckUpdateController from "../../controllers/trucks/truck.update.controller";
-import { truckCreateSchema, truckUpdateSchema } from "../../schemas/trucks/truck.schema";
-import { truckCreateValidator, truckUpdateValidator } from "../../validators/trucks/truck.validator";
+import truckGetByIDController from "../../controllers/trucks/truck.getByID.controller";
+
+import { Router } from "express";
 
 const router = Router();
 

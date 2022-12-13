@@ -1,6 +1,6 @@
+import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Prisma } from "@prisma/client";
 import productDeleteSingleService from "../../services/products/product.deleteSingle.service";
 
 const productDeleteSingleController = async (req: Request, res: Response) => {

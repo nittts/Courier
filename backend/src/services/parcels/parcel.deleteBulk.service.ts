@@ -1,6 +1,6 @@
-import prisma from "../../database/database";
-import { Prisma } from "@prisma/client";
 import { AppError } from "../../errors";
+import { Prisma } from "@prisma/client";
+import prisma from "../../database/database";
 import { IParcelDelete } from "../../interfaces/parcels/parcel.type";
 
 const parcelDeleteBulkService = async (data: IParcelDelete[]) => {

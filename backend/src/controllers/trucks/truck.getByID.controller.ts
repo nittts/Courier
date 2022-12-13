@@ -1,7 +1,7 @@
-import truckGetByIDService from "../../services/trucks/truck.getByID.service";
-import { handleError, handlePrismaError, AppError } from "../../errors";
-import { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
+import { handleError, handlePrismaError, AppError } from "../../errors";
+import truckGetByIDService from "../../services/trucks/truck.getByID.service";
 
 const truckGetByIDController = async (req: Request, res: Response) => {
   const { id } = req.params;

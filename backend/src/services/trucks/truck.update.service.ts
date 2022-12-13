@@ -1,6 +1,6 @@
+import { AppError } from "../../errors";
 import { Prisma } from "@prisma/client";
 import prisma from "../../database/database";
-import { AppError } from "../../errors";
 import { ITruckUpdate } from "../../interfaces/trucks/truck.types";
 
 const updateTruckService = async (id: number, data: ITruckUpdate) => {

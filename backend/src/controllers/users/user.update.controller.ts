@@ -1,7 +1,7 @@
-import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Request, Response } from "express";
-import updateUserService from "../../services/users/user.update.service";
 import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
+import { AppError, handleError, handlePrismaError } from "../../errors";
+import updateUserService from "../../services/users/user.update.service";
 
 const userUpdateController = async (req: Request, res: Response) => {
   const { id } = req.params;

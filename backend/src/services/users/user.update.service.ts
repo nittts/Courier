@@ -1,9 +1,9 @@
+import { AppError } from "../../errors";
 import { Prisma } from "@prisma/client";
 import prisma from "../../database/database";
-import { AppError } from "../../errors";
 import { IUserUpdate } from "../../interfaces/users/user.types";
 
-const updateUserService = async (id: string, data: IUserUpdate) => {
+const userUpdateService = async (id: string, data: IUserUpdate) => {
   try {
     const res = await prisma.users
       .update({
@@ -34,4 +34,4 @@ const updateUserService = async (id: string, data: IUserUpdate) => {
   }
 };
 
-export default updateUserService;
+export default userUpdateService;

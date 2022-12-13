@@ -1,6 +1,6 @@
-import prisma from "../../database/database";
 import { Prisma } from "@prisma/client";
 import { AppError } from "../../errors";
+import prisma from "../../database/database";
 import { IProductDelete } from "../../interfaces/products/product.type";
 
 const productDeleteBulkService = async (data: IProductDelete[]) => {

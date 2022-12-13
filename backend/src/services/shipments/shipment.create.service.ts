@@ -1,8 +1,8 @@
-import prisma from "../../database/database";
-import { Prisma } from "@prisma/client";
-import { AppError } from "../../errors";
-import { IShipment } from "../../interfaces/shipments/shipment.types";
 import { v4 as uuid } from "uuid";
+import { AppError } from "../../errors";
+import { Prisma } from "@prisma/client";
+import prisma from "../../database/database";
+import { IShipment } from "../../interfaces/shipments/shipment.types";
 
 const shipmentCreateService = async (data: IShipment) => {
   try {

@@ -1,6 +1,6 @@
+import { AppError } from "../../errors";
 import { Prisma } from "@prisma/client";
 import prisma from "../../database/database";
-import { AppError } from "../../errors";
 
 const truckDeleteService = async (id: number) => {
   try {

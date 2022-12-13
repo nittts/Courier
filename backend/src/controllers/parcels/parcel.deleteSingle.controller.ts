@@ -1,6 +1,6 @@
+import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Prisma } from "@prisma/client";
 import parcelDeleteSingleService from "../../services/parcels/parcel.deleteSingle.service";
 
 const parcelDeleteSingleController = async (req: Request, res: Response) => {

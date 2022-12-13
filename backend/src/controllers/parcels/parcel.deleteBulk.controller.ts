@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
-import { AppError, handleError, handlePrismaError } from "../../errors";
 import { Prisma } from "@prisma/client";
-import parcelDeleteBulkService from "../../services/parcels/parcel.deleteBulk.service";
+import { Request, Response } from "express";
 import { IParcelDelete } from "../../interfaces/parcels/parcel.type";
+import { AppError, handleError, handlePrismaError } from "../../errors";
+import parcelDeleteBulkService from "../../services/parcels/parcel.deleteBulk.service";
 
 const parcelDeleteBulkController = async (req: Request, res: Response) => {
   const { data } = req.body;

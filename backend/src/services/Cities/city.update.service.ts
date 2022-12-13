@@ -1,9 +1,9 @@
+import { AppError } from "../../errors";
 import { Prisma } from "@prisma/client";
 import prisma from "../../database/database";
-import { AppError } from "../../errors";
 import { ICityUpdate } from "../../interfaces/cities/city.types";
 
-const updateCityService = async (id: number, data: ICityUpdate) => {
+const cityUpdateService = async (id: number, data: ICityUpdate) => {
   try {
     const res = await prisma.cities
       .update({
@@ -34,4 +34,4 @@ const updateCityService = async (id: number, data: ICityUpdate) => {
   }
 };
 
-export default updateCityService;
+export default cityUpdateService;

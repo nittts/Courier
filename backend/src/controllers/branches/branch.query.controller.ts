@@ -1,8 +1,8 @@
-import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
-import branchQueryService from "../../services/branches/branch.query.service";
+import { Request, Response } from "express";
+import { AppError, handleError, handlePrismaError } from "../../errors";
 import { IBranchQueries } from "../../interfaces/branches/branch.types";
+import branchQueryService from "../../services/branches/branch.query.service";
 
 const branchQueryController = async (req: Request, res: Response) => {
   const { address, name, lat, long } = req.query;

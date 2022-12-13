@@ -1,9 +1,9 @@
-import prisma from "../../database/database";
-import { AppError } from "../../errors";
-import { IUserLogin } from "../../interfaces/users/user.types";
-import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import * as bcrypt from "bcrypt";
 import { Prisma } from "@prisma/client";
+import { AppError } from "../../errors";
+import prisma from "../../database/database";
+import { IUserLogin } from "../../interfaces/users/user.types";
 
 const userLoginService = async ({ email, password }: IUserLogin) => {
   try {

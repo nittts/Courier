@@ -1,7 +1,7 @@
-import userCreateService from "../../services/users/user.create.service";
+import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Prisma } from "@prisma/client";
+import userCreateService from "../../services/users/user.create.service";
 
 const userCreateController = async (req: Request, res: Response) => {
   const userData = req.body;

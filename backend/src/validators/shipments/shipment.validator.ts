@@ -1,6 +1,6 @@
-import { IShipmentCreate, IShipmentUpdate } from "../../interfaces/shipments/shipment.types";
 import { SchemaOf, ValidationError } from "yup";
 import { NextFunction, Request, Response } from "express";
+import { IShipmentCreate, IShipmentUpdate } from "../../interfaces/shipments/shipment.types";
 
 const shipmentCreateValidator =
   (schema: SchemaOf<IShipmentCreate>) => async (req: Request, res: Response, next: NextFunction) => {
@@ -14,8 +14,6 @@ const shipmentCreateValidator =
       next();
     } catch (err) {
       if (err instanceof ValidationError) {
-        const newObject = Object.assign({}, err.errors);
-
         return res.status(400).send({
           statusCode: 400,
           message: err.errors.join(" "),
@@ -43,8 +41,6 @@ const shipmentUpdateValidator =
       next();
     } catch (err) {
       if (err instanceof ValidationError) {
-        const newObject = Object.assign({}, err.errors);
-
         return res.status(400).send({
           statusCode: 400,
           message: err.errors.join(" "),

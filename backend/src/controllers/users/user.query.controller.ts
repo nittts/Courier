@@ -1,8 +1,8 @@
-import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Request, Response } from "express";
-import userQueryService from "../../services/users/user.query.service";
-import { IUserQueries } from "../../interfaces/users/user.types";
 import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
+import { IUserQueries } from "../../interfaces/users/user.types";
+import userQueryService from "../../services/users/user.query.service";
+import { AppError, handleError, handlePrismaError } from "../../errors";
 
 const userQueryController = async (req: Request, res: Response) => {
   const { type_id, phone, name } = req.query;

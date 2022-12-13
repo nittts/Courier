@@ -1,6 +1,6 @@
-import prisma from "../../database/database";
-import { AppError } from "../../errors";
 import { Prisma } from "@prisma/client";
+import { AppError } from "../../errors";
+import prisma from "../../database/database";
 import { IUserQueries } from "../../interfaces/users/user.types";
 
 const userQueryService = async (queries: IUserQueries) => {

@@ -1,8 +1,8 @@
-import prisma from "../../database/database";
-import { Prisma } from "@prisma/client";
-import { AppError } from "../../errors";
-import { IParcelCreate } from "../../interfaces/parcels/parcel.type";
 import { v4 as uuid } from "uuid";
+import { AppError } from "../../errors";
+import { Prisma } from "@prisma/client";
+import prisma from "../../database/database";
+import { IParcelCreate } from "../../interfaces/parcels/parcel.type";
 
 const parcelCreateService = async (data: IParcelCreate) => {
   try {

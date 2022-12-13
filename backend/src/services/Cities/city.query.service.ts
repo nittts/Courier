@@ -1,6 +1,6 @@
-import prisma from "../../database/database";
 import { AppError } from "../../errors";
 import { Prisma } from "@prisma/client";
+import prisma from "../../database/database";
 import { ICityQueries } from "../../interfaces/cities/city.types";
 
 const cityQueryService = async (queries: ICityQueries) => {

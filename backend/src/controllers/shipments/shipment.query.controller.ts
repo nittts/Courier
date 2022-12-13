@@ -1,6 +1,6 @@
-import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
+import { AppError, handleError, handlePrismaError } from "../../errors";
 import { IShipmentQueries } from "../../interfaces/shipments/shipment.types";
 import shipmentQueryService from "../../services/shipments/shipment.query.service";
 

@@ -1,6 +1,6 @@
-import prisma from "../../database/database";
-import { Prisma } from "@prisma/client";
 import { AppError } from "../../errors";
+import { Prisma } from "@prisma/client";
+import prisma from "../../database/database";
 import { IBranch } from "../../interfaces/branches/branch.types";
 
 const branchCreateService = async (data: IBranch) => {

@@ -1,8 +1,8 @@
+import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Prisma } from "@prisma/client";
-import productUpdateBulkService from "../../services/products/product.updateBulk.service";
 import { IProductUpdateBulk } from "../../interfaces/products/product.type";
+import productUpdateBulkService from "../../services/products/product.updateBulk.service";
 
 const productUpdateBulkController = async (req: Request, res: Response) => {
   const { data } = req.body;

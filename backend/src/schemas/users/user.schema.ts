@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { IUserCreate, IUserLogin, IUserUpdate } from "../../interfaces/users/user.types";
 import * as bycript from "bcrypt";
+import { IUserCreate, IUserLogin, IUserUpdate } from "../../interfaces/users/user.types";
 
 const userCreationSchema: SchemaOf<IUserCreate> = yup.object().shape({
   name: yup.string().required("User name is required."),

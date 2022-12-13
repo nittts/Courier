@@ -1,7 +1,7 @@
-import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Request, Response } from "express";
-import userGetAllService from "../../services/users/user.getAll.service";
 import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
+import { AppError, handleError, handlePrismaError } from "../../errors";
+import userGetAllService from "../../services/users/user.getAll.service";
 
 const userGetAllController = async (req: Request, res: Response) => {
   try {

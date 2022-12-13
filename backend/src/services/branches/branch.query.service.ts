@@ -1,6 +1,6 @@
-import prisma from "../../database/database";
 import { AppError } from "../../errors";
 import { Prisma } from "@prisma/client";
+import prisma from "../../database/database";
 import { IBranchQueries } from "../../interfaces/branches/branch.types";
 
 const branchQueryService = async (queries: IBranchQueries) => {

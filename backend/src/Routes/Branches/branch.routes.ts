@@ -1,12 +1,14 @@
-import { Router } from "express";
+import { branchCreateSchema, branchUpdateSchema } from "../../schemas/branches/branch.schema";
+import { branchCreateValidator, branchUpdateValidator } from "../../validators/branches/branch.validator";
+
+import branchQueryController from "../../controllers/branches/branch.query.controller";
 import branchCreateController from "../../controllers/branches/branch.create.controller";
 import branchDeleteController from "../../controllers/branches/branch.delete.controller";
 import branchGetAllController from "../../controllers/branches/branch.getAll.controller";
-import branchGetByIDController from "../../controllers/branches/branch.getByID.controller";
-import branchQueryController from "../../controllers/branches/branch.query.controller";
 import branchUpdateController from "../../controllers/branches/branch.update.controller";
-import { branchCreateSchema, branchUpdateSchema } from "../../schemas/branches/branch.schema";
-import { branchCreateValidator, branchUpdateValidator } from "../../validators/branches/branch.validator";
+import branchGetByIDController from "../../controllers/branches/branch.getByID.controller";
+
+import { Router } from "express";
 
 const router = Router();
 

@@ -1,8 +1,8 @@
+import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Prisma } from "@prisma/client";
-import productDeleteBulkService from "../../services/products/product.deleteBulk.service";
 import { IProductDelete } from "../../interfaces/products/product.type";
+import productDeleteBulkService from "../../services/products/product.deleteBulk.service";
 
 const productDeleteBulkController = async (req: Request, res: Response) => {
   const { data } = req.body;

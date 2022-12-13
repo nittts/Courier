@@ -1,8 +1,8 @@
-import productCreateService from "../../services/products/product.create.service";
+import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Prisma } from "@prisma/client";
 import { IProductCreate } from "../../interfaces/products/product.type";
+import productCreateService from "../../services/products/product.create.service";
 
 const productCreateController = async (req: Request, res: Response) => {
   const { data } = req.body;

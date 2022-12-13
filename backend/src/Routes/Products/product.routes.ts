@@ -1,7 +1,3 @@
-import { Router } from "express";
-import productGetAllController from "../../controllers/products/product.getAll.controller";
-import productCreateController from "../../controllers/products/product.create.controller";
-import productGetByIDController from "../../controllers/products/product.getByID.controller";
 import {
   productCreateSchema,
   productUpdateBulkSchema,
@@ -12,11 +8,17 @@ import {
   productUpdateBulkValidator,
   productUpdateValidator,
 } from "../../validators/products/product.validator";
+
 import productQueryController from "../../controllers/products/product.query.controller";
-import productUpdateSingleController from "../../controllers/products/product.updateSingle.controller";
+import productGetAllController from "../../controllers/products/product.getAll.controller";
+import productCreateController from "../../controllers/products/product.create.controller";
+import productGetByIDController from "../../controllers/products/product.getByID.controller";
 import productUpdateBulkController from "../../controllers/products/product.updateBulk.controller";
 import productDeleteBulkController from "../../controllers/products/product.deleteBulk.controller";
 import productDeleteSingleController from "../../controllers/products/product.deleteSingle.controller";
+import productUpdateSingleController from "../../controllers/products/product.updateSingle.controller";
+
+import { Router } from "express";
 
 const router = Router();
 

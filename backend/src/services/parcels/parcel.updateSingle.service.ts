@@ -1,6 +1,6 @@
+import { AppError } from "../../errors";
 import { Prisma } from "@prisma/client";
 import prisma from "../../database/database";
-import { AppError } from "../../errors";
 import { IParcelUpdateProps } from "../../interfaces/parcels/parcel.type";
 
 const parcelUpdateSingleService = async (id: string, data: IParcelUpdateProps) => {

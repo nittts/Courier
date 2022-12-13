@@ -1,7 +1,6 @@
-import express, { Request, Response, NextFunction } from "express";
-import AppRouter from "./Routes/index.routes";
-import { AppError } from "./errors";
 import path from "path";
+import AppRouter from "./Routes/index.routes";
+import express, { Request, Response, NextFunction } from "express";
 
 const app = express();
 app.use(express.json());

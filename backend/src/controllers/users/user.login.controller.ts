@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
-import { AppError, handleError, handlePrismaError } from "../../errors";
 import userLoginService from "../../services/users/user.login.service";
+import { AppError, handleError, handlePrismaError } from "../../errors";
 
 const userLoginController = async (req: Request, res: Response) => {
   const { email, password } = req.body;

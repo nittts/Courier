@@ -1,7 +1,7 @@
-import shipmentGetByIDService from "../../services/shipments/shipment.getByID.service";
-import { handleError, handlePrismaError, AppError } from "../../errors";
-import { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
+import { handleError, handlePrismaError, AppError } from "../../errors";
+import shipmentGetByIDService from "../../services/shipments/shipment.getByID.service";
 
 const shipmentGetByIDController = async (req: Request, res: Response) => {
   const { id } = req.params;

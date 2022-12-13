@@ -1,7 +1,7 @@
-import branchGetByIDService from "../../services/branches/branch.getByID.service";
-import { handleError, handlePrismaError, AppError } from "../../errors";
-import { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
+import { handleError, handlePrismaError, AppError } from "../../errors";
+import branchGetByIDService from "../../services/branches/branch.getByID.service";
 
 const branchGetByIDController = async (req: Request, res: Response) => {
   const { id } = req.params;

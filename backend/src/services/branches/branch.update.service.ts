@@ -1,9 +1,9 @@
+import { AppError } from "../../errors";
 import { Prisma } from "@prisma/client";
 import prisma from "../../database/database";
-import { AppError } from "../../errors";
 import { IBranchUpdate } from "../../interfaces/branches/branch.types";
 
-const updateBranchService = async (id: number, data: IBranchUpdate) => {
+const branchUpdateService = async (id: number, data: IBranchUpdate) => {
   try {
     const res = await prisma.branches
       .update({
@@ -34,4 +34,4 @@ const updateBranchService = async (id: number, data: IBranchUpdate) => {
   }
 };
 
-export default updateBranchService;
+export default branchUpdateService;

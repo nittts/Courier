@@ -1,6 +1,6 @@
-import { AppError, handleError, handlePrismaError } from "../../errors";
-import { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
+import { AppError, handleError, handlePrismaError } from "../../errors";
 import branchGetAllService from "../../services/branches/branch.getAll.service";
 
 const branchGetAllController = async (req: Request, res: Response) => {

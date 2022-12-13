@@ -1,8 +1,8 @@
-import shipmentCreateService from "../../services/shipments/shipment.create.service";
-import { Request, Response } from "express";
-import { AppError, handleError, handlePrismaError } from "../../errors";
 import { Prisma } from "@prisma/client";
+import { Request, Response } from "express";
 import { IShipment } from "../../interfaces/shipments/shipment.types";
+import { AppError, handleError, handlePrismaError } from "../../errors";
+import shipmentCreateService from "../../services/shipments/shipment.create.service";
 
 const shipmentCreateController = async (req: Request, res: Response) => {
   const shipmentData = req.body;
