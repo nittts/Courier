@@ -53,6 +53,7 @@ model users {
   branch_id    Int?        
   createdOn    DateTime    @db.Timestamp()
 
+  products    products[]
   trucks      trucks[]
   parcels     parcels[]  
   shipments   shipments?
@@ -81,7 +82,9 @@ model products {
   name      String    @db.VarChar(256)
   weight    Decimal   @db.Decimal()
   parcel_id String?   @db.VarChar(40)
+  client_id String?   @db.VarChar(40)
 
+  users     users?    @relation(fields: [client_id], references: [id], onDelete: Cascade)
   parcels   parcels?  @relation(fields: [parcel_id], references: [id], onDelete: Cascade)
 }
 

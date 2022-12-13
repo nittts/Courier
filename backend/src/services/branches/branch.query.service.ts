@@ -41,6 +41,10 @@ const branchQueryService = async (queries: IBranchQueries) => {
         });
       });
 
+    if (res.length === 0) {
+      throw new AppError(404, "Nothing was found.", "Not Found");
+    }
+
     return { message: "Branches Found.", results: res };
   } catch (err) {
     if (err instanceof AppError) {

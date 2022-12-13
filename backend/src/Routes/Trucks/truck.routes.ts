@@ -6,7 +6,7 @@ import truckGetByIDController from "../../controllers/trucks/truck.getByID.contr
 import truckQueryController from "../../controllers/trucks/truck.query.controller";
 import truckUpdateController from "../../controllers/trucks/truck.update.controller";
 import { truckCreateSchema, truckUpdateSchema } from "../../schemas/trucks/truck.schema";
-import { truckCreateValidator, truckUpdateValidator } from "../../validators/trucks/truch.validator";
+import { truckCreateValidator, truckUpdateValidator } from "../../validators/trucks/truck.validator";
 
 const router = Router();
 

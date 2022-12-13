@@ -27,6 +27,10 @@ const cityQueryService = async (queries: ICityQueries) => {
         });
       });
 
+    if (res.length === 0) {
+      throw new AppError(404, "Nothing was found.", "Not Found");
+    }
+
     return { message: "City Found.", results: res };
   } catch (err) {
     if (err instanceof AppError) {

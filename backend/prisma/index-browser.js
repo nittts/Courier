@@ -118,7 +118,8 @@ exports.Prisma.ProductsScalarFieldEnum = makeEnum({
   id: 'id',
   name: 'name',
   weight: 'weight',
-  parcel_id: 'parcel_id'
+  parcel_id: 'parcel_id',
+  client_id: 'client_id'
 });
 
 exports.Prisma.QueryMode = makeEnum({

@@ -31,6 +31,10 @@ const userQueryService = async (queries: IUserQueries) => {
         });
       });
 
+    if (res.length === 0) {
+      throw new AppError(404, "Nothing was found.", "Not Found");
+    }
+
     return { message: "User Found.", results: res };
   } catch (err) {
     if (err instanceof AppError) {
