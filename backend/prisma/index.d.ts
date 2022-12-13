@@ -105,6 +105,7 @@ export type parcels = {
  */
 export type shipments = {
   id: string
+  shipment_number: string
   status: string
   arrival_time: Date | null
   departure_time: Date
@@ -8576,6 +8577,7 @@ export namespace Prisma {
 
   export type ShipmentsMinAggregateOutputType = {
     id: string | null
+    shipment_number: string | null
     status: string | null
     arrival_time: Date | null
     departure_time: Date | null
@@ -8588,6 +8590,7 @@ export namespace Prisma {
 
   export type ShipmentsMaxAggregateOutputType = {
     id: string | null
+    shipment_number: string | null
     status: string | null
     arrival_time: Date | null
     departure_time: Date | null
@@ -8600,6 +8603,7 @@ export namespace Prisma {
 
   export type ShipmentsCountAggregateOutputType = {
     id: number
+    shipment_number: number
     status: number
     arrival_time: number
     departure_time: number
@@ -8628,6 +8632,7 @@ export namespace Prisma {
 
   export type ShipmentsMinAggregateInputType = {
     id?: true
+    shipment_number?: true
     status?: true
     arrival_time?: true
     departure_time?: true
@@ -8640,6 +8645,7 @@ export namespace Prisma {
 
   export type ShipmentsMaxAggregateInputType = {
     id?: true
+    shipment_number?: true
     status?: true
     arrival_time?: true
     departure_time?: true
@@ -8652,6 +8658,7 @@ export namespace Prisma {
 
   export type ShipmentsCountAggregateInputType = {
     id?: true
+    shipment_number?: true
     status?: true
     arrival_time?: true
     departure_time?: true
@@ -8757,6 +8764,7 @@ export namespace Prisma {
 
   export type ShipmentsGroupByOutputType = {
     id: string
+    shipment_number: string
     status: string
     arrival_time: Date | null
     departure_time: Date
@@ -8788,6 +8796,7 @@ export namespace Prisma {
 
   export type shipmentsSelect = {
     id?: boolean
+    shipment_number?: boolean
     status?: boolean
     arrival_time?: boolean
     departure_time?: boolean
@@ -9703,6 +9712,7 @@ export namespace Prisma {
 
   export const ShipmentsScalarFieldEnum: {
     id: 'id',
+    shipment_number: 'shipment_number',
     status: 'status',
     arrival_time: 'arrival_time',
     departure_time: 'departure_time',
@@ -10167,6 +10177,7 @@ export namespace Prisma {
     OR?: Enumerable<shipmentsWhereInput>
     NOT?: Enumerable<shipmentsWhereInput>
     id?: StringFilter | string
+    shipment_number?: StringFilter | string
     status?: StringFilter | string
     arrival_time?: DateTimeNullableFilter | Date | string | null
     departure_time?: DateTimeFilter | Date | string
@@ -10184,6 +10195,7 @@ export namespace Prisma {
 
   export type shipmentsOrderByWithRelationInput = {
     id?: SortOrder
+    shipment_number?: SortOrder
     status?: SortOrder
     arrival_time?: SortOrder
     departure_time?: SortOrder
@@ -10201,6 +10213,7 @@ export namespace Prisma {
 
   export type shipmentsWhereUniqueInput = {
     id?: string
+    shipment_number?: string
     truck_id?: number
     driver_id?: string
     destination_branch?: number
@@ -10209,6 +10222,7 @@ export namespace Prisma {
 
   export type shipmentsOrderByWithAggregationInput = {
     id?: SortOrder
+    shipment_number?: SortOrder
     status?: SortOrder
     arrival_time?: SortOrder
     departure_time?: SortOrder
@@ -10229,6 +10243,7 @@ export namespace Prisma {
     OR?: Enumerable<shipmentsScalarWhereWithAggregatesInput>
     NOT?: Enumerable<shipmentsScalarWhereWithAggregatesInput>
     id?: StringWithAggregatesFilter | string
+    shipment_number?: StringWithAggregatesFilter | string
     status?: StringWithAggregatesFilter | string
     arrival_time?: DateTimeNullableWithAggregatesFilter | Date | string | null
     departure_time?: DateTimeWithAggregatesFilter | Date | string
@@ -10678,6 +10693,7 @@ export namespace Prisma {
 
   export type shipmentsCreateInput = {
     id: string
+    shipment_number: string
     status: string
     arrival_time?: Date | string | null
     departure_time: Date | string
@@ -10691,6 +10707,7 @@ export namespace Prisma {
 
   export type shipmentsUncheckedCreateInput = {
     id: string
+    shipment_number: string
     status: string
     arrival_time?: Date | string | null
     departure_time: Date | string
@@ -10704,6 +10721,7 @@ export namespace Prisma {
 
   export type shipmentsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10717,6 +10735,7 @@ export namespace Prisma {
 
   export type shipmentsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10730,6 +10749,7 @@ export namespace Prisma {
 
   export type shipmentsCreateManyInput = {
     id: string
+    shipment_number: string
     status: string
     arrival_time?: Date | string | null
     departure_time: Date | string
@@ -10742,6 +10762,7 @@ export namespace Prisma {
 
   export type shipmentsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10750,6 +10771,7 @@ export namespace Prisma {
 
   export type shipmentsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11323,6 +11345,7 @@ export namespace Prisma {
 
   export type shipmentsCountOrderByAggregateInput = {
     id?: SortOrder
+    shipment_number?: SortOrder
     status?: SortOrder
     arrival_time?: SortOrder
     departure_time?: SortOrder
@@ -11342,6 +11365,7 @@ export namespace Prisma {
 
   export type shipmentsMaxOrderByAggregateInput = {
     id?: SortOrder
+    shipment_number?: SortOrder
     status?: SortOrder
     arrival_time?: SortOrder
     departure_time?: SortOrder
@@ -11354,6 +11378,7 @@ export namespace Prisma {
 
   export type shipmentsMinOrderByAggregateInput = {
     id?: SortOrder
+    shipment_number?: SortOrder
     status?: SortOrder
     arrival_time?: SortOrder
     departure_time?: SortOrder
@@ -12543,6 +12568,7 @@ export namespace Prisma {
 
   export type shipmentsCreateWithoutBranch_destinationInput = {
     id: string
+    shipment_number: string
     status: string
     arrival_time?: Date | string | null
     departure_time: Date | string
@@ -12555,6 +12581,7 @@ export namespace Prisma {
 
   export type shipmentsUncheckedCreateWithoutBranch_destinationInput = {
     id: string
+    shipment_number: string
     status: string
     arrival_time?: Date | string | null
     departure_time: Date | string
@@ -12577,6 +12604,7 @@ export namespace Prisma {
 
   export type shipmentsCreateWithoutBranch_departureInput = {
     id: string
+    shipment_number: string
     status: string
     arrival_time?: Date | string | null
     departure_time: Date | string
@@ -12589,6 +12617,7 @@ export namespace Prisma {
 
   export type shipmentsUncheckedCreateWithoutBranch_departureInput = {
     id: string
+    shipment_number: string
     status: string
     arrival_time?: Date | string | null
     departure_time: Date | string
@@ -12705,6 +12734,7 @@ export namespace Prisma {
     OR?: Enumerable<shipmentsScalarWhereInput>
     NOT?: Enumerable<shipmentsScalarWhereInput>
     id?: StringFilter | string
+    shipment_number?: StringFilter | string
     status?: StringFilter | string
     arrival_time?: DateTimeNullableFilter | Date | string | null
     departure_time?: DateTimeFilter | Date | string
@@ -12885,6 +12915,7 @@ export namespace Prisma {
 
   export type shipmentsCreateWithoutUsersInput = {
     id: string
+    shipment_number: string
     status: string
     arrival_time?: Date | string | null
     departure_time: Date | string
@@ -12897,6 +12928,7 @@ export namespace Prisma {
 
   export type shipmentsUncheckedCreateWithoutUsersInput = {
     id: string
+    shipment_number: string
     status: string
     arrival_time?: Date | string | null
     departure_time: Date | string
@@ -13033,6 +13065,7 @@ export namespace Prisma {
 
   export type shipmentsUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13045,6 +13078,7 @@ export namespace Prisma {
 
   export type shipmentsUncheckedUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13099,6 +13133,7 @@ export namespace Prisma {
 
   export type shipmentsCreateWithoutTruckInput = {
     id: string
+    shipment_number: string
     status: string
     arrival_time?: Date | string | null
     departure_time: Date | string
@@ -13111,6 +13146,7 @@ export namespace Prisma {
 
   export type shipmentsUncheckedCreateWithoutTruckInput = {
     id: string
+    shipment_number: string
     status: string
     arrival_time?: Date | string | null
     departure_time: Date | string
@@ -13194,6 +13230,7 @@ export namespace Prisma {
 
   export type shipmentsUpdateWithoutTruckInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13206,6 +13243,7 @@ export namespace Prisma {
 
   export type shipmentsUncheckedUpdateWithoutTruckInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13418,6 +13456,7 @@ export namespace Prisma {
 
   export type shipmentsCreateWithoutParcelsInput = {
     id: string
+    shipment_number: string
     status: string
     arrival_time?: Date | string | null
     departure_time: Date | string
@@ -13430,6 +13469,7 @@ export namespace Prisma {
 
   export type shipmentsUncheckedCreateWithoutParcelsInput = {
     id: string
+    shipment_number: string
     status: string
     arrival_time?: Date | string | null
     departure_time: Date | string
@@ -13501,6 +13541,7 @@ export namespace Prisma {
 
   export type shipmentsUpdateWithoutParcelsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13513,6 +13554,7 @@ export namespace Prisma {
 
   export type shipmentsUncheckedUpdateWithoutParcelsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13888,6 +13930,7 @@ export namespace Prisma {
 
   export type shipmentsCreateManyBranch_destinationInput = {
     id: string
+    shipment_number: string
     status: string
     arrival_time?: Date | string | null
     departure_time: Date | string
@@ -13899,6 +13942,7 @@ export namespace Prisma {
 
   export type shipmentsCreateManyBranch_departureInput = {
     id: string
+    shipment_number: string
     status: string
     arrival_time?: Date | string | null
     departure_time: Date | string
@@ -13976,6 +14020,7 @@ export namespace Prisma {
 
   export type shipmentsUpdateWithoutBranch_destinationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13988,6 +14033,7 @@ export namespace Prisma {
 
   export type shipmentsUncheckedUpdateWithoutBranch_destinationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14000,6 +14046,7 @@ export namespace Prisma {
 
   export type shipmentsUncheckedUpdateManyWithoutShipments_destinationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14011,6 +14058,7 @@ export namespace Prisma {
 
   export type shipmentsUpdateWithoutBranch_departureInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14023,6 +14071,7 @@ export namespace Prisma {
 
   export type shipmentsUncheckedUpdateWithoutBranch_departureInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14035,6 +14084,7 @@ export namespace Prisma {
 
   export type shipmentsUncheckedUpdateManyWithoutShipments_departureInput = {
     id?: StringFieldUpdateOperationsInput | string
+    shipment_number?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     arrival_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     departure_time?: DateTimeFieldUpdateOperationsInput | Date | string

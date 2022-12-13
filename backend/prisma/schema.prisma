@@ -104,7 +104,8 @@ model parcels {
 }
 
 model shipments {
-  id                    String    @id @db.VarChar(41)
+  id                    String    @id @db.VarChar(45)
+  shipment_number       String    @unique @db.VarChar(128)
   status                String    @db.VarChar(128)
   arrival_time          DateTime? @db.Timestamp()
   departure_time        DateTime  @db.Timestamp()

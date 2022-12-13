@@ -5,6 +5,7 @@ import branchRouter from "./Branches/branch.routes";
 import trucksRouter from "./Trucks/truck.routes";
 import productsRouter from "./Products/product.routes";
 import parcelRouter from "./parcels/parcel.routes";
+import shipmentsRouter from "./Shipments/shipment.routes";
 
 const indexRouter = Router();
 
@@ -14,6 +15,7 @@ indexRouter.use("/branches", branchRouter);
 indexRouter.use("/trucks", trucksRouter);
 indexRouter.use("/products", productsRouter);
 indexRouter.use("/parcels", parcelRouter);
+indexRouter.use("/shipments", shipmentsRouter);
 
 indexRouter.get("/", (req: Request, res: Response) => {
   return res.send({

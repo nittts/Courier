@@ -129,6 +129,7 @@ exports.Prisma.QueryMode = makeEnum({
 
 exports.Prisma.ShipmentsScalarFieldEnum = makeEnum({
   id: 'id',
+  shipment_number: 'shipment_number',
   status: 'status',
   arrival_time: 'arrival_time',
   departure_time: 'departure_time',

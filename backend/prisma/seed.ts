@@ -2,7 +2,7 @@ import prisma from "../src/database/database";
 
 async function seed() {
   await prisma.userTypes.createMany({
-    data: [{ type: "Admin" }, { type: "Manager" }, { type: "Employee" }, { type: "Driver" }],
+    data: [{ type: "Admin" }, { type: "Manager" }, { type: "Employee" }, { type: "Client" }],
   });
 
   await prisma.cities.createMany({
@@ -118,6 +118,7 @@ async function seed() {
   await prisma.shipments.create({
     data: {
       id: "8a94e852-d6c1-42a5-9589-e2c782cbb126",
+      shipment_number: "S8a94e852-d6c1-42a5-9589-e2c782cbb126",
       status: "Delayed",
       departure_time: new Date(),
       weight: 400,
