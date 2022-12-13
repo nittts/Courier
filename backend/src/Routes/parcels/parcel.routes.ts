@@ -14,20 +14,32 @@ import parcelDeleteBulkController from "../../controllers/parcels/parcel.deleteB
 import parcelUpdateSingleController from "../../controllers/parcels/parcel.updateSingle.controller";
 import parcelDeleteSingleController from "../../controllers/parcels/parcel.deleteSingle.controller";
 
+import verifyAuthTokenMiddleware from "../../middlewares/verify.token.middleware";
+
 import { Router } from "express";
 
 const router = Router();
 
-router.post("", parcelCreateValidator(parcelCreateSchema), parcelCreateController);
+router.post("", verifyAuthTokenMiddleware, parcelCreateValidator(parcelCreateSchema), parcelCreateController);
 
-router.get("/all", parcelGetAllController);
-router.get("/search", parcelQueryController);
-router.get("/:id", parcelGetByIDController);
+router.get("/all", verifyAuthTokenMiddleware, parcelGetAllController);
+router.get("/search", verifyAuthTokenMiddleware, parcelQueryController);
+router.get("/:id", verifyAuthTokenMiddleware, parcelGetByIDController);
 
-router.patch("/bulk", parcelUpdateBulkValidator(parcelUpdateBulkSchema), parcelUpdateBulkController);
-router.patch("/:id", parcelUpdateValidator(parcelUpdateSchema), parcelUpdateSingleController);
+router.patch(
+  "/bulk",
+  verifyAuthTokenMiddleware,
+  parcelUpdateBulkValidator(parcelUpdateBulkSchema),
+  parcelUpdateBulkController
+);
+router.patch(
+  "/:id",
+  verifyAuthTokenMiddleware,
+  parcelUpdateValidator(parcelUpdateSchema),
+  parcelUpdateSingleController
+);
 
-router.delete("/bulk", parcelDeleteBulkController);
-router.delete("/:id", parcelDeleteSingleController);
+router.delete("/bulk", verifyAuthTokenMiddleware, parcelDeleteBulkController);
+router.delete("/:id", verifyAuthTokenMiddleware, parcelDeleteSingleController);
 
 export default router;

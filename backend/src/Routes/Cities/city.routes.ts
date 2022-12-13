@@ -8,18 +8,33 @@ import cityDeleteController from "../../controllers/cities/city.delete.controlle
 import cityGetAllController from "../../controllers/cities/city.getAll.controller";
 import cityGetByIDController from "../../controllers/cities/city.getByID.controller";
 
+import verifyAuthTokenMiddleware from "../../middlewares/verify.token.middleware";
+import verifyAdmMiddleware from "../../middlewares/verify.adm.middleware";
+
 import { Router } from "express";
 
 const router = Router();
 
-router.post("", cityCreateValidator(cityCreateSchema), cityCreateController);
+router.post(
+  "",
+  verifyAuthTokenMiddleware,
+  verifyAdmMiddleware,
+  cityCreateValidator(cityCreateSchema),
+  cityCreateController
+);
 
-router.get("/search", cityQueryController);
-router.get("/all", cityGetAllController);
-router.get("/:id", cityGetByIDController);
+router.get("/search", verifyAuthTokenMiddleware, cityQueryController);
+router.get("/all", verifyAuthTokenMiddleware, cityGetAllController);
+router.get("/:id", verifyAuthTokenMiddleware, cityGetByIDController);
 
-router.patch("/:id", cityUpdateValidator(cityUpdateSchema), CityUpdateController);
+router.patch(
+  "/:id",
+  verifyAuthTokenMiddleware,
+  verifyAdmMiddleware,
+  cityUpdateValidator(cityUpdateSchema),
+  CityUpdateController
+);
 
-router.delete("/:id", cityDeleteController);
+router.delete("/:id", verifyAuthTokenMiddleware, verifyAdmMiddleware, cityDeleteController);
 
 export default router;

@@ -8,18 +8,25 @@ import shipmentDeleteController from "../../controllers/shipments/shipment.delet
 import shipmentGetAllController from "../../controllers/shipments/shipment.getAll.controller";
 import shipmentGetByIDController from "../../controllers/shipments/shipment.getByID.controller";
 
+import verifyAuthTokenMiddleware from "../../middlewares/verify.token.middleware";
+
 import { Router } from "express";
 
 const router = Router();
 
-router.post("", shipmentCreateValidator(shipmentCreateSchema), shipmentCreateController);
+router.post("", verifyAuthTokenMiddleware, shipmentCreateValidator(shipmentCreateSchema), shipmentCreateController);
 
-router.get("/all", shipmentGetAllController);
-router.get("/search", shipmentQueryController);
-router.get("/:id", shipmentGetByIDController);
+router.get("/all", verifyAuthTokenMiddleware, shipmentGetAllController);
+router.get("/search", verifyAuthTokenMiddleware, shipmentQueryController);
+router.get("/:id", verifyAuthTokenMiddleware, shipmentGetByIDController);
 
-router.patch("/:id", shipmentUpdateValidator(shipmentUpdateSchema), shipmentUpdateController);
+router.patch(
+  "/:id",
+  verifyAuthTokenMiddleware,
+  shipmentUpdateValidator(shipmentUpdateSchema),
+  shipmentUpdateController
+);
 
-router.delete("/:id", shipmentDeleteController);
+router.delete("/:id", verifyAuthTokenMiddleware, shipmentDeleteController);
 
 export default router;

@@ -18,20 +18,32 @@ import productDeleteBulkController from "../../controllers/products/product.dele
 import productDeleteSingleController from "../../controllers/products/product.deleteSingle.controller";
 import productUpdateSingleController from "../../controllers/products/product.updateSingle.controller";
 
+import verifyAuthTokenMiddleware from "../../middlewares/verify.token.middleware";
+
 import { Router } from "express";
 
 const router = Router();
 
-router.post("", productCreateValidator(productCreateSchema), productCreateController);
+router.post("", verifyAuthTokenMiddleware, productCreateValidator(productCreateSchema), productCreateController);
 
-router.get("/all", productGetAllController);
-router.get("/search", productQueryController);
-router.get("/:id", productGetByIDController);
+router.get("/all", verifyAuthTokenMiddleware, productGetAllController);
+router.get("/search", verifyAuthTokenMiddleware, productQueryController);
+router.get("/:id", verifyAuthTokenMiddleware, productGetByIDController);
 
-router.patch("/bulk", productUpdateBulkValidator(productUpdateBulkSchema), productUpdateBulkController);
-router.patch("/:id", productUpdateValidator(productUpdateSchema), productUpdateSingleController);
+router.patch(
+  "/bulk",
+  verifyAuthTokenMiddleware,
+  productUpdateBulkValidator(productUpdateBulkSchema),
+  productUpdateBulkController
+);
+router.patch(
+  "/:id",
+  verifyAuthTokenMiddleware,
+  productUpdateValidator(productUpdateSchema),
+  productUpdateSingleController
+);
 
-router.delete("/bulk", productDeleteBulkController);
-router.delete("/:id", productDeleteSingleController);
+router.delete("/bulk", verifyAuthTokenMiddleware, productDeleteBulkController);
+router.delete("/:id", verifyAuthTokenMiddleware, productDeleteSingleController);
 
 export default router;

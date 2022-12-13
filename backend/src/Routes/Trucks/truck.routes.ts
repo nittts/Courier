@@ -8,18 +8,20 @@ import truckGetAllController from "../../controllers/trucks/truck.getAll.control
 import truckUpdateController from "../../controllers/trucks/truck.update.controller";
 import truckGetByIDController from "../../controllers/trucks/truck.getByID.controller";
 
+import verifyAuthTokenMiddleware from "../../middlewares/verify.token.middleware";
+
 import { Router } from "express";
 
 const router = Router();
 
-router.post("", truckCreateValidator(truckCreateSchema), truckCreateController);
+router.post("", verifyAuthTokenMiddleware, truckCreateValidator(truckCreateSchema), truckCreateController);
 
-router.get("/all", truckGetAllController);
-router.get("/search", truckQueryController);
-router.get("/:id", truckGetByIDController);
+router.get("/all", verifyAuthTokenMiddleware, truckGetAllController);
+router.get("/search", verifyAuthTokenMiddleware, truckQueryController);
+router.get("/:id", verifyAuthTokenMiddleware, truckGetByIDController);
 
-router.patch("/:id", truckUpdateValidator(truckUpdateSchema), truckUpdateController);
+router.patch("/:id", verifyAuthTokenMiddleware, truckUpdateValidator(truckUpdateSchema), truckUpdateController);
 
-router.delete("/:id", truckDeleteController);
+router.delete("/:id", verifyAuthTokenMiddleware, truckDeleteController);
 
 export default router;

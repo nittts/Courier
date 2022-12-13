@@ -20,13 +20,19 @@ const router = Router();
 router.post("", UserCreateValidator(userCreationSchema), userCreateController);
 router.post("/login", userLoginValidator(userLoginSchema), userLoginController);
 
-router.get("/all", userGetAllController);
-router.get("/:id", userGetByIDController);
-router.get("/search", userQueryController);
-router.get("/profile", userGetLoggedUserController);
+router.get("/all", verifyAuthTokenMiddleware, verifyAdmMiddleware, userGetAllController);
+router.get("/:id", verifyAuthTokenMiddleware, userGetByIDController);
+router.get("/search", verifyAuthTokenMiddleware, verifyAdmMiddleware, userQueryController);
+router.get("/profile", verifyAuthTokenMiddleware, userGetLoggedUserController);
 
-router.patch("/:id", userUpdateValidator(userUpdateSchema), userUpdateController);
+router.patch(
+  "/:id",
+  verifyAuthTokenMiddleware,
+  verifyAdmMiddleware,
+  userUpdateValidator(userUpdateSchema),
+  userUpdateController
+);
 
-router.delete("/:id", userDeleteController);
+router.delete("/:id", verifyAuthTokenMiddleware, verifyAdmMiddleware, userDeleteController);
 
 export default router;
