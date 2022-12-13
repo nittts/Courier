@@ -1,9 +1,9 @@
-import { IProductCreateTuple, IProductUpdateProps, IProductUpdateTuple } from "../../interfaces/products/product.type";
+import { IParcelCreate, IParcelUpdateProps, IParcelUpdateTuple } from "../../interfaces/parcels/parcel.type";
 import { SchemaOf, ValidationError } from "yup";
 import { NextFunction, Request, Response } from "express";
 
-const productCreateValidator =
-  (schema: SchemaOf<IProductCreateTuple>) => async (req: Request, res: Response, next: NextFunction) => {
+const parcelCreateValidator =
+  (schema: SchemaOf<IParcelCreate>) => async (req: Request, res: Response, next: NextFunction) => {
     const data = req.body;
 
     try {
@@ -31,8 +31,8 @@ const productCreateValidator =
     }
   };
 
-const productUpdateBulkValidator =
-  (schema: SchemaOf<IProductUpdateTuple>) => async (req: Request, res: Response, next: NextFunction) => {
+const parcelUpdateBulkValidator =
+  (schema: SchemaOf<IParcelUpdateTuple>) => async (req: Request, res: Response, next: NextFunction) => {
     const data = req.body;
 
     try {
@@ -60,8 +60,8 @@ const productUpdateBulkValidator =
     }
   };
 
-const productUpdateValidator =
-  (schema: SchemaOf<IProductUpdateProps>) => async (req: Request, res: Response, next: NextFunction) => {
+const parcelUpdateValidator =
+  (schema: SchemaOf<IParcelUpdateProps>) => async (req: Request, res: Response, next: NextFunction) => {
     const data = req.body;
 
     try {
@@ -89,4 +89,4 @@ const productUpdateValidator =
     }
   };
 
-export { productCreateValidator, productUpdateValidator, productUpdateBulkValidator };
+export { parcelCreateValidator, parcelUpdateValidator, parcelUpdateBulkValidator };
