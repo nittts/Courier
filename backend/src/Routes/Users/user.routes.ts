@@ -21,9 +21,9 @@ router.post("", UserCreateValidator(userCreationSchema), userCreateController);
 router.post("/login", userLoginValidator(userLoginSchema), userLoginController);
 
 router.get("/all", verifyAuthTokenMiddleware, verifyAdmMiddleware, userGetAllController);
-router.get("/:id", verifyAuthTokenMiddleware, userGetByIDController);
 router.get("/search", verifyAuthTokenMiddleware, verifyAdmMiddleware, userQueryController);
 router.get("/profile", verifyAuthTokenMiddleware, userGetLoggedUserController);
+router.get("/:id", verifyAuthTokenMiddleware, userGetByIDController);
 
 router.patch(
   "/:id",
