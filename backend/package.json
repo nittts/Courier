@@ -11,7 +11,7 @@
     "server": "yarn prisma:deploy && yarn prisma:seed && yarn dev",
     "clean": "rm -rf ./dist",
     "copy-files": "cp -r ./prisma ./dist && cp ./prisma/schema.prisma ./dist/prisma",
-    "build": "yarn clean && tsc && yarn copy-files",
+    "build": "yarn clean && yarn tsc && yarn copy-files",
     "start:default": "yarn prisma:deploy && node ./dist/src/index.js",
     "start:vercel": "vercel dev",
     "deploy:vercel": "vercel deploy --prod",
