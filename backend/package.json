@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "prisma:seed": "yarn prisma generate && yarn prisma db seed ",
-    "prisma:deploy": "yarn prisma migrate deploy",
+    "prisma:deploy": "yarn prisma generate && yarn prisma migrate deploy",
     "dev": "ts-node-dev --exit-child --watch src ./src",
     "server": "yarn prisma:deploy && yarn prisma:seed && yarn dev",
     "clean": "rm -rf ./dist",
@@ -14,7 +14,8 @@
     "build": "yarn clean && tsc && yarn copy-files",
     "start:default": "yarn prisma:deploy && node ./dist/src/index.js",
     "start:vercel": "vercel dev",
-    "deploy:vercel": "vercel deploy --prod"
+    "deploy:vercel": "vercel deploy --prod",
+    "build:start": "yarn && yarn build && yarn start:default"
   },
   "dependencies": {
     "@prisma/client": "^4.7.1",
