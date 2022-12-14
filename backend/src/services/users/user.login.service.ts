@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../../prisma";
 import { AppError } from "../../errors";
 import prisma from "../../database/database";
 import { IUserLogin } from "../../interfaces/users/user.types";

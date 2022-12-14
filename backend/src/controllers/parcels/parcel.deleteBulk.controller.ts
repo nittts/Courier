@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../../prisma";
 import { Request, Response } from "express";
 import { IParcelDelete } from "../../interfaces/parcels/parcel.type";
 import { AppError, handleError, handlePrismaError } from "../../errors";

@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../../prisma";
 import { Request, Response } from "express";
 import { IUserQueries } from "../../interfaces/users/user.types";
 import userQueryService from "../../services/users/user.query.service";

@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { AppError } from "../../errors";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../../prisma";
 import prisma from "../../database/database";
 import { IShipment } from "../../interfaces/shipments/shipment.types";
 

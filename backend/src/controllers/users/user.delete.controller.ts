@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../../prisma";
 import { Request, Response } from "express";
 import { AppError, handleError, handlePrismaError } from "../../errors";
 import userDeleteService from "../../services/users/user.delete.service";

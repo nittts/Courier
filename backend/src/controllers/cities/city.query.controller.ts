@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../../prisma";
 import { Request, Response } from "express";
 import { ICityQueries } from "../../interfaces/cities/city.types";
 import cityQueryService from "../../services/Cities/city.query.service";

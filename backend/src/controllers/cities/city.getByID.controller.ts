@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../../prisma";
 import { Request, Response } from "express";
 import { handleError, handlePrismaError, AppError } from "../../errors";
 import cityGetByIDService from "../../services/Cities/city.getByID.service";
